@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { FontAwesome } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 import React from "react";
 import HomeScreen from "../screens/HomeScreen";
 import SplashScreen from "../components/SplashScreen";
@@ -11,7 +12,9 @@ const TabNavigator = () => {
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarActiveTintColor: "white",
+        tabBarStyle: { backgroundColor: "#cececf", position: "absolute" },
+        headerShown: false,
+        tabBarActiveTintColor: "blue",
         tabBarInactiveTintColor: "grey",
       }}
     >
@@ -19,8 +22,8 @@ const TabNavigator = () => {
         name="Home"
         component={HomeScreen}
         options={{
-          tabBarIcon: () => (
-            <FontAwesome name="home" size={24} color={"black"} />
+          tabBarIcon: ({ color }) => (
+            <AntDesign name="home" size={24} color={color} />
           ),
         }}
       />
@@ -29,7 +32,7 @@ const TabNavigator = () => {
         component={SplashScreen}
         options={{
           tabBarIcon: () => (
-            <FontAwesome name="map-o" size={24} color={"black"} />
+            <MaterialIcons name="slideshow" size={24} color="black" />
           ),
         }}
       />

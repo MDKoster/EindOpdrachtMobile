@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
   Animated,
+  Dimensions,
   Easing,
   EasingFunction,
   Image,
@@ -11,8 +12,9 @@ import {
 import { useAppSelector } from "../../store/Selector";
 
 const SplashScreen = () => {
-  const shownImageDuration = 3000;
+  const shownImageDuration = 6000;
   const images = useAppSelector((state) => state.image.images);
+  const windowHeight = Dimensions.get("window").height;
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const fadeAnim = new Animated.Value(1);
@@ -20,9 +22,9 @@ const SplashScreen = () => {
   const animate = (easing: EasingFunction) => {
     Animated.timing(fadeAnim, {
       toValue: 0,
-      duration: shownImageDuration - 1000,
+      duration: 2000,
       useNativeDriver: true,
-      delay: 0,
+      delay: shownImageDuration - 2000,
       easing: easing,
     }).start();
   };
@@ -42,10 +44,26 @@ const SplashScreen = () => {
 
   return (
     <View style={{ flex: 1, backgroundColor: "black" }}>
-      <Animated.View style={{ opacity: fadeAnim, flex: 1 }}>
+      <View>
+        <Image
+          source={require("../../assets/images/gizmo.png")}
+          resizeMode="contain"
+          style={{
+            position: "absolute",
+            flex: 1,
+            top: windowHeight / 4,
+            left: 0,
+            width: "100%",
+            zIndex: 1,
+          }}
+        />
+      </View>
+      <Animated.View
+        style={{ opacity: fadeAnim, flex: 1, alignItems: "center" }}
+      >
         <Image
           source={images[currentImageIndex] as ImageSourcePropType}
-          resizeMode="cover"
+          resizeMode="contain"
           style={styles.splashImage}
         />
       </Animated.View>
