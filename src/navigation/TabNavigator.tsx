@@ -9,36 +9,30 @@ const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => {
   return (
-    <Tab.Navigator>
-      <Tab.Group
-        screenOptions={{
-          headerStyle: { backgroundColor: "red" },
-          tabBarStyle: {
-            backgroundColor: "red",
-          },
-          tabBarActiveTintColor: "white",
-          tabBarInactiveTintColor: "grey",
+    <Tab.Navigator
+      screenOptions={{
+        tabBarActiveTintColor: "white",
+        tabBarInactiveTintColor: "grey",
+      }}
+    >
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          tabBarIcon: () => (
+            <FontAwesome name="home" size={24} color={"black"} />
+          ),
         }}
-      >
-        <Tab.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{
-            tabBarIcon: () => (
-              <FontAwesome name="home" size={24} color="black" />
-            ),
-          }}
-        />
-        {/* <Tab.Screen
-          name="Splash"
-          component={SplashScreen}
-          options={{
-            tabBarIcon: () => (
-              <FontAwesome name="map-o" size={24} color="black" />
-            ),
-          }}
-        /> */}
-      </Tab.Group>
+      />
+      <Tab.Screen
+        name="Splash"
+        component={SplashScreen}
+        options={{
+          tabBarIcon: () => (
+            <FontAwesome name="map-o" size={24} color={"black"} />
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 };

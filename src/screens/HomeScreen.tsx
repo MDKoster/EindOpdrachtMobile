@@ -1,10 +1,27 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Button, Image, StyleSheet, Text, View } from "react-native";
 import React from "react";
 
-const HomeScreen = () => {
+const HomeScreen = (props) => {
+  const { navigation } = props;
   return (
-    <View style={{ flex: 1, backgroundColor: "green" }}>
-      <Text>HomeScreen</Text>
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: "white",
+      }}
+    >
+      <View
+        style={{
+          flex: 1,
+        }}
+      >
+        {/* <Image src="" /> */}
+      </View>
+      <View
+        style={{
+          flex: 2,
+        }}
+      ></View>
     </View>
   );
 };

@@ -1,21 +1,26 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Animated,
   Easing,
   EasingFunction,
   Image,
+  ImageSourcePropType,
   StyleSheet,
   View,
 } from "react-native";
+import { useAppSelector } from "../../store/Selector";
 
-const SplashScreen = ({ images, duration }) => {
+const SplashScreen = () => {
+  const shownImageDuration = 3000;
+  const images = useAppSelector((state) => state.image.images);
+
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const fadeAnim = new Animated.Value(1);
 
   const animate = (easing: EasingFunction) => {
     Animated.timing(fadeAnim, {
       toValue: 0,
-      duration: duration - 1000,
+      duration: shownImageDuration - 1000,
       useNativeDriver: true,
       delay: 0,
       easing: easing,
@@ -23,23 +28,23 @@ const SplashScreen = ({ images, duration }) => {
   };
 
   useEffect(() => {
+    animate(Easing.ease);
     const interval = setInterval(() => {
-      animate(Easing.ease);
       if (currentImageIndex === images.length - 1) {
         setCurrentImageIndex(0);
       } else {
         setCurrentImageIndex((prevIndex) => prevIndex + 1);
       }
-    }, duration);
+    }, shownImageDuration);
 
     return () => clearInterval(interval);
-  }, [duration, images.length, currentImageIndex, fadeAnim]);
+  }, [shownImageDuration, images.length, currentImageIndex]);
 
   return (
     <View style={{ flex: 1, backgroundColor: "black" }}>
-      <Animated.View style={{ opacity: fadeAnim }}>
+      <Animated.View style={{ opacity: fadeAnim, flex: 1 }}>
         <Image
-          source={images[currentImageIndex]}
+          source={images[currentImageIndex] as ImageSourcePropType}
           resizeMode="cover"
           style={styles.splashImage}
         />
