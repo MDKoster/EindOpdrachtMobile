@@ -7,6 +7,7 @@ import {
   View,
 } from "react-native";
 import React from "react";
+import SuggestionItemComponent from "./SuggestionItemComponent";
 
 type Props = {
   images: any[];
@@ -31,13 +32,12 @@ const HomeSuggestionListComponent = ({ images, title }: Props) => {
         horizontal={true}
         showsHorizontalScrollIndicator={false}
         data={images}
-        renderItem={(item) => (
-          <TouchableOpacity>
-            <Image source={item.item} style={styles.cardImage} />
-            <View style={styles.cardDetails}></View>
+        renderItem={({ item, index }) => (
+          <TouchableOpacity key={index}>
+            <SuggestionItemComponent item={item} />
           </TouchableOpacity>
         )}
-        keyExtractor={(item) => item.index}
+        keyExtractor={(index) => index.toString()}
       />
     </View>
   );
@@ -45,34 +45,4 @@ const HomeSuggestionListComponent = ({ images, title }: Props) => {
 
 export default HomeSuggestionListComponent;
 
-const styles = StyleSheet.create({
-  cardImage: {
-    width: 130,
-    height: 220,
-    marginHorizontal: 10,
-    marginTop: 10,
-    borderTopRightRadius: 20,
-    borderTopLeftRadius: 20,
-    borderWidth: 0.4,
-    borderColor: "black",
-    shadowColor: "black",
-    shadowOffset: { width: 2, height: 2 },
-    shadowOpacity: 0.5,
-    shadowRadius: 3,
-  },
-  cardDetails: {
-    height: 50,
-    width: 130,
-    marginHorizontal: 10,
-    marginBottom: 10,
-    borderBottomWidth: 0.4,
-    borderLeftWidth: 0.4,
-    borderRightWidth: 0.4,
-    borderBottomRightRadius: 20,
-    borderBottomLeftRadius: 20,
-    shadowColor: "black",
-    shadowOffset: { width: 2, height: 2 },
-    shadowOpacity: 0.5,
-    shadowRadius: 3,
-  },
-});
+const styles = StyleSheet.create({});

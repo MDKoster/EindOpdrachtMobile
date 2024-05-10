@@ -8,9 +8,12 @@ import {
   Easing,
   View,
   TextInput,
+  Text,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import HomeSuggestionListComponent from "../components/HomeSuggestionListComponent";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useDispatch } from "react-redux";
 
 const HomeScreen = () => {
   const windowWidth = Dimensions.get("window").width;
@@ -18,14 +21,40 @@ const HomeScreen = () => {
   const suggestionRef = useRef<ScrollView>(null);
   const [currentX, setCurrentX] = useState(0);
   const [delayScroll, setDelayScroll] = useState(true);
-  const [images, setImages] = useState([
+
+  //temporary images. Will be replaced with actual data from the server
+  const images = [
     require("../../assets/images/female-outfit-1.jpg"),
     require("../../assets/images/female-dress.jpg"),
     require("../../assets/images/male-outfit-1.jpg"),
     require("../../assets/images/male-outfit-2.jpg"),
     require("../../assets/images/female-sweater-1.jpg"),
     require("../../assets/images/male-outfit-3.jpg"),
-  ]);
+  ];
+  const newArrivalsImages = [
+    require("../../assets/images/splash3.jpg"),
+    require("../../assets/images/splash5.jpg"),
+    require("../../assets/images/splash6.jpg"),
+    require("../../assets/images/training-female.jpg"),
+    require("../../assets/images/male-outfit-3.jpg"),
+    require("../../assets/images/female-sweater-3.jpg"),
+  ];
+  const mensFashionImages = [
+    require("../../assets/images/male-outfit-1.jpg"),
+    require("../../assets/images/male-outfit-2.jpg"),
+    require("../../assets/images/male-pants-1.jpg"),
+    require("../../assets/images/shirt-sunglasses-male.jpg"),
+    require("../../assets/images/tshirt-male.jpg"),
+    require("../../assets/images/splash2.jpg"),
+  ];
+  const womensFashionImages = [
+    require("../../assets/images/female-dress.jpg"),
+    require("../../assets/images/female-outfit-1.jpg"),
+    require("../../assets/images/female-outfit-black.jpg"),
+    require("../../assets/images/female-sweater-1.jpg"),
+    require("../../assets/images/female-sweater-2.jpg"),
+    require("../../assets/images/female-sweater-4.jpg"),
+  ];
 
   useEffect(() => {
     const scrollInterval = setInterval(() => {
@@ -47,42 +76,81 @@ const HomeScreen = () => {
   // and add it to the height of the parent view (up to a certain limit) when the user scrolls down
   // When the user scrolls back up, the height of the parent view should decrease only when the scrollview
   // reaches the top
-  const flexValue = useRef(new Animated.Value(1)).current;
+  const flexValue = useRef(new Animated.Value(1.4)).current;
   const toggleFlex = (targetValue: number) => {
     Animated.timing(flexValue, {
       toValue: targetValue,
-      duration: 150,
+      duration: 400,
       useNativeDriver: false,
       easing: Easing.linear,
     }).start(({ finished }) => {
       finished
         ? (flexValue.setValue(targetValue),
-          targetValue === 2 && setDelayScroll(true))
+          targetValue === 4 && setDelayScroll(false))
         : null;
     });
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#f1f1f1" }}>
       <View style={{ flex: 1, alignItems: "center" }}>
-        <TextInput
+        <View
+          style={{
+            flex: 1,
+            flexDirection: "row",
+          }}
+        >
+          <MaterialCommunityIcons
+            name="magnify"
+            size={24}
+            style={{ zIndex: 2, top: 38, left: 35, color: "grey" }}
+          />
+          <TextInput
+            style={{
+              top: 30,
+              zIndex: 1,
+              opacity: 0.8,
+              textAlign: "center",
+              paddingHorizontal: 40,
+              backgroundColor: "white",
+              width: 200,
+              height: 40,
+              borderRadius: 10,
+            }}
+            placeholder="Search"
+          ></TextInput>
+        </View>
+        <Text
           style={{
             position: "absolute",
-            top: 30,
             zIndex: 1,
-            opacity: 0.8,
-            textAlign: "center",
-            paddingHorizontal: 10,
-            backgroundColor: "white",
-            width: 200,
-            height: 40,
-            borderRadius: 10,
+            top: 120,
+            right: 30,
+            color: "gold",
+            fontSize: 45,
+            fontStyle: "italic",
+            fontWeight: 300,
           }}
-          placeholder="Search"
-        ></TextInput>
+        >
+          Summer
+        </Text>
+        <Text
+          style={{
+            position: "absolute",
+            zIndex: 1,
+            top: 160,
+            right: 20,
+            color: "gold",
+            fontSize: 55,
+            fontStyle: "italic",
+            fontWeight: 300,
+          }}
+        >
+          Collection
+        </Text>
         <ScrollView
           ref={scrollViewRef}
-          style={{ flex: 1 }}
+          style={{ flex: 1, position: "absolute" }}
           horizontal={true}
           pagingEnabled={true}
           showsHorizontalScrollIndicator={false}
@@ -113,25 +181,33 @@ const HomeScreen = () => {
           backgroundColor: "white",
           borderTopLeftRadius: 25,
           borderTopRightRadius: 25,
-          bottom: 75,
           overflow: "hidden",
+          zIndex: 2,
         }}
       >
         <ScrollView
           ref={suggestionRef}
           disableScrollViewPanResponder={delayScroll}
+          showsVerticalScrollIndicator={false}
+          decelerationRate={0.8}
           //toggleFlex changes the height of the parent view.
           //The direction of the scroll is checked to determine the height of the parent view.
           //Y-offset bigger than 0 means the user is scrolling down (moving thumb up), and vice versa
           onScroll={(event) => {
-            toggleFlex(event.nativeEvent.contentOffset.y > 0 ? 2 : 1);
+            toggleFlex(event.nativeEvent.contentOffset.y > 0 ? 4 : 1.4);
           }}
         >
           <HomeSuggestionListComponent images={images} title="Popular" />
-          <HomeSuggestionListComponent images={images} title="New Arrivals" />
-          <HomeSuggestionListComponent images={images} title="Men's Fashion" />
           <HomeSuggestionListComponent
-            images={images}
+            images={newArrivalsImages}
+            title="New Arrivals"
+          />
+          <HomeSuggestionListComponent
+            images={mensFashionImages}
+            title="Men's Fashion"
+          />
+          <HomeSuggestionListComponent
+            images={womensFashionImages}
             title="Women's Fashion"
           />
         </ScrollView>
@@ -142,34 +218,4 @@ const HomeScreen = () => {
 
 export default HomeScreen;
 
-const styles = StyleSheet.create({
-  cardImage: {
-    width: 130,
-    height: 220,
-    marginHorizontal: 10,
-    marginTop: 10,
-    borderTopRightRadius: 20,
-    borderTopLeftRadius: 20,
-    borderWidth: 0.4,
-    borderColor: "black",
-    shadowColor: "black",
-    shadowOffset: { width: 2, height: 2 },
-    shadowOpacity: 0.5,
-    shadowRadius: 3,
-  },
-  cardDetails: {
-    height: 50,
-    width: 130,
-    marginHorizontal: 10,
-    marginBottom: 10,
-    borderBottomWidth: 0.4,
-    borderLeftWidth: 0.4,
-    borderRightWidth: 0.4,
-    borderBottomRightRadius: 20,
-    borderBottomLeftRadius: 20,
-    shadowColor: "black",
-    shadowOffset: { width: 2, height: 2 },
-    shadowOpacity: 0.5,
-    shadowRadius: 3,
-  },
-});
+const styles = StyleSheet.create({});
