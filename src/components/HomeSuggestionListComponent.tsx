@@ -33,9 +33,7 @@ const HomeSuggestionListComponent = ({ images, title }: Props) => {
         showsHorizontalScrollIndicator={false}
         data={images}
         renderItem={({ item, index }) => (
-          <TouchableOpacity key={index}>
-            <SuggestionItemComponent item={item} />
-          </TouchableOpacity>
+          <SuggestionItemComponent key={index} item={item} />
         )}
         keyExtractor={(index) => index.toString()}
       />

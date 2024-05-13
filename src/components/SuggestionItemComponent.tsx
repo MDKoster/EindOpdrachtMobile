@@ -3,6 +3,7 @@ import {
   ListRenderItemInfo,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from "react-native";
 import React from "react";
@@ -13,10 +14,12 @@ type Props = {
 
 const SuggestionItemComponent = ({ item }) => {
   return (
-    <>
-      <Image source={item} style={styles.cardImage} />
+    <View style={{ flex: 1 }}>
+      <TouchableOpacity>
+        <Image source={item} style={styles.cardImage} />
+      </TouchableOpacity>
       <View style={styles.cardDetails}></View>
-    </>
+    </View>
   );
 };
 
