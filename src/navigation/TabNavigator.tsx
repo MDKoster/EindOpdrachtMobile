@@ -8,8 +8,6 @@ import {
   Feather,
 } from "@expo/vector-icons";
 import React from "react";
-import HomeScreen from "../screens/HomeScreen";
-import SearchScreen from "../screens/SearchScreen";
 import FavouritesScreen from "../screens/FavouritesScreen";
 import AccountScreen from "../screens/AccountScreen";
 import ShoppingCartScreen from "../screens/ShoppingCartScreen";
@@ -29,8 +27,12 @@ const TabNavigator = () => {
           position: "absolute",
           borderTopRightRadius: 20,
           borderTopLeftRadius: 20,
+          height: tabBarHeight,
           marginHorizontal: 5,
+          borderColor: "transparent",
+          shadowColor: "transparent",
         },
+
         tabBarVisibilityAnimationConfig: {
           show: {
             animation: "timing",
@@ -49,7 +51,7 @@ const TabNavigator = () => {
         tabBarHideOnKeyboard: true,
         headerShown: false,
         tabBarActiveTintColor: "#CE0000",
-        tabBarInactiveTintColor: "#CECECE",
+        tabBarInactiveTintColor: "#CEFFFF",
       }}
     >
       <Tab.Screen
@@ -86,6 +88,8 @@ const TabNavigator = () => {
         name={"Bag"}
         component={ShoppingCartScreen}
         options={{
+          //tabbarbadge is used to show the number of items in the cart
+          tabBarBadge: 3,
           tabBarIcon: ({ color, focused }) =>
             focused ? (
               <Ionicons name="bag-handle-sharp" size={24} color={color} />

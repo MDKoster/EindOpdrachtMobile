@@ -20,7 +20,7 @@ const HomeScreen = () => {
   const scrollViewRef = useRef<ScrollView>(null);
   const suggestionRef = useRef<ScrollView>(null);
   const [currentX, setCurrentX] = useState(0);
-  const [delayScroll, setDelayScroll] = useState(true);
+  const [currentY, setCurrentY] = useState(0);
 
   //temporary images. Will be replaced with actual data from the server
   const images: ImageSourcePropType[] = [
@@ -72,22 +72,22 @@ const HomeScreen = () => {
     return () => clearInterval(scrollInterval);
   }, [currentX]);
 
-  //TODO: don't do an animation from 1 to 2, register the y-offset value of every scroll event
-  // and add it to the height of the parent view (up to a certain limit) when the user scrolls down
-  // When the user scrolls back up, the height of the parent view should decrease only when the scrollview
-  // reaches the top
   const animatedFlex = useRef(new Animated.ValueXY({ x: 0, y: 0 })).current;
+  const animatedRadius = useRef(new Animated.Value(0)).current;
   const toggleFlex = (targetValue: number) => {
     Animated.timing(animatedFlex, {
       toValue: { x: 0, y: targetValue },
-      duration: 200,
+      duration: 150,
       useNativeDriver: false,
       easing: Easing.linear,
-    }).start(({ finished }) => {
-      if (finished && targetValue === 1) {
-        setDelayScroll(false);
-      }
-    });
+    }).start(() =>
+      Animated.timing(animatedRadius, {
+        toValue: targetValue === 0 ? 25 : 0,
+        duration: 300,
+        useNativeDriver: false,
+        easing: Easing.linear,
+      }).start()
+    );
   };
 
   return (
@@ -95,7 +95,7 @@ const HomeScreen = () => {
       <View style={{ flex: 1, alignItems: "center" }}>
         <View
           style={{
-            flex: 1,
+            zIndex: 1,
             flexDirection: "row",
           }}
         >
@@ -107,7 +107,6 @@ const HomeScreen = () => {
           <TextInput
             style={{
               top: 30,
-              zIndex: 1,
               opacity: 0.8,
               textAlign: "center",
               paddingHorizontal: 40,
@@ -177,19 +176,18 @@ const HomeScreen = () => {
       <Animated.View
         style={{
           backgroundColor: "white",
-          borderTopLeftRadius: 25,
-          borderTopRightRadius: 25,
+          borderTopLeftRadius: animatedRadius,
+          borderTopRightRadius: animatedRadius,
           overflow: "hidden",
           zIndex: 2,
           height: animatedFlex.y.interpolate({
             inputRange: [0, 1],
-            outputRange: ["60%", "90%"],
+            outputRange: ["60%", "100%"],
           }),
         }}
       >
         <ScrollView
           ref={suggestionRef}
-          disableScrollViewPanResponder={delayScroll}
           showsVerticalScrollIndicator={false}
           decelerationRate={0.8}
           //toggleFlex changes the height of the parent view.
