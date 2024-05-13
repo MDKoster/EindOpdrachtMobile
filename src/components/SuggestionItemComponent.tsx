@@ -1,21 +1,27 @@
 import {
   Image,
-  ListRenderItemInfo,
+  ImageSourcePropType,
   StyleSheet,
-  Text,
   TouchableOpacity,
   View,
 } from "react-native";
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
 
 type Props = {
-  item: ListRenderItemInfo<any>;
+  item: ImageSourcePropType;
 };
 
-const SuggestionItemComponent = ({ item }) => {
+const SuggestionItemComponent = ({ item }: Props) => {
+  const navigator = useNavigation();
+
   return (
     <View style={{ flex: 1 }}>
-      <TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          navigator.navigate("ShopStack", { item: item } as never);
+        }}
+      >
         <Image source={item} style={styles.cardImage} />
       </TouchableOpacity>
       <View style={styles.cardDetails}></View>

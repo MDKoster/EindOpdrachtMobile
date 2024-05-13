@@ -1,22 +1,30 @@
 import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { Entypo } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 type Props = {
   category: string;
+  screen?: string;
 };
 
-const SearchScreenOption = ({ category }: Props) => {
+const SearchScreenOption = ({ category, screen }: Props) => {
+  const navigator = useNavigation();
+
   return (
-    <TouchableOpacity>
+    <TouchableOpacity
+      onPress={
+        screen != null ? () => navigator.navigate(screen as never) : null
+      }
+    >
       <View
         style={{
-          height: 50,
+          height: 60,
           backgroundColor: "white",
           flex: 0.28,
           flexDirection: "row",
-          justifyContent: "space-between",
           alignItems: "center",
+          justifyContent: "space-between",
           paddingLeft: 40,
           borderBottomWidth: 0.8,
         }}

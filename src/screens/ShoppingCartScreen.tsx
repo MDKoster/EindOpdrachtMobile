@@ -1,8 +1,11 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useNavigation } from "@react-navigation/native";
 
 const ShoppingCartScreen = () => {
+  const navigator = useNavigation();
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <Image
@@ -48,7 +51,7 @@ const ShoppingCartScreen = () => {
             justifyContent: "center",
           }}
         >
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigator.navigate("HomeStack")}>
             <View
               style={{
                 backgroundColor: "#0600323F",

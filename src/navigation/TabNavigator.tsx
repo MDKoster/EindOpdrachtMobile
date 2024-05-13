@@ -14,6 +14,8 @@ import FavouritesScreen from "../screens/FavouritesScreen";
 import AccountScreen from "../screens/AccountScreen";
 import ShoppingCartScreen from "../screens/ShoppingCartScreen";
 import { useAppSelector } from "../../store/Selector";
+import ShopStackNavigator from "./ShopStackNavigator";
+import SearchStackNavigator from "./SearchStackNavigator";
 
 const Tab = createBottomTabNavigator();
 
@@ -52,7 +54,7 @@ const TabNavigator = () => {
     >
       <Tab.Screen
         name="Shop"
-        component={HomeScreen}
+        component={ShopStackNavigator}
         options={{
           tabBarIcon: ({ color }) => (
             <FontAwesome6 name="shopware" size={24} color={color} />
@@ -73,7 +75,7 @@ const TabNavigator = () => {
       />
       <Tab.Screen
         name={"Search"}
-        component={SearchScreen}
+        component={SearchStackNavigator}
         options={{
           tabBarIcon: ({ color }) => (
             <Feather name="search" size={24} color={color} />

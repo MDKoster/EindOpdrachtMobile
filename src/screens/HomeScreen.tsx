@@ -9,11 +9,11 @@ import {
   View,
   TextInput,
   Text,
+  ImageSourcePropType,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import HomeSuggestionListComponent from "../components/HomeSuggestionListComponent";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { useDispatch } from "react-redux";
 
 const HomeScreen = () => {
   const windowWidth = Dimensions.get("window").width;
@@ -23,7 +23,7 @@ const HomeScreen = () => {
   const [delayScroll, setDelayScroll] = useState(true);
 
   //temporary images. Will be replaced with actual data from the server
-  const images = [
+  const images: ImageSourcePropType[] = [
     require("../../assets/images/female-outfit-1.jpg"),
     require("../../assets/images/female-dress.jpg"),
     require("../../assets/images/male-outfit-1.jpg"),
@@ -31,7 +31,7 @@ const HomeScreen = () => {
     require("../../assets/images/female-sweater-1.jpg"),
     require("../../assets/images/male-outfit-3.jpg"),
   ];
-  const newArrivalsImages = [
+  const newArrivalsImages: ImageSourcePropType[] = [
     require("../../assets/images/splash3.jpg"),
     require("../../assets/images/splash5.jpg"),
     require("../../assets/images/splash6.jpg"),
@@ -39,7 +39,7 @@ const HomeScreen = () => {
     require("../../assets/images/male-outfit-3.jpg"),
     require("../../assets/images/female-sweater-3.jpg"),
   ];
-  const mensFashionImages = [
+  const mensFashionImages: ImageSourcePropType[] = [
     require("../../assets/images/male-outfit-1.jpg"),
     require("../../assets/images/male-outfit-2.jpg"),
     require("../../assets/images/male-pants-1.jpg"),
@@ -47,7 +47,7 @@ const HomeScreen = () => {
     require("../../assets/images/tshirt-male.jpg"),
     require("../../assets/images/splash2.jpg"),
   ];
-  const womensFashionImages = [
+  const womensFashionImages: ImageSourcePropType[] = [
     require("../../assets/images/female-dress.jpg"),
     require("../../assets/images/female-outfit-1.jpg"),
     require("../../assets/images/female-outfit-black.jpg"),
@@ -76,18 +76,17 @@ const HomeScreen = () => {
   // and add it to the height of the parent view (up to a certain limit) when the user scrolls down
   // When the user scrolls back up, the height of the parent view should decrease only when the scrollview
   // reaches the top
-  const flexValue = useRef(new Animated.Value(1.4)).current;
+  const animatedFlex = useRef(new Animated.ValueXY({ x: 0, y: 0 })).current;
   const toggleFlex = (targetValue: number) => {
-    Animated.timing(flexValue, {
-      toValue: targetValue,
-      duration: 400,
+    Animated.timing(animatedFlex, {
+      toValue: { x: 0, y: targetValue },
+      duration: 200,
       useNativeDriver: false,
       easing: Easing.linear,
     }).start(({ finished }) => {
-      finished
-        ? (flexValue.setValue(targetValue),
-          targetValue === 4 && setDelayScroll(false))
-        : null;
+      if (finished && targetValue === 1) {
+        setDelayScroll(false);
+      }
     });
   };
 
@@ -177,12 +176,15 @@ const HomeScreen = () => {
       </View>
       <Animated.View
         style={{
-          flex: flexValue,
           backgroundColor: "white",
           borderTopLeftRadius: 25,
           borderTopRightRadius: 25,
           overflow: "hidden",
           zIndex: 2,
+          height: animatedFlex.y.interpolate({
+            inputRange: [0, 1],
+            outputRange: ["60%", "90%"],
+          }),
         }}
       >
         <ScrollView
@@ -194,7 +196,7 @@ const HomeScreen = () => {
           //The direction of the scroll is checked to determine the height of the parent view.
           //Y-offset bigger than 0 means the user is scrolling down (moving thumb up), and vice versa
           onScroll={(event) => {
-            toggleFlex(event.nativeEvent.contentOffset.y > 0 ? 4 : 1.4);
+            toggleFlex(event.nativeEvent.contentOffset.y > 0 ? 1 : 0);
           }}
         >
           <HomeSuggestionListComponent images={images} title="Popular" />

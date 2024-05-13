@@ -1,0 +1,3 @@
+useNavigation() oproepen in component of doorgeven als prop. Hoe zit dat met TS typing?
+
+Wat is het verschil tussen react-navigation/stack en react-navigation/native-stack packages, en welke moet ik gebruiken?

@@ -1,16 +1,15 @@
 import {
   FlatList,
-  Image,
+  ImageSourcePropType,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from "react-native";
 import React from "react";
 import SuggestionItemComponent from "./SuggestionItemComponent";
 
 type Props = {
-  images: any[];
+  images: ImageSourcePropType[];
   title: string;
 };
 
