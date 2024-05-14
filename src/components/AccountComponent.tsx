@@ -6,14 +6,18 @@ import {
   View,
 } from "react-native";
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
 
 type Props = {
   icon?: any;
   mainText: string;
   subText?: string;
+  screen?: any;
 };
 
-const AccountComponent = ({ icon, mainText, subText }: Props) => {
+const AccountComponent = ({ icon, mainText, subText, screen }: Props) => {
+  const navigation = useNavigation();
+
   return (
     <TouchableOpacity
       style={{
@@ -23,6 +27,7 @@ const AccountComponent = ({ icon, mainText, subText }: Props) => {
         borderBottomWidth: 0.8,
         borderColor: "#e5e5e5",
       }}
+      onPress={() => screen && navigation.navigate(screen)}
     >
       {icon}
       <View

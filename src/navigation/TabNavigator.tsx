@@ -14,6 +14,7 @@ import ShoppingCartScreen from "../screens/ShoppingCartScreen";
 import { useAppSelector } from "../../store/Selector";
 import ShopStackNavigator from "./ShopStackNavigator";
 import SearchStackNavigator from "./SearchStackNavigator";
+import SettingsStackNavigator from "./SettingsStackNavigator";
 
 const Tab = createBottomTabNavigator();
 
@@ -100,7 +101,7 @@ const TabNavigator = () => {
       />
       <Tab.Screen
         name={"Account"}
-        component={AccountScreen}
+        component={SettingsStackNavigator}
         options={{
           tabBarIcon: ({ color, focused }) =>
             focused ? (

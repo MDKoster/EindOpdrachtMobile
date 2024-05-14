@@ -13,9 +13,7 @@ const SearchScreenOption = ({ category, screen }: Props) => {
 
   return (
     <TouchableOpacity
-      onPress={
-        screen != null ? () => navigator.navigate(screen as never) : null
-      }
+      onPress={() => screen && navigator.navigate(screen as never)}
     >
       <View
         style={{

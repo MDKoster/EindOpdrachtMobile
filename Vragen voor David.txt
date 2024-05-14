@@ -1,3 +1,7 @@
 useNavigation() oproepen in component of doorgeven als prop. Hoe zit dat met TS typing?
 
 Wat is het verschil tussen react-navigation/stack en react-navigation/native-stack packages, en welke moet ik gebruiken?
+
+Bij het gebruiken van preventAutoHideAsync krijg ik een warning: 
+"Possible unhandled promise rejection (id: 0). Error: the method or property expo-splash-screen.preventAutoHideAsync is not available on android, are you sure you've linked all the native dependencies properly?"
+Wat kan hier de oorzaak van zijn?
