@@ -14,6 +14,8 @@ import LatestNews from "../screens/AccountScreens/LatestNews";
 import HelpScreen from "../screens/AccountScreens/HelpScreen";
 import AccountDelete from "../screens/AccountScreens/AccountDelete";
 import AboutApp from "../screens/AccountScreens/AboutApp";
+import MapMarkerDetailScreen from "../screens/AccountScreens/MapMarkerDetailScreen";
+import RegisterScreen from "../screens/AccountScreens/RegisterScreen";
 
 const Stack = createStackNavigator();
 
@@ -22,11 +24,12 @@ const SettingsStackNavigator = () => {
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
-        ...TransitionPresets.SlideFromRightIOS,
+        ...TransitionPresets.ScaleFromCenterAndroid,
       }}
     >
       <Stack.Screen name="AccountMain" component={AccountScreen} />
       <Stack.Screen name="LogIn" component={LogInScreen} />
+      <Stack.Screen name="Register" component={RegisterScreen} />
       <Stack.Screen name="StoreLocator" component={StoreLocator} />
       <Stack.Screen name="AccountSettings" component={AccountSettings} />
       <Stack.Screen name="AboutGizmo" component={AboutGizmo} />
@@ -35,6 +38,13 @@ const SettingsStackNavigator = () => {
       <Stack.Screen name="Help" component={HelpScreen} />
       <Stack.Screen name="AccountDelete" component={AccountDelete} />
       <Stack.Screen name="AboutApp" component={AboutApp} />
+      <Stack.Screen
+        name="MapMarkerDetail"
+        component={MapMarkerDetailScreen}
+        options={{
+          ...TransitionPresets.ModalPresentationIOS,
+        }}
+      />
     </Stack.Navigator>
   );
 };

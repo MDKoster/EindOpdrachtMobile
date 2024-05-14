@@ -18,24 +18,6 @@ const AccountScreen = () => {
     <SafeAreaView style={{ flex: 1, backgroundColor: "#f1f1f1" }}>
       <View
         style={{
-          flex: 0.2,
-          alignItems: "center",
-          justifyContent: "center",
-          backgroundColor: "#060032",
-          width: "100%",
-        }}
-      >
-        <Text
-          style={{
-            fontSize: 24,
-            color: "white",
-          }}
-        >
-          ACCOUNT & SETTINGS
-        </Text>
-      </View>
-      <View
-        style={{
           flex: 1,
           margin: 20,
           backgroundColor: "white",

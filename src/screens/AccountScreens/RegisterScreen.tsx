@@ -45,8 +45,38 @@ const LogInScreen = () => {
               marginBottom: 20,
             }}
           >
-            Log into your account
+            Register
           </Text>
+          <View
+            style={{
+              flex: 0.2,
+              justifyContent: "center",
+              marginBottom: 20,
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 18,
+                fontWeight: 400,
+                paddingVertical: 10,
+              }}
+            >
+              Name
+            </Text>
+            <TextInput
+              style={{
+                opacity: 0.9,
+                textAlign: "center",
+                paddingHorizontal: 5,
+                backgroundColor: "#fefefe",
+                width: 250,
+                height: 50,
+                borderRadius: 10,
+                elevation: 5,
+              }}
+              placeholder="Name"
+            />
+          </View>
           <View
             style={{
               flex: 0.2,
@@ -107,17 +137,13 @@ const LogInScreen = () => {
               placeholder="Password"
             />
           </View>
-          <Text
-            style={{
-              flex: 0.1,
-            }}
-          >
-            Not a member?{" "}
+          <Text>
+            Already a member?{" "}
             <Text
               style={{ color: "#0000CC" }}
-              onPress={() => navigator.navigate("Register" as never)}
+              onPress={() => navigator.navigate("LogIn" as never)}
             >
-              Register here!
+              Log in here!
             </Text>
           </Text>
         </View>

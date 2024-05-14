@@ -25,6 +25,7 @@ const SearchScreenOption = ({ category, screen }: Props) => {
           justifyContent: "space-between",
           paddingLeft: 40,
           borderBottomWidth: 0.8,
+          marginBottom: 2,
         }}
       >
         <Text style={{ fontSize: 20, fontWeight: 400 }}>{category}</Text>
