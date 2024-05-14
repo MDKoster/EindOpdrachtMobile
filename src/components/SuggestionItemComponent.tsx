@@ -19,7 +19,10 @@ const SuggestionItemComponent = ({ item }: Props) => {
     <View style={{ flex: 1 }}>
       <TouchableOpacity
         onPress={() => {
-          navigator.navigate("ShopStack", { item: item } as never);
+          navigator.navigate({
+            name: "ShopStack",
+            params: { item: item },
+          } as never);
         }}
       >
         <Image source={item} style={styles.cardImage} />
