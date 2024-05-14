@@ -39,7 +39,14 @@ const AccountComponent = ({ icon, mainText, subText, screen }: Props) => {
             : null
         }
       >
-        <Text style={{ fontSize: 16 }}>{mainText}</Text>
+        <Text
+          style={{
+            fontSize: 16,
+            color: mainText === "Delete my account" ? "#E00204" : "black",
+          }}
+        >
+          {mainText}
+        </Text>
         {subText && (
           <Text style={{ fontSize: 14, color: "grey" }}>{subText}</Text>
         )}

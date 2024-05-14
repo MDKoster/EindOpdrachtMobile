@@ -8,7 +8,7 @@ import {
   View,
 } from "react-native";
 import React, { useState } from "react";
-import { useNavigation } from "@react-navigation/native";
+import { StackActions, useNavigation } from "@react-navigation/native";
 
 const LogInScreen = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -115,7 +115,9 @@ const LogInScreen = () => {
             Not a member?{" "}
             <Text
               style={{ color: "#0000CC" }}
-              onPress={() => navigator.navigate("Register" as never)}
+              onPress={() => {
+                navigator.navigate("Register" as never);
+              }}
             >
               Register here!
             </Text>
