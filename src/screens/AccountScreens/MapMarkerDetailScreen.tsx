@@ -7,24 +7,20 @@ import {
 } from "react-native";
 import React from "react";
 import { useRoute } from "@react-navigation/native";
+import { SettingsScreenProps } from "../../navigation/types";
+import { useAppSelector } from "../../../store/Selector";
+import {
+  darkModeBackgroundColor,
+  lightModeBackgroundColor,
+} from "../../../assets/colors";
 
 const MapMarkerDetailScreen = () => {
-  const route: {
-    key: string;
-    name: string;
-    params: {
-      store: {
-        id: string;
-        name: string;
-        address: string;
-        phone: string;
-        image: ImageSourcePropType;
-        openingHours: string[];
-        latitude: number;
-        longitude: number;
-      };
-    };
-  } = useRoute();
+  const {
+    params: { store },
+  } = useRoute<SettingsScreenProps<"MapMarkerDetail">["route"]>();
+
+  const darkModeSelected = useAppSelector((state) => state.image.darkMode);
+
   return (
     <View
       style={{
@@ -32,32 +28,37 @@ const MapMarkerDetailScreen = () => {
         justifyContent: "space-evenly",
         alignItems: "center",
         marginBottom: 50,
-        backgroundColor: "transparent",
+        backgroundColor: darkModeSelected
+          ? darkModeBackgroundColor
+          : lightModeBackgroundColor,
       }}
     >
       <Text
         style={{
           fontSize: 24,
           fontWeight: "400",
+          color: darkModeSelected ? "white" : "black",
         }}
       >
-        {route.params?.store.name}
+        {store.name}
       </Text>
       <Text
         style={{
           fontSize: 18,
           fontWeight: "400",
+          color: darkModeSelected ? "white" : "black",
         }}
       >
-        {route.params?.store.address}
+        {store.address}
       </Text>
       <Text
         style={{
           fontSize: 18,
           fontWeight: "400",
+          color: darkModeSelected ? "white" : "black",
         }}
       >
-        {route.params?.store.phone}
+        {store.phone}
       </Text>
       <View
         style={{
@@ -67,7 +68,7 @@ const MapMarkerDetailScreen = () => {
         }}
       >
         <Image
-          source={route.params?.store.image}
+          source={store.image}
           style={{
             borderWidth: 2,
             borderColor: "black",
@@ -86,16 +87,18 @@ const MapMarkerDetailScreen = () => {
           style={{
             fontSize: 16,
             fontWeight: "400",
+            color: darkModeSelected ? "white" : "black",
           }}
         >
           Openingsuren
         </Text>
-        {route.params?.store.openingHours.map((hour, index) => (
+        {store.openingHours.map((hour, index) => (
           <Text
             key={index}
             style={{
               fontSize: 14,
               fontWeight: "300",
+              color: darkModeSelected ? "white" : "black",
             }}
           >
             {hour}

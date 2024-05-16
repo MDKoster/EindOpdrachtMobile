@@ -1,13 +1,21 @@
-import { Button, Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, View } from "react-native";
 import React from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { Entypo } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { ShopScreenProps, ShopStackParamsList } from "../navigation/types";
+import { useAppSelector } from "../../store/Selector";
+import {
+  darkModeBackgroundColor,
+  lightModeBackgroundColor,
+} from "../../assets/colors";
 
 const ShopScreen = () => {
-  //TODO: ask David about typing for useNavigation vs passing it along as a prop
-  const navigator = useNavigation();
-  const route = useRoute();
+  const navigator = useNavigation<ShopScreenProps<"ShopStack">["navigation"]>();
+  const {
+    params: { item },
+  } = useRoute<ShopScreenProps<"ShopStack">["route"]>();
+  const darkModeSelected = useAppSelector((state) => state.image.darkMode);
 
   return (
     <View
@@ -21,16 +29,24 @@ const ShopScreen = () => {
           top: 50,
           left: 20,
           zIndex: 1,
-          backgroundColor: "white",
+          backgroundColor: darkModeSelected
+            ? darkModeBackgroundColor
+            : lightModeBackgroundColor,
           opacity: 0.8,
           borderRadius: 50,
           borderWidth: 0.4,
         }}
       >
         <TouchableOpacity
-          onPress={() => navigator.navigate("HomeStack" as never)}
+          onPress={() =>
+            navigator.navigate<keyof ShopStackParamsList>("HomeStack")
+          }
         >
-          <Entypo name="chevron-left" size={48} color="black" />
+          <Entypo
+            name="chevron-left"
+            size={48}
+            color={darkModeSelected ? "white" : "black"}
+          />
         </TouchableOpacity>
       </View>
       <View
@@ -38,7 +54,7 @@ const ShopScreen = () => {
           flex: 1,
         }}
       >
-        <Image source={route.params?.item} style={{ flex: 1, width: "100%" }} />
+        <Image source={item} style={{ flex: 1, width: "100%" }} />
       </View>
     </View>
   );

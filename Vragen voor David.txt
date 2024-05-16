@@ -1,12 +1,10 @@
 useNavigation() oproepen in component of doorgeven als prop. Hoe zit dat met TS typing?
+-> doorgeven als prop gebeurt standaard enkel naar first child. Simpeler om hook te gebruiken.
 -> types.ts! Zie les applicatie
 
 Wat is het verschil tussen react-navigation/stack en react-navigation/native-stack packages, en welke moet ik gebruiken?
--> stack = customizability; native-stack = performantie
+-> stack = customizability; native-stack = performantie m.b.t. headers
 
 Stacknavigator in stacknavigator? Bvb: Mijn loginscherm zit in de Settingsstacknavigator.
 -> lukt. Gewoon doen.
 
-Notes to self:
-    -camera functionaliteit toevoegen bij Register (profielfoto)
-    -hoeveelheden van items in stock toevoegen in DB?

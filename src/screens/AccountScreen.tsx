@@ -1,27 +1,35 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { FontAwesome5, Ionicons } from "@expo/vector-icons";
 import AccountComponent from "../components/AccountComponent";
-import LogInScreen from "./AccountScreens/LogInScreen";
-import StoreLocator from "./AccountScreens/StoreLocator";
-import AccountSettings from "./AccountScreens/AccountSettings";
-import AboutGizmo from "./AccountScreens/AboutGizmo";
-import Sustainability from "./AccountScreens/Sustainability";
-import LatestNews from "./AccountScreens/LatestNews";
-import HelpScreen from "./AccountScreens/HelpScreen";
-import AccountDelete from "./AccountScreens/AccountDelete";
-import AboutApp from "./AccountScreens/AboutApp";
+import { useAppSelector } from "../../store/Selector";
+import {
+  darkModeBackgroundColor,
+  lightModeBackgroundColor,
+} from "../../assets/colors";
 
 const AccountScreen = () => {
+  const darkModeSelected = useAppSelector((state) => state.image.darkMode);
+
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#f1f1f1" }}>
+    <SafeAreaView
+      style={{
+        flex: 1,
+        backgroundColor: darkModeSelected
+          ? darkModeBackgroundColor
+          : lightModeBackgroundColor,
+      }}
+    >
       <View
         style={{
           flex: 1,
           margin: 20,
-          backgroundColor: "white",
+          backgroundColor: darkModeSelected
+            ? darkModeBackgroundColor
+            : lightModeBackgroundColor,
           elevation: 5,
+          shadowColor: darkModeSelected ? "white" : "black",
         }}
       >
         <AccountComponent
@@ -29,7 +37,7 @@ const AccountScreen = () => {
             <FontAwesome5
               name="user"
               size={24}
-              color="black"
+              color={darkModeSelected ? "white" : "black"}
               style={{
                 padding: 15,
               }}
@@ -44,7 +52,7 @@ const AccountScreen = () => {
             <Ionicons
               name="location-outline"
               size={28}
-              color="black"
+              color={darkModeSelected ? "white" : "black"}
               style={{ padding: 11 }}
             />
           }
@@ -62,8 +70,11 @@ const AccountScreen = () => {
           flex: 2,
           margin: 20,
           marginBottom: 70,
-          backgroundColor: "white",
+          backgroundColor: darkModeSelected
+            ? darkModeBackgroundColor
+            : lightModeBackgroundColor,
           elevation: 5,
+          shadowColor: darkModeSelected ? "white" : "black",
         }}
       >
         <AccountComponent

@@ -1,13 +1,28 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
+import { useAppSelector } from "../../store/Selector";
 
 const ShoppingCartScreen = () => {
   const navigator = useNavigation();
+  const [emptyCartBackgroundImage, setEmptyCartBackgroundImage] = useState();
+  const darkModeSelected = useAppSelector((state) => state.image.darkMode);
+
+  useEffect(() => {}, []);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
+      <View
+        style={{
+          position: "absolute",
+          height: "100%",
+          width: "100%",
+          backgroundColor: darkModeSelected ? "black" : "transparent",
+          opacity: 0.4,
+          zIndex: 1,
+        }}
+      />
       <Image
         source={require("../../assets/images/empty-bag.jpg")}
         style={{
@@ -49,19 +64,20 @@ const ShoppingCartScreen = () => {
           style={{
             flex: 8,
             justifyContent: "center",
+            zIndex: 2,
           }}
         >
           <TouchableOpacity onPress={() => navigator.navigate("HomeStack")}>
             <View
               style={{
-                backgroundColor: "#0600323F",
+                backgroundColor: darkModeSelected ? "#D6D1AC3F" : "#0600323F",
                 marginTop: 180,
                 flex: 0.28,
                 flexDirection: "row",
                 justifyContent: "space-between",
                 alignItems: "center",
                 borderWidth: 1,
-                borderColor: "white",
+                borderColor: darkModeSelected ? "lightgrey" : "white",
                 borderRadius: 15,
                 padding: 25,
               }}
@@ -70,7 +86,7 @@ const ShoppingCartScreen = () => {
                 style={{
                   fontSize: 24,
                   fontWeight: 400,
-                  color: "white",
+                  color: darkModeSelected ? "lightgrey" : "white",
                 }}
               >
                 Start shopping!

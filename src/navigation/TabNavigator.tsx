@@ -7,7 +7,7 @@ import {
   FontAwesome,
   Feather,
 } from "@expo/vector-icons";
-import React from "react";
+import React, { useEffect } from "react";
 import FavouritesScreen from "../screens/FavouritesScreen";
 import AccountScreen from "../screens/AccountScreen";
 import ShoppingCartScreen from "../screens/ShoppingCartScreen";
@@ -15,16 +15,24 @@ import { useAppSelector } from "../../store/Selector";
 import ShopStackNavigator from "./ShopStackNavigator";
 import SearchStackNavigator from "./SearchStackNavigator";
 import SettingsStackNavigator from "./SettingsStackNavigator";
+import { StatusBar } from "react-native";
 
 const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => {
   const tabBarHeight = useAppSelector((state) => state.navigation.tabBarHeight);
+  const darkModeSelected = useAppSelector((state) => state.image.darkMode);
+
+  useEffect(() => {
+    StatusBar.setBackgroundColor(darkModeSelected ? "#18191A" : "transparent");
+    StatusBar.setBarStyle(darkModeSelected ? "light-content" : "dark-content");
+  }, [darkModeSelected]);
+
   return (
     <Tab.Navigator
       screenOptions={{
         tabBarStyle: {
-          backgroundColor: "#060032",
+          backgroundColor: darkModeSelected ? "#740000" : "#060032",
           position: "absolute",
           borderTopRightRadius: 20,
           borderTopLeftRadius: 20,
@@ -51,7 +59,7 @@ const TabNavigator = () => {
 
         tabBarHideOnKeyboard: true,
         headerShown: false,
-        tabBarActiveTintColor: "#CE0000",
+        tabBarActiveTintColor: darkModeSelected ? "#786DFF" : "#CE0000",
         tabBarInactiveTintColor: "#CEFFFF",
       }}
     >

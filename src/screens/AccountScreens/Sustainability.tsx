@@ -1,5 +1,10 @@
 import React from "react";
 import { View, Text, StyleSheet, ScrollView, SafeAreaView } from "react-native";
+import { useAppSelector } from "../../../store/Selector";
+import {
+  darkModeBackgroundColor,
+  lightModeBackgroundColor,
+} from "../../../assets/colors";
 
 const Sustainability = () => {
   return (
@@ -9,8 +14,9 @@ const Sustainability = () => {
           flex: 1,
           marginVertical: 20,
           padding: 10,
-          backgroundColor: "white",
+          backgroundColor: darkModeSelected ? "#18191A" : "white",
           elevation: 5,
+          shadowColor: darkModeSelected ? "white" : "black",
         }}
       >
         <ScrollView showsVerticalScrollIndicator={false}>
@@ -69,23 +75,31 @@ const Sustainability = () => {
   );
 };
 
+const darkModeSelected = () => {
+  return useAppSelector((state) => state.image.darkMode);
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
     paddingBottom: 50,
-    backgroundColor: "#fff",
+    backgroundColor: darkModeSelected
+      ? darkModeBackgroundColor
+      : lightModeBackgroundColor,
   },
   title: {
     fontSize: 24,
     fontWeight: "bold",
     marginVertical: 20,
     textAlign: "center",
+    color: darkModeSelected ? "#fff" : "#000",
   },
   description: {
     fontSize: 16,
     lineHeight: 24,
     marginBottom: 20,
+    color: darkModeSelected ? "#fff" : "#000",
   },
 });
 

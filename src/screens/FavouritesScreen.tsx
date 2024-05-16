@@ -1,23 +1,37 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useAppSelector } from "../../store/Selector";
+import {
+  darkModeBackgroundColor,
+  lightModeBackgroundColor,
+} from "../../assets/colors";
 
 const FavouritesScreen = () => {
+  const darkModeSelected = useAppSelector((state) => state.image.darkMode);
+
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#f1f1f1" }}>
+    <SafeAreaView
+      style={{
+        flex: 1,
+        backgroundColor: darkModeSelected
+          ? darkModeBackgroundColor
+          : lightModeBackgroundColor,
+      }}
+    >
       <View
         style={{
           flex: 0.06,
           alignItems: "center",
           justifyContent: "center",
-          backgroundColor: "#060032",
+          backgroundColor: darkModeSelected ? "#740000" : "#060032",
           width: "100%",
         }}
       >
         <Text
           style={{
             fontSize: 24,
-            color: "white",
+            color: darkModeSelected ? "black" : "white",
           }}
         >
           MY FAVOURITES
@@ -27,12 +41,21 @@ const FavouritesScreen = () => {
         style={{
           flex: 1,
           margin: 20,
-          backgroundColor: "white",
+          backgroundColor: darkModeSelected
+            ? darkModeBackgroundColor
+            : lightModeBackgroundColor,
+          shadowColor: darkModeSelected ? "white" : "black",
           elevation: 5,
           alignItems: "center",
         }}
       >
-        <Text style={{ fontSize: 20, top: 20 }}>
+        <Text
+          style={{
+            fontSize: 20,
+            top: 20,
+            color: darkModeSelected ? "white" : "black",
+          }}
+        >
           You have no favourites yet.
         </Text>
       </View>

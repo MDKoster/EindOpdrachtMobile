@@ -8,16 +8,26 @@ import {
   View,
 } from "react-native";
 import React, { useState } from "react";
-import { StackActions, useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
+import { AuthScreenProps, AuthStackParamsList } from "../../navigation/types";
+import {
+  darkModeBackgroundColor,
+  lightModeBackgroundColor,
+} from "../../../assets/colors";
+import { useAppSelector } from "../../../store/Selector";
 
 const LogInScreen = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const navigator = useNavigation();
+  const navigator = useNavigation<AuthScreenProps<"Login">["navigation"]>();
+  const darkModeSelected = useAppSelector((state) => state.image.darkMode);
 
   return (
     <SafeAreaView
       style={{
         flex: 1,
+        backgroundColor: darkModeSelected
+          ? darkModeBackgroundColor
+          : lightModeBackgroundColor,
       }}
     >
       <TouchableWithoutFeedback
@@ -31,8 +41,11 @@ const LogInScreen = () => {
             minHeight: "86%",
             top: 25,
             margin: 20,
-            backgroundColor: "white",
+            backgroundColor: darkModeSelected
+              ? darkModeBackgroundColor
+              : lightModeBackgroundColor,
             elevation: 5,
+            shadowColor: darkModeSelected ? "white" : "black",
             alignItems: "center",
           }}
         >
@@ -43,6 +56,7 @@ const LogInScreen = () => {
               fontWeight: 500,
               top: 40,
               marginBottom: 20,
+              color: darkModeSelected ? "white" : "black",
             }}
           >
             Log into your account
@@ -59,6 +73,7 @@ const LogInScreen = () => {
                 fontSize: 18,
                 fontWeight: 400,
                 paddingVertical: 10,
+                color: darkModeSelected ? "white" : "black",
               }}
             >
               Email
@@ -73,6 +88,7 @@ const LogInScreen = () => {
                 height: 50,
                 borderRadius: 10,
                 elevation: 5,
+                shadowColor: darkModeSelected ? "white" : "black",
               }}
               placeholder="Email"
             />
@@ -89,6 +105,7 @@ const LogInScreen = () => {
                 fontSize: 18,
                 fontWeight: 400,
                 paddingVertical: 10,
+                color: darkModeSelected ? "white" : "black",
               }}
             >
               Password
@@ -103,6 +120,7 @@ const LogInScreen = () => {
                 height: 50,
                 borderRadius: 10,
                 elevation: 5,
+                shadowColor: darkModeSelected ? "white" : "black",
               }}
               placeholder="Password"
             />
@@ -110,13 +128,14 @@ const LogInScreen = () => {
           <Text
             style={{
               flex: 0.1,
+              color: darkModeSelected ? "white" : "black",
             }}
           >
             Not a member?{" "}
             <Text
-              style={{ color: "#0000CC" }}
+              style={{ color: darkModeSelected ? "#BBAEFF" : "#0000CC" }}
               onPress={() => {
-                navigator.navigate("Register" as never);
+                navigator.navigate<keyof AuthStackParamsList>("Register");
               }}
             >
               Register here!

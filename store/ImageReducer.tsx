@@ -6,6 +6,7 @@ type image = {
 
 const initialState: {
   images: image[];
+  darkMode: boolean;
 } = {
   images: [
     require("../assets/images/splash2.jpg"),
@@ -16,6 +17,7 @@ const initialState: {
     require("../assets/images/splash7.jpg"),
     require("../assets/images/splash8.jpg"),
   ],
+  darkMode: false,
 };
 
 export const ImageSlice = createSlice({
@@ -25,8 +27,11 @@ export const ImageSlice = createSlice({
     setImages: (state, action) => {
       state.images = action.payload;
     },
+    toggleDarkMode: (state) => {
+      state.darkMode = !state.darkMode;
+    },
   },
 });
 
-export const { setImages } = ImageSlice.actions;
+export const { setImages, toggleDarkMode } = ImageSlice.actions;
 export const ImageReducer = ImageSlice.reducer;

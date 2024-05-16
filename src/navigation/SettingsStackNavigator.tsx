@@ -5,7 +5,6 @@ import {
   TransitionPresets,
 } from "@react-navigation/stack";
 import AccountScreen from "../screens/AccountScreen";
-import LogInScreen from "../screens/AccountScreens/LogInScreen";
 import StoreLocator from "../screens/AccountScreens/StoreLocator";
 import AccountSettings from "../screens/AccountScreens/AccountSettings";
 import AboutGizmo from "../screens/AccountScreens/AboutGizmo";
@@ -15,7 +14,7 @@ import HelpScreen from "../screens/AccountScreens/HelpScreen";
 import AccountDelete from "../screens/AccountScreens/AccountDelete";
 import AboutApp from "../screens/AccountScreens/AboutApp";
 import MapMarkerDetailScreen from "../screens/AccountScreens/MapMarkerDetailScreen";
-import RegisterScreen from "../screens/AccountScreens/RegisterScreen";
+import AuthStackNavigator from "./AuthStackNavigator";
 
 const Stack = createStackNavigator();
 
@@ -28,8 +27,7 @@ const SettingsStackNavigator = () => {
       }}
     >
       <Stack.Screen name="AccountMain" component={AccountScreen} />
-      <Stack.Screen name="LogIn" component={LogInScreen} />
-      <Stack.Screen name="Register" component={RegisterScreen} />
+      <Stack.Screen name="LogIn" component={AuthStackNavigator} />
       <Stack.Screen name="StoreLocator" component={StoreLocator} />
       <Stack.Screen name="AccountSettings" component={AccountSettings} />
       <Stack.Screen name="AboutGizmo" component={AboutGizmo} />

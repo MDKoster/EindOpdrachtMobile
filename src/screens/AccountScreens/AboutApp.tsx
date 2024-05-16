@@ -1,6 +1,11 @@
 import React from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { useAppSelector } from "../../../store/Selector";
+import {
+  darkModeBackgroundColor,
+  lightModeBackgroundColor,
+} from "../../../assets/colors";
 
 const AboutApp = () => {
   return (
@@ -58,55 +63,68 @@ const AboutApp = () => {
   );
 };
 
+const darkModeSelected = () => {
+  return useAppSelector((state) => state.image.darkMode);
+};
+
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     padding: 20,
     paddingTop: 40,
     paddingBottom: 60,
-    backgroundColor: "#fff",
+    backgroundColor: darkModeSelected
+      ? darkModeBackgroundColor
+      : lightModeBackgroundColor,
   },
   heading: {
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 10,
+    color: darkModeSelected ? "#fff" : "#000",
   },
   subheading: {
     fontSize: 20,
     fontWeight: "bold",
     marginTop: 20,
     marginBottom: 10,
+    color: darkModeSelected ? "#fff" : "#000",
   },
   description: {
     fontSize: 16,
     lineHeight: 24,
     marginBottom: 20,
+    color: darkModeSelected ? "#fff" : "#000",
   },
   history: {
     fontSize: 16,
     lineHeight: 24,
     marginBottom: 20,
+    color: darkModeSelected ? "#fff" : "#000",
   },
   contact: {
     fontSize: 16,
     lineHeight: 24,
     marginBottom: 20,
+    color: darkModeSelected ? "#fff" : "#000",
   },
   link: {
     fontSize: 16,
     lineHeight: 24,
     marginBottom: 20,
-    color: "blue",
+    color: darkModeSelected ? "#BBAEFF" : "blue",
     textDecorationLine: "underline",
   },
   version: {
     fontSize: 16,
     lineHeight: 24,
     marginBottom: 20,
+    color: darkModeSelected ? "#fff" : "#000",
   },
   credits: {
     fontSize: 16,
     lineHeight: 24,
+    color: darkModeSelected ? "#fff" : "#000",
   },
 });
 

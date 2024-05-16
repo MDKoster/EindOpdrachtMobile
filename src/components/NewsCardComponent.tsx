@@ -4,27 +4,45 @@ import {
   TouchableHighlight,
   TouchableOpacity,
 } from "react-native-gesture-handler";
+import { useAppSelector } from "../../store/Selector";
+import {
+  darkModeBackgroundColor,
+  lightModeBackgroundColor,
+} from "../../assets/colors";
 
 const NewsCardComponent = () => {
+  const darkModeSelected = useAppSelector((state) => state.image.darkMode);
+
   return (
     <TouchableOpacity
       style={{
         flex: 1,
         margin: 10,
-        backgroundColor: "white",
+        backgroundColor: darkModeSelected
+          ? darkModeBackgroundColor
+          : lightModeBackgroundColor,
         minHeight: 300,
         elevation: 5,
+        shadowColor: darkModeSelected ? "white" : "black",
       }}
     >
       <View
         style={{
           flex: 1,
           alignItems: "center",
-          backgroundColor: "white",
+          backgroundColor: darkModeSelected
+            ? darkModeBackgroundColor
+            : lightModeBackgroundColor,
           justifyContent: "center",
         }}
       >
-        <Text>NewsCardComponent</Text>
+        <Text
+          style={{
+            color: darkModeSelected ? "white" : "black",
+          }}
+        >
+          NewsCardComponent
+        </Text>
       </View>
     </TouchableOpacity>
   );

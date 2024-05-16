@@ -7,16 +7,19 @@ import {
 } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
+import { SettingsStackParamsList } from "../navigation/types";
+import { useAppSelector } from "../../store/Selector";
 
 type Props = {
   icon?: any;
   mainText: string;
   subText?: string;
-  screen?: any;
+  screen?: keyof SettingsStackParamsList;
 };
 
 const AccountComponent = ({ icon, mainText, subText, screen }: Props) => {
   const navigation = useNavigation();
+  const darkModeSelected = useAppSelector((state) => state.image.darkMode);
 
   return (
     <TouchableOpacity
@@ -25,9 +28,11 @@ const AccountComponent = ({ icon, mainText, subText, screen }: Props) => {
         flexDirection: "row",
         alignItems: "center",
         borderBottomWidth: 0.8,
-        borderColor: "#e5e5e5",
+        borderColor: darkModeSelected ? "white" : "#e5e5e5",
       }}
-      onPress={() => screen && navigation.navigate(screen)}
+      onPress={() =>
+        screen && navigation.navigate<keyof SettingsStackParamsList>(screen)
+      }
     >
       {icon}
       <View
@@ -42,7 +47,12 @@ const AccountComponent = ({ icon, mainText, subText, screen }: Props) => {
         <Text
           style={{
             fontSize: 16,
-            color: mainText === "Delete my account" ? "#E00204" : "black",
+            color:
+              mainText === "Delete my account"
+                ? "#E00204"
+                : darkModeSelected
+                ? "white"
+                : "black",
           }}
         >
           {mainText}

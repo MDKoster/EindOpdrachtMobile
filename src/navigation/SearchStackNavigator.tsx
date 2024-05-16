@@ -12,10 +12,17 @@ import SearchPopular from "../screens/SearchScreens/SearchPopular";
 import SearchShoes from "../screens/SearchScreens/SearchShoes";
 import SearchAccessories from "../screens/SearchScreens/SearchAccessories";
 import SearchSports from "../screens/SearchScreens/SearchSports";
+import { useAppSelector } from "../../store/Selector";
+import {
+  darkModeBackgroundColor,
+  lightModeBackgroundColor,
+} from "../../assets/colors";
 
 const Stack = createStackNavigator();
 
 const SearchStackNavigator = () => {
+  const darkModeSelected = useAppSelector((state) => state.image.darkMode);
+
   return (
     <>
       <View style={{ flex: 0.3 }}>
@@ -27,7 +34,9 @@ const SearchStackNavigator = () => {
       <View
         style={{
           height: 100,
-          backgroundColor: "white",
+          backgroundColor: darkModeSelected
+            ? darkModeBackgroundColor
+            : lightModeBackgroundColor,
           flex: 0.13,
           flexDirection: "row",
           justifyContent: "center",
@@ -36,18 +45,25 @@ const SearchStackNavigator = () => {
           borderTopLeftRadius: 20,
           borderBottomWidth: 0.8,
           borderTopWidth: 0.8,
+          borderColor: darkModeSelected ? "white" : "black",
         }}
       >
         <MaterialCommunityIcons
           name="magnify"
           size={28}
-          color={"black"}
+          color={darkModeSelected ? "white" : "black"}
           style={{
             zIndex: 2,
             left: -30,
           }}
         />
-        <Text style={{ fontSize: 20, fontWeight: 400 }}>
+        <Text
+          style={{
+            fontSize: 20,
+            fontWeight: 400,
+            color: darkModeSelected ? "white" : "black",
+          }}
+        >
           What are you looking for?
         </Text>
       </View>

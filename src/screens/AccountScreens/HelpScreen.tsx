@@ -1,9 +1,23 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
+import { useAppSelector } from "../../../store/Selector";
+import {
+  darkModeBackgroundColor,
+  lightModeBackgroundColor,
+} from "../../../assets/colors";
 
 const HelpScreen = () => {
+  const darkModeSelected = useAppSelector((state) => state.image.darkMode);
+
   return (
-    <View>
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: darkModeSelected
+          ? darkModeBackgroundColor
+          : lightModeBackgroundColor,
+      }}
+    >
       <Text>HelpScreen</Text>
     </View>
   );

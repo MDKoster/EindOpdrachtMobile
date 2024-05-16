@@ -1,0 +1,25 @@
+-camera functionaliteit toevoegen bij Register (profielfoto)
+
+-hoeveelheden van items in stock toevoegen in DB
+
+-Bij detailweergave aantal beschikbare items weergeven & niet toelaten om meer aan te kopen dan er beschikbaar zijn
+
+-types.ts toevoegen voor global typing van useNavigation
+
+-dark mode: state bijhouden in redux en background colours/text colours conditioneel instellen volgens die state. Dark mode optie in Settings steken
+
+-json file maken van items => 
+{
+    name: string,
+    description: string,
+    category: string, => shirt, pants, etc...
+    style: string, => casual, sports, formal, etc...
+    color: string,
+    material: string,
+    price: number,
+    quantity: number,
+    reviews: string[],
+    sizes: string[],
+    images: string[],
+    tags: string[]
+}

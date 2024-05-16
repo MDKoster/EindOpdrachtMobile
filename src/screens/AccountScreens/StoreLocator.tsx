@@ -6,9 +6,17 @@ import { useAppSelector } from "../../../store/Selector";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TextInput } from "react-native-gesture-handler";
+import { SettingsStackParamsList } from "../../navigation/types";
+import MapCustomStyle from "./MapCustomStyle";
+import {
+  darkModeBackgroundColor,
+  lightModeBackgroundColor,
+} from "../../../assets/colors";
 
 const StoreLocator = () => {
   const navigation = useNavigation();
+  const darkModeSelected = useAppSelector((state) => state.image.darkMode);
+  const mapDarkMode = MapCustomStyle();
 
   //Ask permission to use location
   const [status, requestPermission] = Location.useForegroundPermissions();
@@ -52,10 +60,13 @@ const StoreLocator = () => {
           width: "80%",
           top: 40,
           left: 10,
-          backgroundColor: "white",
-          opacity: 0.9,
+          backgroundColor: darkModeSelected
+            ? darkModeBackgroundColor
+            : lightModeBackgroundColor,
+          opacity: darkModeSelected ? 0.7 : 0.9,
           zIndex: 1,
           elevation: 5,
+          shadowColor: darkModeSelected ? "white" : "black",
           justifyContent: "center",
           borderRadius: 10,
           overflow: "hidden",
@@ -67,8 +78,11 @@ const StoreLocator = () => {
             width: "100%",
             textAlign: "center",
             fontSize: 14,
+            color: darkModeSelected ? "white" : "black",
           }}
+          keyboardAppearance={darkModeSelected ? "dark" : "default"}
           placeholder="Enter your location"
+          placeholderTextColor={darkModeSelected ? "white" : "black"}
           autoComplete="street-address"
         />
       </View>
@@ -81,6 +95,7 @@ const StoreLocator = () => {
           provider="google"
           style={{ flex: 1 }}
           followsUserLocation
+          customMapStyle={darkModeSelected ? mapDarkMode : []}
           showsUserLocation
           region={
             geoLocation
@@ -123,12 +138,13 @@ const StoreLocator = () => {
               title={store.name}
               description={store.address}
               onPress={() =>
-                navigation.navigate({
-                  name: "MapMarkerDetail",
-                  params: { store },
-                } as never)
+                navigation.navigate<keyof SettingsStackParamsList>(
+                  "MapMarkerDetail",
+                  {
+                    store,
+                  }
+                )
               }
-              //TODO: fix typing on this
             />
           ))}
         </MapView>

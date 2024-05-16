@@ -7,6 +7,11 @@ import {
   Image,
   ScrollView,
 } from "react-native";
+import { useAppSelector } from "../../../store/Selector";
+import {
+  darkModeBackgroundColor,
+  lightModeBackgroundColor,
+} from "../../../assets/colors";
 
 const AboutGizmo = () => {
   return (
@@ -17,8 +22,11 @@ const AboutGizmo = () => {
           marginTop: 20,
           marginBottom: 50,
           padding: 10,
-          backgroundColor: "white",
+          backgroundColor: darkModeSelected
+            ? darkModeBackgroundColor
+            : lightModeBackgroundColor,
           elevation: 5,
+          shadowColor: darkModeSelected ? "white" : "black",
         }}
       >
         <View style={{ flex: 1, zIndex: -1, alignItems: "center" }}>
@@ -92,16 +100,24 @@ const AboutGizmo = () => {
   );
 };
 
+const darkModeSelected = () => {
+  return useAppSelector((state) => state.image.darkMode);
+};
+
 const styles = StyleSheet.create({
   paragraph: {
     flexDirection: "row",
     width: "100%",
-    backgroundColor: "white",
+    backgroundColor: darkModeSelected
+      ? darkModeBackgroundColor
+      : lightModeBackgroundColor,
   },
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: "white",
+    backgroundColor: darkModeSelected
+      ? darkModeBackgroundColor
+      : lightModeBackgroundColor,
   },
   title: {
     fontSize: 32,
@@ -109,20 +125,27 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     paddingVertical: 8,
     textAlign: "center",
-    backgroundColor: "white",
+    backgroundColor: darkModeSelected
+      ? darkModeBackgroundColor
+      : lightModeBackgroundColor,
+    color: darkModeSelected ? "white" : "black",
   },
   description: {
     fontSize: 16,
     lineHeight: 24,
     paddingBottom: 40,
     width: "100%",
-    backgroundColor: "white",
+    backgroundColor: darkModeSelected
+      ? darkModeBackgroundColor
+      : lightModeBackgroundColor,
+    color: darkModeSelected ? "white" : "black",
   },
   innerDescription: {
     fontSize: 16,
     lineHeight: 24,
     marginBottom: 40,
     width: "45%",
+    color: darkModeSelected ? "white" : "black",
   },
 });
 

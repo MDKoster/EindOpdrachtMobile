@@ -16,12 +16,18 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import HomeSuggestionListComponent from "../components/HomeSuggestionListComponent";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useAppSelector } from "../../store/Selector";
+import {
+  darkModeBackgroundColor,
+  lightModeBackgroundColor,
+} from "../../assets/colors";
 
 const HomeScreen = () => {
   const windowWidth = Dimensions.get("window").width;
   const scrollViewRef = useRef<ScrollView>(null);
   const suggestionRef = useRef<ScrollView>(null);
   const [currentX, setCurrentX] = useState(0);
+  const darkModeSelected = useAppSelector((state) => state.image.darkMode);
 
   //temporary images. Will be replaced with actual data from the server
   const images: ImageSourcePropType[] = [
@@ -92,7 +98,14 @@ const HomeScreen = () => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#f1f1f1" }}>
+    <SafeAreaView
+      style={{
+        flex: 1,
+        backgroundColor: darkModeSelected
+          ? darkModeBackgroundColor
+          : lightModeBackgroundColor,
+      }}
+    >
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <View
           style={{
@@ -109,7 +122,12 @@ const HomeScreen = () => {
               <MaterialCommunityIcons
                 name="magnify"
                 size={24}
-                style={{ zIndex: 2, top: 38, left: 35, color: "grey" }}
+                style={{
+                  zIndex: 2,
+                  top: 38,
+                  left: 35,
+                  color: darkModeSelected ? "#f1f1f1" : "grey",
+                }}
               />
               <TextInput
                 style={{
@@ -117,12 +135,16 @@ const HomeScreen = () => {
                   opacity: 0.8,
                   textAlign: "center",
                   paddingHorizontal: 40,
-                  backgroundColor: "white",
+                  backgroundColor: darkModeSelected
+                    ? darkModeBackgroundColor
+                    : lightModeBackgroundColor,
                   width: 200,
                   height: 40,
                   borderRadius: 10,
+                  color: darkModeSelected ? "#f1f1f1" : "black",
                 }}
                 placeholder="Search"
+                placeholderTextColor={darkModeSelected ? "#f1f1f1" : "grey"}
               />
             </View>
             <Text
@@ -182,7 +204,9 @@ const HomeScreen = () => {
           </View>
           <Animated.View
             style={{
-              backgroundColor: "white",
+              backgroundColor: darkModeSelected
+                ? darkModeBackgroundColor
+                : lightModeBackgroundColor,
               borderTopLeftRadius: animatedRadius,
               borderTopRightRadius: animatedRadius,
               overflow: "hidden",

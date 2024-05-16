@@ -7,6 +7,11 @@ import {
 } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
+import { useAppSelector } from "../../store/Selector";
+import {
+  darkModeBackgroundColor,
+  lightModeBackgroundColor,
+} from "../../assets/colors";
 
 type Props = {
   item: ImageSourcePropType;
@@ -34,6 +39,10 @@ const SuggestionItemComponent = ({ item }: Props) => {
 
 export default SuggestionItemComponent;
 
+const darkModeSelected = () => {
+  return useAppSelector((state) => state.image.darkMode);
+};
+
 const styles = StyleSheet.create({
   cardImage: {
     width: 130,
@@ -43,9 +52,12 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
     borderWidth: 0.4,
-    borderColor: "black",
-    backgroundColor: "white",
+    borderColor: darkModeSelected ? "white" : "black",
+    backgroundColor: darkModeSelected
+      ? darkModeBackgroundColor
+      : lightModeBackgroundColor,
     elevation: 3,
+    shadowColor: darkModeSelected ? "white" : "black",
   },
   cardDetails: {
     height: 50,
@@ -57,7 +69,8 @@ const styles = StyleSheet.create({
     borderRightWidth: 0.4,
     borderBottomRightRadius: 20,
     borderBottomLeftRadius: 20,
-    backgroundColor: "white",
+    backgroundColor: darkModeSelected ? "#CECECE" : "white",
     elevation: 3,
+    shadowColor: darkModeSelected ? "white" : "black",
   },
 });
