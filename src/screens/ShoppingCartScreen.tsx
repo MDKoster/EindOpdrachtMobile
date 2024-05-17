@@ -24,7 +24,9 @@ const ShoppingCartScreen = () => {
         }}
       />
       <Image
-        source={require("../../assets/images/empty-bag.jpg")}
+        src={
+          "https://firebasestorage.googleapis.com/v0/b/eindopdrachtmobile-7ceb5.appspot.com/o/empty-bag.jpg?alt=media&token=c5ea0f90-1385-41a3-9fe9-d176a82cc299"
+        }
         style={{
           resizeMode: "cover",
           height: "111%",

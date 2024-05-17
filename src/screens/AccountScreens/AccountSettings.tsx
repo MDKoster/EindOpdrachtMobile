@@ -1,4 +1,4 @@
-import { StyleSheet, Text, Touchable, View } from "react-native";
+import { StyleSheet, Switch, Text, Touchable, View } from "react-native";
 import React from "react";
 import { useAppSelector } from "../../../store/Selector";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -7,7 +7,7 @@ import { toggleDarkMode } from "../../../store/ImageReducer";
 import {
   darkModeBackgroundColor,
   lightModeBackgroundColor,
-} from "../../../assets/colors";
+} from "../../../util/colors";
 
 const AccountSettings = () => {
   const darkModeSelected = useAppSelector((state) => state.image.darkMode);

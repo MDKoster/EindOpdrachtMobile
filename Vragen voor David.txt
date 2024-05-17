@@ -8,3 +8,4 @@ Wat is het verschil tussen react-navigation/stack en react-navigation/native-sta
 Stacknavigator in stacknavigator? Bvb: Mijn loginscherm zit in de Settingsstacknavigator.
 -> lukt. Gewoon doen.
 
+Inline styling of alles verplaatsen naar stylesheet?

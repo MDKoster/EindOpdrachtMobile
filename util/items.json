@@ -1,0 +1,30 @@
+[
+  {
+    "name": "item1",
+    "description": "description1",
+    "category": "shirt",
+    "style": "casual",
+    "color": "white",
+    "material": "100% cotton",
+    "price": "25",
+    "quantity": "15",
+    "reviews": [
+      {
+        "rating": "5",
+        "comment": "comment1",
+        "author": "author1"
+      },
+      {
+        "rating": "4",
+        "comment": "comment2",
+        "author": "author2"
+      }
+    ],
+    "sizes": ["S", "M", "L", "XL"],
+    "images": [
+      "https://firebasestorage.googleapis.com/v0/b/eindopdrachtmobile-7ceb5.appspot.com/o/female-dress.jpg?alt=media&token=79b578cd-cb2a-47df-b7a2-9fdbd4bc5032",
+      "image2"
+    ],
+    "tags": ["tag1", "tag2"]
+  }
+]

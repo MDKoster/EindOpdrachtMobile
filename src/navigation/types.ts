@@ -28,16 +28,7 @@ export type SettingsStackParamsList = {
   AccountDelete: undefined;
   AboutApp: undefined;
   MapMarkerDetail: {
-    store: {
-      id: string;
-      name: string;
-      address: string;
-      phone: string;
-      image: ImageSourcePropType;
-      openingHours: string[];
-      latitude: number;
-      longitude: number;
-    };
+    store: StoreLocationType;
   };
 };
 
@@ -67,3 +58,14 @@ declare global {
         AuthStackParamsList {}
   }
 }
+
+export type StoreLocationType = {
+  id: string;
+  name: string;
+  address: string;
+  phone: string;
+  image: string;
+  openingHours: string[];
+  latitude: number;
+  longitude: number;
+};

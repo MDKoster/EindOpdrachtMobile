@@ -13,7 +13,7 @@ import { AuthScreenProps, AuthStackParamsList } from "../../navigation/types";
 import {
   darkModeBackgroundColor,
   lightModeBackgroundColor,
-} from "../../../assets/colors";
+} from "../../../util/colors";
 import { useAppSelector } from "../../../store/Selector";
 
 const LogInScreen = () => {

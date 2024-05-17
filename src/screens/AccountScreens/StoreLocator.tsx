@@ -6,17 +6,25 @@ import { useAppSelector } from "../../../store/Selector";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TextInput } from "react-native-gesture-handler";
-import { SettingsStackParamsList } from "../../navigation/types";
+import {
+  SettingsStackParamsList,
+  StoreLocationType,
+} from "../../navigation/types";
 import MapCustomStyle from "./MapCustomStyle";
 import {
   darkModeBackgroundColor,
   lightModeBackgroundColor,
-} from "../../../assets/colors";
+} from "../../../util/colors";
+import { collection, getDocs, query } from "firebase/firestore";
+import { db } from "../../config/firebase";
+import { useDispatch } from "react-redux";
+import { setStoreLocations } from "../../../store/NavigationReducer";
 
 const StoreLocator = () => {
   const navigation = useNavigation();
   const darkModeSelected = useAppSelector((state) => state.image.darkMode);
   const mapDarkMode = MapCustomStyle();
+  const dispatch = useDispatch();
 
   //Ask permission to use location
   const [status, requestPermission] = Location.useForegroundPermissions();
@@ -44,6 +52,25 @@ const StoreLocator = () => {
     })();
     // Cleanup callback
     return () => locationSubscription && locationSubscription.remove();
+  }, []);
+
+  useEffect(() => {
+    const q = query(collection(db, "stores"));
+
+    (async () => {
+      try {
+        const qs = await getDocs(q);
+        dispatch(
+          setStoreLocations(
+            qs.docs.map(
+              (ds) => ({ id: ds.id, ...ds.data() } as StoreLocationType)
+            )
+          )
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    })();
   }, []);
 
   return (

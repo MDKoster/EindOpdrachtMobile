@@ -4,10 +4,6 @@
 
 -Bij detailweergave aantal beschikbare items weergeven & niet toelaten om meer aan te kopen dan er beschikbaar zijn
 
--types.ts toevoegen voor global typing van useNavigation
-
--dark mode: state bijhouden in redux en background colours/text colours conditioneel instellen volgens die state. Dark mode optie in Settings steken
-
 -json file maken van items => 
 {
     name: string,
@@ -23,3 +19,9 @@
     images: string[],
     tags: string[]
 }
+
+-Authentication
+
+-Favourites saving in database
+
+-Redux state for items in shopping bag

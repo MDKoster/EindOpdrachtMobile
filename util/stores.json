@@ -1,0 +1,56 @@
+[
+  {
+    "id": "1",
+    "name": "Gizmo Oostakker",
+    "address": "Wildebrake 74, 9041 Oostakker",
+    "phone": "09 251 60 16",
+    "image": "https://firebasestorage.googleapis.com/v0/b/eindopdrachtmobile-7ceb5.appspot.com/o/Gizmo%20store%201.jpg?alt=media&token=e9244611-6b63-4562-a197-d619f53d02f5",
+    "openingHours": [
+      "Maandag: 10u - 18u",
+      "Dinsdag: 10u - 18u",
+      "Woensdag: 10u - 18u",
+      "Donderdag: 10u - 18u",
+      "Vrijdag: 10u - 18u",
+      "Zaterdag: 8u - 12u",
+      "Zondag: Gesloten"
+    ],
+    "latitude": 51.0813,
+    "longitude": 3.7831
+  },
+  {
+    "id": "2",
+    "name": "Gizmo Mariakerke",
+    "address": "Beukelaarstraat 2, 9030 Mariakerke",
+    "phone": "09 233 55 10",
+    "image": "https://firebasestorage.googleapis.com/v0/b/eindopdrachtmobile-7ceb5.appspot.com/o/Gizmo%20store%202.jpg?alt=media&token=30cccb77-70a7-4724-a34f-3e713f401577",
+    "openingHours": [
+      "Maandag: 10u - 18u",
+      "Dinsdag: 10u - 18u",
+      "Woensdag: 10u - 18u",
+      "Donderdag: 10u - 18u",
+      "Vrijdag: 10u - 18u",
+      "Zaterdag: 8u - 12u",
+      "Zondag: Gesloten"
+    ],
+    "latitude": 51.0613,
+    "longitude": 3.7031
+  },
+  {
+    "id": "3",
+    "name": "Gizmo Melle",
+    "address": "Gontrode Heirweg 192, 9090 Melle",
+    "phone": "09 252 20 43",
+    "image": "https://firebasestorage.googleapis.com/v0/b/eindopdrachtmobile-7ceb5.appspot.com/o/Gizmo%20store%203.jpg?alt=media&token=c39d501f-9323-47b1-9753-771f5215832d",
+    "openingHours": [
+      "Maandag: 10u - 18u",
+      "Dinsdag: 10u - 18u",
+      "Woensdag: 10u - 18u",
+      "Donderdag: 10u - 18u",
+      "Vrijdag: 10u - 18u",
+      "Zaterdag: 8u - 12u",
+      "Zondag: Gesloten"
+    ],
+    "latitude": 51.0013,
+    "longitude": 3.7831
+  }
+]

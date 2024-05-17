@@ -5,14 +5,15 @@ import {
   Text,
   View,
 } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { useRoute } from "@react-navigation/native";
 import { SettingsScreenProps } from "../../navigation/types";
 import { useAppSelector } from "../../../store/Selector";
 import {
   darkModeBackgroundColor,
   lightModeBackgroundColor,
-} from "../../../assets/colors";
+} from "../../../util/colors";
+import { FlatList } from "react-native-gesture-handler";
 
 const MapMarkerDetailScreen = () => {
   const {
@@ -68,7 +69,7 @@ const MapMarkerDetailScreen = () => {
         }}
       >
         <Image
-          source={store.image}
+          src={store.image}
           style={{
             borderWidth: 2,
             borderColor: "black",
@@ -92,18 +93,21 @@ const MapMarkerDetailScreen = () => {
         >
           Openingsuren
         </Text>
-        {store.openingHours.map((hour, index) => (
-          <Text
-            key={index}
-            style={{
-              fontSize: 14,
-              fontWeight: "300",
-              color: darkModeSelected ? "white" : "black",
-            }}
-          >
-            {hour}
-          </Text>
-        ))}
+        <FlatList
+          keyExtractor={(index) => index.toString()}
+          data={store.openingHours}
+          renderItem={({ item }) => (
+            <Text
+              style={{
+                fontSize: 14,
+                fontWeight: "300",
+                color: darkModeSelected ? "white" : "black",
+              }}
+            >
+              {item}
+            </Text>
+          )}
+        />
       </View>
     </View>
   );

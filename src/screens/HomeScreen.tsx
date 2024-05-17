@@ -20,7 +20,7 @@ import { useAppSelector } from "../../store/Selector";
 import {
   darkModeBackgroundColor,
   lightModeBackgroundColor,
-} from "../../assets/colors";
+} from "../../util/colors";
 
 const HomeScreen = () => {
   const windowWidth = Dimensions.get("window").width;

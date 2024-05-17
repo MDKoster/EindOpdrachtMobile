@@ -11,7 +11,7 @@ import { useAppSelector } from "../../store/Selector";
 import {
   darkModeBackgroundColor,
   lightModeBackgroundColor,
-} from "../../assets/colors";
+} from "../../util/colors";
 
 type Props = {
   item: ImageSourcePropType;
