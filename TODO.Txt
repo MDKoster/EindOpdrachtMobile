@@ -4,24 +4,13 @@
 
 -Bij detailweergave aantal beschikbare items weergeven & niet toelaten om meer aan te kopen dan er beschikbaar zijn
 
--json file maken van items => 
-{
-    name: string,
-    description: string,
-    category: string, => shirt, pants, etc...
-    style: string, => casual, sports, formal, etc...
-    color: string,
-    material: string,
-    price: number,
-    quantity: number,
-    reviews: string[],
-    sizes: string[],
-    images: string[],
-    tags: string[]
-}
-
 -Authentication
 
 -Favourites saving in database
 
 -Redux state for items in shopping bag
+
+-Firestore DB: 
+    - images: main image + subcollection for other images?
+    - seperate categories collection with relevant item ID's and other basic data needed to show in a search result
+
