@@ -2,12 +2,12 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
-import { useAppSelector } from "../../store/Selector";
+import { useAppSelector } from "../hooks/Selector";
 
 const ShoppingCartScreen = () => {
   const navigator = useNavigation();
   const [emptyCartBackgroundImage, setEmptyCartBackgroundImage] = useState();
-  const darkModeSelected = useAppSelector((state) => state.image.darkMode);
+  const darkModeSelected = useAppSelector((state) => state.layout.darkMode);
 
   useEffect(() => {}, []);
 

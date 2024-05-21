@@ -4,6 +4,7 @@ type image = {
   require: string;
 };
 
+//images can be removed here, but I left them in for use with the splashscreen component
 const initialState: {
   images: image[];
   darkMode: boolean;
@@ -20,8 +21,8 @@ const initialState: {
   darkMode: false,
 };
 
-export const ImageSlice = createSlice({
-  name: "image",
+export const LayoutSlice = createSlice({
+  name: "layout",
   initialState,
   reducers: {
     setImages: (state, action) => {
@@ -33,5 +34,5 @@ export const ImageSlice = createSlice({
   },
 });
 
-export const { setImages, toggleDarkMode } = ImageSlice.actions;
-export const ImageReducer = ImageSlice.reducer;
+export const { setImages, toggleDarkMode } = LayoutSlice.actions;
+export const LayoutReducer = LayoutSlice.reducer;

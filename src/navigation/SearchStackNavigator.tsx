@@ -12,7 +12,7 @@ import SearchPopular from "../screens/SearchScreens/SearchPopular";
 import SearchShoes from "../screens/SearchScreens/SearchShoes";
 import SearchAccessories from "../screens/SearchScreens/SearchAccessories";
 import SearchSports from "../screens/SearchScreens/SearchSports";
-import { useAppSelector } from "../../store/Selector";
+import { useAppSelector } from "../hooks/Selector";
 import {
   darkModeBackgroundColor,
   lightModeBackgroundColor,
@@ -21,7 +21,7 @@ import {
 const Stack = createStackNavigator();
 
 const SearchStackNavigator = () => {
-  const darkModeSelected = useAppSelector((state) => state.image.darkMode);
+  const darkModeSelected = useAppSelector((state) => state.layout.darkMode);
 
   return (
     <>

@@ -1,10 +1,12 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import { ImageReducer } from "./ImageReducer";
+import { LayoutReducer } from "./LayoutReducer";
 import { NavigationReducer } from "./NavigationReducer";
+import { UserReducer } from "./UserReducer";
 
 const rootReducer = combineReducers({
-  image: ImageReducer,
+  layout: LayoutReducer,
   navigation: NavigationReducer,
+  user: UserReducer,
 });
 
 export default rootReducer;

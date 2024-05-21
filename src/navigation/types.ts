@@ -18,6 +18,7 @@ export type SearchStackParamsList = {
 
 export type SettingsStackParamsList = {
   AccountMain: undefined;
+  UserDetail: undefined;
   LogIn: undefined;
   StoreLocator: undefined;
   AccountSettings: undefined;

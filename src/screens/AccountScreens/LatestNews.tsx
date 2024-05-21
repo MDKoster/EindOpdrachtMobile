@@ -3,14 +3,14 @@ import React from "react";
 import NewsCardComponent from "../../components/NewsCardComponent";
 import { ScrollView } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useAppSelector } from "../../../store/Selector";
+import { useAppSelector } from "../../hooks/Selector";
 import {
   darkModeBackgroundColor,
   lightModeBackgroundColor,
 } from "../../../util/colors";
 
 const LatestNews = () => {
-  const darkModeSelected = useAppSelector((state) => state.image.darkMode);
+  const darkModeSelected = useAppSelector((state) => state.layout.darkMode);
 
   return (
     <SafeAreaView

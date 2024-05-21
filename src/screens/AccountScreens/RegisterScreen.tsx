@@ -1,183 +1,296 @@
+import React from "react";
 import {
+  Alert,
   Keyboard,
   SafeAreaView,
   StyleSheet,
   Text,
-  TextInput,
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-import React, { useState } from "react";
-import { StackActions, useNavigation } from "@react-navigation/native";
-import { AuthScreenProps, AuthStackParamsList } from "../../navigation/types";
-import { useAppSelector } from "../../../store/Selector";
+import { useNavigation } from "@react-navigation/native";
+import {
+  AuthScreenProps,
+  AuthStackParamsList,
+  SettingsScreenProps,
+  SettingsStackParamsList,
+} from "../../navigation/types";
+import { useAppSelector } from "../../hooks/Selector";
 import {
   darkModeBackgroundColor,
   lightModeBackgroundColor,
 } from "../../../util/colors";
+import { TouchableOpacity, TextInput } from "react-native-gesture-handler";
+import { Formik } from "formik";
+import * as Yup from "yup";
+import { useAuth } from "../../hooks/useAuth";
 
-const LogInScreen = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const navigator = useNavigation<AuthScreenProps<"Register">["navigation"]>();
-  const darkModeSelected = useAppSelector((state) => state.image.darkMode);
+const RegisterScreen = () => {
+  const authNavigator =
+    useNavigation<AuthScreenProps<"Register">["navigation"]>();
+  const settingsNavigator =
+    useNavigation<SettingsScreenProps<"AccountMain">["navigation"]>();
+  const darkModeSelected = useAppSelector((state) => state.layout.darkMode);
+  const { register } = useAuth();
+
+  const validationSchema = Yup.object().shape({
+    name: Yup.string().required("Name is required"),
+    email: Yup.string().email("Invalid email").required("Email is required"),
+    password: Yup.string()
+      .min(6, "Password must be at least 6 characters")
+      .required("Password is required"),
+  });
 
   return (
     <SafeAreaView
-      style={{
-        flex: 1,
-        backgroundColor: darkModeSelected
-          ? darkModeBackgroundColor
-          : lightModeBackgroundColor,
-      }}
+      style={[
+        styles.container,
+        {
+          backgroundColor: darkModeSelected
+            ? darkModeBackgroundColor
+            : lightModeBackgroundColor,
+        },
+      ]}
     >
       <TouchableWithoutFeedback
         onPress={() => Keyboard.dismiss()}
-        style={{
-          flex: 0.9,
-        }}
+        style={{ flex: 0.9 }}
       >
         <View
-          style={{
-            minHeight: "86%",
-            top: 25,
-            margin: 20,
-            backgroundColor: darkModeSelected
-              ? darkModeBackgroundColor
-              : lightModeBackgroundColor,
-            elevation: 5,
-            shadowColor: darkModeSelected ? "white" : "black",
-            alignItems: "center",
-          }}
+          style={[
+            styles.formContainer,
+            {
+              backgroundColor: darkModeSelected
+                ? darkModeBackgroundColor
+                : lightModeBackgroundColor,
+              shadowColor: darkModeSelected ? "white" : "black",
+            },
+          ]}
         >
           <Text
-            style={{
-              flex: 0.2,
-              fontSize: 24,
-              fontWeight: 500,
-              top: 40,
-              marginBottom: 20,
-              color: darkModeSelected ? "white" : "black",
-            }}
+            style={[
+              styles.title,
+              { color: darkModeSelected ? "white" : "black" },
+            ]}
           >
             Register
           </Text>
-          <View
-            style={{
-              flex: 0.2,
-              justifyContent: "center",
-              marginBottom: 20,
+
+          <Formik
+            initialValues={{ name: "", email: "", password: "" }}
+            validationSchema={validationSchema}
+            onSubmit={async (values) => {
+              try {
+                await register(values.email, values.password, values.name);
+                Alert.alert(
+                  "Registration complete!",
+                  "Thank you for registering! We hope you enjoy shopping at Gizmo.",
+                  [
+                    {
+                      text: "Continue",
+                      onPress: () =>
+                        settingsNavigator.navigate<
+                          keyof SettingsStackParamsList
+                        >("AccountMain"),
+                    },
+                  ]
+                );
+              } catch (error) {
+                console.log(error);
+              }
             }}
           >
-            <Text
-              style={{
-                fontSize: 18,
-                fontWeight: 400,
-                paddingVertical: 10,
-                color: darkModeSelected ? "white" : "black",
-              }}
-            >
-              Name
-            </Text>
-            <TextInput
-              style={{
-                opacity: 0.9,
-                textAlign: "center",
-                paddingHorizontal: 5,
-                backgroundColor: "#fefefe",
-                width: 250,
-                height: 50,
-                borderRadius: 10,
-                elevation: 5,
-                shadowColor: darkModeSelected ? "white" : "black",
-              }}
-              placeholder="Name"
-            />
-          </View>
-          <View
-            style={{
-              flex: 0.2,
-              justifyContent: "center",
-              marginBottom: 20,
-            }}
-          >
-            <Text
-              style={{
-                fontSize: 18,
-                fontWeight: 400,
-                paddingVertical: 10,
-                color: darkModeSelected ? "white" : "black",
-              }}
-            >
-              Email
-            </Text>
-            <TextInput
-              style={{
-                opacity: 0.9,
-                textAlign: "center",
-                paddingHorizontal: 5,
-                backgroundColor: "#fefefe",
-                width: 250,
-                height: 50,
-                borderRadius: 10,
-                elevation: 5,
-                shadowColor: darkModeSelected ? "white" : "black",
-              }}
-              placeholder="Email"
-            />
-          </View>
-          <View
-            style={{
-              flex: 0.2,
-              justifyContent: "center",
-              marginBottom: 20,
-            }}
-          >
-            <Text
-              style={{
-                fontSize: 18,
-                fontWeight: 400,
-                paddingVertical: 10,
-                color: darkModeSelected ? "white" : "black",
-              }}
-            >
-              Password
-            </Text>
-            <TextInput
-              style={{
-                opacity: 0.9,
-                textAlign: "center",
-                paddingHorizontal: 5,
-                backgroundColor: "#fefefe",
-                width: 250,
-                height: 50,
-                borderRadius: 10,
-                elevation: 5,
-                shadowColor: darkModeSelected ? "white" : "black",
-              }}
-              placeholder="Password"
-            />
-          </View>
-          <Text
-            style={{
-              color: darkModeSelected ? "white" : "black",
-            }}
-          >
-            Already a member?{" "}
-            <Text
-              style={{ color: darkModeSelected ? "#BBAEFF" : "#0000CC" }}
-              onPress={() => {
-                navigator.navigate<keyof AuthStackParamsList>("Login");
-              }}
-            >
-              Log in here!
-            </Text>
-          </Text>
+            {({
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              values,
+              errors,
+              touched,
+            }) => (
+              <>
+                <View style={styles.inputContainer}>
+                  <Text
+                    style={[
+                      styles.label,
+                      { color: darkModeSelected ? "white" : "black" },
+                    ]}
+                  >
+                    Name
+                  </Text>
+                  <TextInput
+                    style={[
+                      styles.input,
+                      { shadowColor: darkModeSelected ? "white" : "black" },
+                    ]}
+                    placeholder="Enter your name"
+                    onChangeText={handleChange("name")}
+                    onBlur={handleBlur("name")}
+                    value={values.name}
+                  />
+                  {touched.name && errors.name && (
+                    <Text style={styles.error}>{errors.name}</Text>
+                  )}
+                </View>
+
+                <View style={styles.inputContainer}>
+                  <Text
+                    style={[
+                      styles.label,
+                      { color: darkModeSelected ? "white" : "black" },
+                    ]}
+                  >
+                    Email
+                  </Text>
+                  <TextInput
+                    style={[
+                      styles.input,
+                      { shadowColor: darkModeSelected ? "white" : "black" },
+                    ]}
+                    placeholder="Enter a valid email"
+                    onChangeText={handleChange("email")}
+                    onBlur={handleBlur("email")}
+                    value={values.email}
+                    keyboardType="email-address"
+                  />
+                  {touched.email && errors.email && (
+                    <Text style={styles.error}>{errors.email}</Text>
+                  )}
+                </View>
+
+                <View style={styles.inputContainer}>
+                  <Text
+                    style={[
+                      styles.label,
+                      { color: darkModeSelected ? "white" : "black" },
+                    ]}
+                  >
+                    Password
+                  </Text>
+                  <TextInput
+                    style={[
+                      styles.input,
+                      { shadowColor: darkModeSelected ? "white" : "black" },
+                    ]}
+                    placeholder="Choose a password"
+                    secureTextEntry
+                    onChangeText={handleChange("password")}
+                    onBlur={handleBlur("password")}
+                    value={values.password}
+                  />
+                  {touched.password && errors.password && (
+                    <Text style={styles.error}>{errors.password}</Text>
+                  )}
+                </View>
+
+                <Text
+                  style={[
+                    styles.footerText,
+                    { color: darkModeSelected ? "white" : "black" },
+                  ]}
+                >
+                  Already a member?{" "}
+                  <Text
+                    style={{ color: darkModeSelected ? "#BBAEFF" : "#0000CC" }}
+                    onPress={() =>
+                      authNavigator.navigate<keyof AuthStackParamsList>("Login")
+                    }
+                  >
+                    Log in here!
+                  </Text>
+                </Text>
+
+                <TouchableOpacity onPress={handleSubmit as () => {}}>
+                  <View
+                    style={[
+                      styles.submitButton,
+                      {
+                        backgroundColor: darkModeSelected
+                          ? "#7359FD"
+                          : "#6B9ADD",
+                        borderColor: darkModeSelected ? "#E6E1FF" : "#A2C1EB",
+                      },
+                    ]}
+                  >
+                    <Text
+                      style={[
+                        styles.submitButtonText,
+                        { color: darkModeSelected ? "white" : "black" },
+                      ]}
+                    >
+                      Register
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+              </>
+            )}
+          </Formik>
         </View>
       </TouchableWithoutFeedback>
     </SafeAreaView>
   );
 };
 
-export default LogInScreen;
+export default RegisterScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  formContainer: {
+    minHeight: "86%",
+    top: 25,
+    margin: 20,
+    elevation: 5,
+    alignItems: "center",
+  },
+  title: {
+    flex: 0.15,
+    fontSize: 24,
+    fontWeight: "500",
+    top: 40,
+    marginBottom: 20,
+  },
+  inputContainer: {
+    flex: 0.2,
+    justifyContent: "center",
+    marginVertical: 20,
+  },
+  label: {
+    fontSize: 16,
+    fontWeight: "400",
+    paddingVertical: 5,
+  },
+  input: {
+    opacity: 0.9,
+    textAlign: "center",
+    paddingHorizontal: 5,
+    backgroundColor: "#fefefe",
+    borderWidth: 1,
+    borderColor: "grey",
+    width: 300,
+    height: 50,
+    borderRadius: 10,
+    elevation: 5,
+  },
+  error: {
+    color: "red",
+    fontSize: 12,
+  },
+  footerText: {
+    color: "black",
+  },
+  submitButton: {
+    marginTop: 10,
+    width: 200,
+    borderRadius: 10,
+    overflow: "hidden",
+    borderWidth: 1,
+  },
+  submitButtonText: {
+    fontSize: 18,
+    fontWeight: "400",
+    paddingVertical: 10,
+    textAlign: "center",
+  },
+});

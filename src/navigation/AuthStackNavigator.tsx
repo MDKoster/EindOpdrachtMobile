@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import LogInScreen from "../screens/AccountScreens/LogInScreen";
 import RegisterScreen from "../screens/AccountScreens/RegisterScreen";
+import LogInScreen from "../screens/AccountScreens/LoginScreen";
 
 const AuthStack = createStackNavigator();
 

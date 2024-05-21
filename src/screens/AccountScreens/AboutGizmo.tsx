@@ -7,13 +7,17 @@ import {
   Image,
   ScrollView,
 } from "react-native";
-import { useAppSelector } from "../../../store/Selector";
+import { useAppSelector } from "../../hooks/Selector";
 import {
   darkModeBackgroundColor,
   lightModeBackgroundColor,
 } from "../../../util/colors";
 
 const AboutGizmo = () => {
+  const darkModeSelected = useAppSelector((state) => state.layout.darkMode);
+
+  const styles = getStyles(darkModeSelected);
+
   return (
     <SafeAreaView style={styles.container}>
       <View
@@ -100,53 +104,50 @@ const AboutGizmo = () => {
   );
 };
 
-const darkModeSelected = () => {
-  return useAppSelector((state) => state.image.darkMode);
-};
-
-const styles = StyleSheet.create({
-  paragraph: {
-    flexDirection: "row",
-    width: "100%",
-    backgroundColor: darkModeSelected
-      ? darkModeBackgroundColor
-      : lightModeBackgroundColor,
-  },
-  container: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: darkModeSelected
-      ? darkModeBackgroundColor
-      : lightModeBackgroundColor,
-  },
-  title: {
-    fontSize: 32,
-    fontStyle: "italic",
-    fontWeight: "bold",
-    paddingVertical: 8,
-    textAlign: "center",
-    backgroundColor: darkModeSelected
-      ? darkModeBackgroundColor
-      : lightModeBackgroundColor,
-    color: darkModeSelected ? "white" : "black",
-  },
-  description: {
-    fontSize: 16,
-    lineHeight: 24,
-    paddingBottom: 40,
-    width: "100%",
-    backgroundColor: darkModeSelected
-      ? darkModeBackgroundColor
-      : lightModeBackgroundColor,
-    color: darkModeSelected ? "white" : "black",
-  },
-  innerDescription: {
-    fontSize: 16,
-    lineHeight: 24,
-    marginBottom: 40,
-    width: "45%",
-    color: darkModeSelected ? "white" : "black",
-  },
-});
+const getStyles = (darkModeSelected: boolean) =>
+  StyleSheet.create({
+    paragraph: {
+      flexDirection: "row",
+      width: "100%",
+      backgroundColor: darkModeSelected
+        ? darkModeBackgroundColor
+        : lightModeBackgroundColor,
+    },
+    container: {
+      flex: 1,
+      padding: 20,
+      backgroundColor: darkModeSelected
+        ? darkModeBackgroundColor
+        : lightModeBackgroundColor,
+    },
+    title: {
+      fontSize: 32,
+      fontStyle: "italic",
+      fontWeight: "bold",
+      paddingVertical: 8,
+      textAlign: "center",
+      backgroundColor: darkModeSelected
+        ? darkModeBackgroundColor
+        : lightModeBackgroundColor,
+      color: darkModeSelected ? "white" : "black",
+    },
+    description: {
+      fontSize: 16,
+      lineHeight: 24,
+      paddingBottom: 40,
+      width: "100%",
+      backgroundColor: darkModeSelected
+        ? darkModeBackgroundColor
+        : lightModeBackgroundColor,
+      color: darkModeSelected ? "white" : "black",
+    },
+    innerDescription: {
+      fontSize: 16,
+      lineHeight: 24,
+      marginBottom: 40,
+      width: "45%",
+      color: darkModeSelected ? "white" : "black",
+    },
+  });
 
 export default AboutGizmo;

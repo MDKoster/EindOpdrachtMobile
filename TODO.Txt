@@ -1,16 +1,48 @@
--camera functionaliteit toevoegen bij Register (profielfoto)
-
--hoeveelheden van items in stock toevoegen in DB
+-Detailscherm items:
+    -foto's (horizontale flatlist)
+    -prijs
+    -stock
+    -maten
+    -desc
+    -general info
+    -reviews
+    -mogelijkheid om review achter te laten
+    -add to favourites ster
+    -toevoegen aan winkelmandje; knop
 
 -Bij detailweergave aantal beschikbare items weergeven & niet toelaten om meer aan te kopen dan er beschikbaar zijn
 
--Authentication
+-Shopping screen overzicht aanmaken:
+    -filter option
+    -make item card and flatlists
+
+-Profielscherm aanmaken
+    -camera functionaliteit toevoegen (profielfoto)
 
 -Favourites saving in database
 
 -Redux state for items in shopping bag
 
+-Shopping bag:
+    -Create screen to view added items
+    -add button to go to checkout
+
+-Search:
+    -add navigation to shopping screen
+
 -Firestore DB: 
     - images: main image + subcollection for other images?
-    - seperate categories collection with relevant item ID's and other basic data needed to show in a search result
+    - seperate categories collection with relevant item ID's and other basic data needed to show on main shop screen (popular, new arrivals, etc.)
+
+-Settings:
+    -add other Settings
+
+-Latest news:
+    -add random news cards; image and title will suffice
+
+-Help & Info:
+    -???
+
+-Delete account
+    -add simple screen with warning and inputfield. Enter "delete" to remove account permanently.
 

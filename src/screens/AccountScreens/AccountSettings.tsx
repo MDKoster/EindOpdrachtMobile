@@ -1,17 +1,21 @@
-import { StyleSheet, Switch, Text, Touchable, View } from "react-native";
+import { StyleSheet, Switch, Text, View } from "react-native";
 import React from "react";
-import { useAppSelector } from "../../../store/Selector";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { useAppSelector } from "../../hooks/Selector";
 import { useDispatch } from "react-redux";
-import { toggleDarkMode } from "../../../store/ImageReducer";
+import { toggleDarkMode } from "../../../store/LayoutReducer";
 import {
   darkModeBackgroundColor,
   lightModeBackgroundColor,
 } from "../../../util/colors";
 
 const AccountSettings = () => {
-  const darkModeSelected = useAppSelector((state) => state.image.darkMode);
+  const darkModeSelected = useAppSelector((state) => state.layout.darkMode);
   const dispatch = useDispatch();
+
+  const setDarkMode = () => {
+    dispatch(toggleDarkMode());
+  };
+
   return (
     <View
       style={{
@@ -30,28 +34,36 @@ const AccountSettings = () => {
       >
         AccountSettings
       </Text>
-      <TouchableOpacity onPress={() => dispatch(toggleDarkMode())}>
-        <View
+      <View
+        style={{
+          width: "90%",
+          paddingHorizontal: 20,
+          elevation: 5,
+          shadowColor: darkModeSelected ? "white" : "black",
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginTop: 20,
+          backgroundColor: darkModeSelected
+            ? darkModeBackgroundColor
+            : lightModeBackgroundColor,
+        }}
+      >
+        <Text
           style={{
-            backgroundColor: darkModeSelected ? "#D5C736" : "blue",
-            padding: 10,
-            borderRadius: 10,
-            marginTop: 10,
-            width: 150,
-            height: 50,
-            justifyContent: "center",
-            alignItems: "center",
+            color: darkModeSelected ? "white" : "black",
           }}
         >
-          <Text
-            style={{
-              color: darkModeSelected ? "black" : "white",
-            }}
-          >
-            Toggle Darkmode
-          </Text>
-        </View>
-      </TouchableOpacity>
+          Dark Mode is {darkModeSelected ? "enabled" : "disabled"}
+        </Text>
+        <Switch
+          trackColor={{ false: "#767577", true: "#81b0ff" }}
+          thumbColor={darkModeSelected ? "#f5dd4b" : "#f4f3f4"}
+          ios_backgroundColor="#3e3e3e"
+          onValueChange={setDarkMode}
+          value={darkModeSelected}
+        />
+      </View>
     </View>
   );
 };

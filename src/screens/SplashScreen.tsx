@@ -9,11 +9,11 @@ import {
   StyleSheet,
   View,
 } from "react-native";
-import { useAppSelector } from "../../store/Selector";
+import { useAppSelector } from "../hooks/Selector";
 
 const SplashScreen = () => {
   const shownImageDuration = 6000;
-  const images = useAppSelector((state) => state.image.images);
+  const images = useAppSelector((state) => state.layout.images);
   const windowHeight = Dimensions.get("window").height;
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);

@@ -16,7 +16,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import HomeSuggestionListComponent from "../components/HomeSuggestionListComponent";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { useAppSelector } from "../../store/Selector";
+import { useAppSelector } from "../hooks/Selector";
 import {
   darkModeBackgroundColor,
   lightModeBackgroundColor,
@@ -27,7 +27,7 @@ const HomeScreen = () => {
   const scrollViewRef = useRef<ScrollView>(null);
   const suggestionRef = useRef<ScrollView>(null);
   const [currentX, setCurrentX] = useState(0);
-  const darkModeSelected = useAppSelector((state) => state.image.darkMode);
+  const darkModeSelected = useAppSelector((state) => state.layout.darkMode);
 
   //temporary images. Will be replaced with actual data from the server
   const images: ImageSourcePropType[] = [
@@ -215,6 +215,7 @@ const HomeScreen = () => {
                 inputRange: [0, 1],
                 outputRange: ["60%", "100%"],
               }),
+              paddingBottom: 50,
             }}
           >
             <ScrollView

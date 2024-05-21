@@ -9,9 +9,8 @@ import {
 } from "@expo/vector-icons";
 import React, { useEffect } from "react";
 import FavouritesScreen from "../screens/FavouritesScreen";
-import AccountScreen from "../screens/AccountScreen";
 import ShoppingCartScreen from "../screens/ShoppingCartScreen";
-import { useAppSelector } from "../../store/Selector";
+import { useAppSelector } from "../hooks/Selector";
 import ShopStackNavigator from "./ShopStackNavigator";
 import SearchStackNavigator from "./SearchStackNavigator";
 import SettingsStackNavigator from "./SettingsStackNavigator";
@@ -21,7 +20,7 @@ const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => {
   const tabBarHeight = useAppSelector((state) => state.navigation.tabBarHeight);
-  const darkModeSelected = useAppSelector((state) => state.image.darkMode);
+  const darkModeSelected = useAppSelector((state) => state.layout.darkMode);
 
   useEffect(() => {
     StatusBar.setBackgroundColor(darkModeSelected ? "#18191A" : "transparent");

@@ -1,16 +1,19 @@
 import { StyleSheet, View } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { FontAwesome5, Ionicons } from "@expo/vector-icons";
 import AccountComponent from "../components/AccountComponent";
-import { useAppSelector } from "../../store/Selector";
+import { useAppSelector } from "../hooks/Selector";
 import {
   darkModeBackgroundColor,
   lightModeBackgroundColor,
 } from "../../util/colors";
+import { auth } from "../config/firebase";
+import { useAuth } from "../hooks/useAuth";
 
 const AccountScreen = () => {
-  const darkModeSelected = useAppSelector((state) => state.image.darkMode);
+  const darkModeSelected = useAppSelector((state) => state.layout.darkMode);
+  const { isAuthenticated } = useAuth();
 
   return (
     <SafeAreaView
@@ -44,8 +47,12 @@ const AccountScreen = () => {
             />
           }
           mainText="My Account"
-          subText="Log in or create an account"
-          screen={"LogIn"}
+          subText={
+            isAuthenticated
+              ? auth.currentUser.displayName
+              : "Log in or create an account"
+          }
+          screen={auth.currentUser != null ? "UserDetail" : "LogIn"}
         />
         <AccountComponent
           icon={

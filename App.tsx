@@ -4,7 +4,9 @@ import * as SplashScreenExpo from "expo-splash-screen";
 import TabNavigator from "./src/navigation/TabNavigator";
 import { NavigationContainer } from "@react-navigation/native";
 import { Provider } from "react-redux";
-import store from "./store/Store";
+import { persistor, store } from "./store/Store";
+import { PersistGate } from "redux-persist/integration/react";
+import AuthContextProvider from "./src/contexts/AuthContext";
 
 SplashScreenExpo.preventAutoHideAsync();
 
@@ -16,9 +18,13 @@ export default function App() {
   return (
     <View style={styles.container} onLayout={onLayoutRootView}>
       <Provider store={store}>
-        <NavigationContainer>
-          <TabNavigator />
-        </NavigationContainer>
+        <PersistGate persistor={persistor}>
+          <AuthContextProvider>
+            <NavigationContainer>
+              <TabNavigator />
+            </NavigationContainer>
+          </AuthContextProvider>
+        </PersistGate>
       </Provider>
     </View>
   );

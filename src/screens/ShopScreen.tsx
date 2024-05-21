@@ -4,7 +4,7 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import { Entypo } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { ShopScreenProps, ShopStackParamsList } from "../navigation/types";
-import { useAppSelector } from "../../store/Selector";
+import { useAppSelector } from "../hooks/Selector";
 import {
   darkModeBackgroundColor,
   lightModeBackgroundColor,
@@ -15,7 +15,7 @@ const ShopScreen = () => {
   const {
     params: { item },
   } = useRoute<ShopScreenProps<"ShopStack">["route"]>();
-  const darkModeSelected = useAppSelector((state) => state.image.darkMode);
+  const darkModeSelected = useAppSelector((state) => state.layout.darkMode);
 
   return (
     <View

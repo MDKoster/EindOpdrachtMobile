@@ -15,6 +15,7 @@ import AccountDelete from "../screens/AccountScreens/AccountDelete";
 import AboutApp from "../screens/AccountScreens/AboutApp";
 import MapMarkerDetailScreen from "../screens/AccountScreens/MapMarkerDetailScreen";
 import AuthStackNavigator from "./AuthStackNavigator";
+import UserDetail from "../screens/AccountScreens/UserDetail";
 
 const Stack = createStackNavigator();
 
@@ -27,6 +28,7 @@ const SettingsStackNavigator = () => {
       }}
     >
       <Stack.Screen name="AccountMain" component={AccountScreen} />
+      <Stack.Screen name="UserDetail" component={UserDetail} />
       <Stack.Screen name="LogIn" component={AuthStackNavigator} />
       <Stack.Screen name="StoreLocator" component={StoreLocator} />
       <Stack.Screen name="AccountSettings" component={AccountSettings} />

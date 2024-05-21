@@ -2,7 +2,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { SettingsStackParamsList } from "../navigation/types";
-import { useAppSelector } from "../../store/Selector";
+import { useAppSelector } from "../hooks/Selector";
 
 type Props = {
   icon?: any;
@@ -13,7 +13,7 @@ type Props = {
 
 const AccountComponent = ({ icon, mainText, subText, screen }: Props) => {
   const navigation = useNavigation();
-  const darkModeSelected = useAppSelector((state) => state.image.darkMode);
+  const darkModeSelected = useAppSelector((state) => state.layout.darkMode);
 
   return (
     <TouchableOpacity

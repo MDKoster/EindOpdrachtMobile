@@ -8,7 +8,7 @@ import {
 import React, { useEffect } from "react";
 import { useRoute } from "@react-navigation/native";
 import { SettingsScreenProps } from "../../navigation/types";
-import { useAppSelector } from "../../../store/Selector";
+import { useAppSelector } from "../../hooks/Selector";
 import {
   darkModeBackgroundColor,
   lightModeBackgroundColor,
@@ -20,7 +20,7 @@ const MapMarkerDetailScreen = () => {
     params: { store },
   } = useRoute<SettingsScreenProps<"MapMarkerDetail">["route"]>();
 
-  const darkModeSelected = useAppSelector((state) => state.image.darkMode);
+  const darkModeSelected = useAppSelector((state) => state.layout.darkMode);
 
   return (
     <View

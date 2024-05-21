@@ -3,7 +3,7 @@ import React from "react";
 import { Entypo } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { SearchScreenProps, SearchStackParamsList } from "../navigation/types";
-import { useAppSelector } from "../../store/Selector";
+import { useAppSelector } from "../hooks/Selector";
 import {
   darkModeBackgroundColor,
   lightModeBackgroundColor,
@@ -18,7 +18,7 @@ const SearchScreenOption = ({ category, screen }: Props) => {
   const navigator =
     useNavigation<SearchScreenProps<"SearchMain">["navigation"]>();
 
-  const darkModeSelected = useAppSelector((state) => state.image.darkMode);
+  const darkModeSelected = useAppSelector((state) => state.layout.darkMode);
 
   return (
     <TouchableOpacity

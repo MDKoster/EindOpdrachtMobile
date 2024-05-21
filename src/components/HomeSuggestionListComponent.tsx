@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import React from "react";
 import SuggestionItemComponent from "./SuggestionItemComponent";
-import { useAppSelector } from "../../store/Selector";
+import { useAppSelector } from "../hooks/Selector";
 
 type Props = {
   images: ImageSourcePropType[];
@@ -15,7 +15,7 @@ type Props = {
 };
 
 const HomeSuggestionListComponent = ({ images, title }: Props) => {
-  const darkModeSelected = useAppSelector((state) => state.image.darkMode);
+  const darkModeSelected = useAppSelector((state) => state.layout.darkMode);
 
   return (
     <View>

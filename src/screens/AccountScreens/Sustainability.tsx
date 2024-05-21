@@ -1,12 +1,16 @@
 import React from "react";
 import { View, Text, StyleSheet, ScrollView, SafeAreaView } from "react-native";
-import { useAppSelector } from "../../../store/Selector";
+import { useAppSelector } from "../../hooks/Selector";
 import {
   darkModeBackgroundColor,
   lightModeBackgroundColor,
 } from "../../../util/colors";
 
 const Sustainability = () => {
+  const darkModeSelected = useAppSelector((state) => state.layout.darkMode);
+
+  const styles = getStyles(darkModeSelected);
+
   return (
     <SafeAreaView style={styles.container}>
       <View
@@ -75,32 +79,29 @@ const Sustainability = () => {
   );
 };
 
-const darkModeSelected = () => {
-  return useAppSelector((state) => state.image.darkMode);
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    paddingBottom: 50,
-    backgroundColor: darkModeSelected
-      ? darkModeBackgroundColor
-      : lightModeBackgroundColor,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginVertical: 20,
-    textAlign: "center",
-    color: darkModeSelected ? "#fff" : "#000",
-  },
-  description: {
-    fontSize: 16,
-    lineHeight: 24,
-    marginBottom: 20,
-    color: darkModeSelected ? "#fff" : "#000",
-  },
-});
+const getStyles = (darkModeSelected: boolean) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      padding: 20,
+      paddingBottom: 50,
+      backgroundColor: darkModeSelected
+        ? darkModeBackgroundColor
+        : lightModeBackgroundColor,
+    },
+    title: {
+      fontSize: 24,
+      fontWeight: "bold",
+      marginVertical: 20,
+      textAlign: "center",
+      color: darkModeSelected ? "#fff" : "#000",
+    },
+    description: {
+      fontSize: 16,
+      lineHeight: 24,
+      marginBottom: 20,
+      color: darkModeSelected ? "#fff" : "#000",
+    },
+  });
 
 export default Sustainability;

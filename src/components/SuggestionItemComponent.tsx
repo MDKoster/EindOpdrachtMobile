@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
-import { useAppSelector } from "../../store/Selector";
+import { useAppSelector } from "../hooks/Selector";
 import {
   darkModeBackgroundColor,
   lightModeBackgroundColor,
@@ -40,7 +40,7 @@ const SuggestionItemComponent = ({ item }: Props) => {
 export default SuggestionItemComponent;
 
 const darkModeSelected = () => {
-  return useAppSelector((state) => state.image.darkMode);
+  return useAppSelector((state) => state.layout.darkMode);
 };
 
 const styles = StyleSheet.create({
