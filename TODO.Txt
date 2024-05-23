@@ -1,5 +1,5 @@
 -Detailscherm items:
-    -foto's (horizontale flatlist)
+    -foto's (horizontale flatlist) /
     -prijs
     -stock
     -maten
@@ -46,3 +46,4 @@
 -Delete account
     -add simple screen with warning and inputfield. Enter "delete" to remove account permanently.
 
+-Keep splashscreen until Home Page items have loaded

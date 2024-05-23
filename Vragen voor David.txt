@@ -9,3 +9,4 @@ Stacknavigator in stacknavigator? Bvb: Mijn loginscherm zit in de Settingsstackn
 -> lukt. Gewoon doen.
 
 Inline styling of alles verplaatsen naar stylesheet?
+-> inline styling is ok
