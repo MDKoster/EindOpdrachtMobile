@@ -35,7 +35,8 @@ export type SettingsStackParamsList = {
 
 export type ShopStackParamsList = {
   HomeStack: undefined;
-  ShopStack: { item: ImageSourcePropType };
+  ShopStack: { title: string; items: item[] };
+  ItemDetail: { item: item };
 };
 
 export type ShopScreenProps<T extends keyof ShopStackParamsList> =
@@ -69,4 +70,11 @@ export type StoreLocationType = {
   openingHours: string[];
   latitude: number;
   longitude: number;
+};
+
+export type item = {
+  id: string;
+  name: string;
+  image: string;
+  price: number;
 };

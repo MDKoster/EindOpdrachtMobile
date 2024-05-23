@@ -1,62 +1,84 @@
-import { Image, StyleSheet, View } from "react-native";
+import { Text, StyleSheet, View, Pressable } from "react-native";
 import React from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { Entypo } from "@expo/vector-icons";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import {
+  FlatList,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native-gesture-handler";
 import { ShopScreenProps, ShopStackParamsList } from "../navigation/types";
 import { useAppSelector } from "../hooks/Selector";
 import {
   darkModeBackgroundColor,
   lightModeBackgroundColor,
 } from "../../util/colors";
+import ItemListComponent from "../components/ItemListComponent";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Entypo } from "@expo/vector-icons";
 
 const ShopScreen = () => {
   const navigator = useNavigation<ShopScreenProps<"ShopStack">["navigation"]>();
   const {
-    params: { item },
+    params: { title, items },
   } = useRoute<ShopScreenProps<"ShopStack">["route"]>();
   const darkModeSelected = useAppSelector((state) => state.layout.darkMode);
 
   return (
-    <View
+    <SafeAreaView
       style={{
         flex: 1,
+        backgroundColor: darkModeSelected
+          ? darkModeBackgroundColor
+          : lightModeBackgroundColor,
       }}
     >
       <View
         style={{
-          position: "absolute",
-          top: 50,
-          left: 20,
-          zIndex: 1,
+          flex: 0.1,
+          flexDirection: "row",
           backgroundColor: darkModeSelected
             ? darkModeBackgroundColor
             : lightModeBackgroundColor,
-          opacity: 0.8,
-          borderRadius: 50,
-          borderWidth: 0.4,
+          alignItems: "center",
+          paddingHorizontal: 20,
         }}
       >
-        <TouchableOpacity
-          onPress={() =>
-            navigator.navigate<keyof ShopStackParamsList>("HomeStack")
-          }
+        <Pressable onPress={navigator.goBack}>
+          <Entypo name="chevron-thin-left" size={24} color="black" />
+        </Pressable>
+        <View
+          style={{
+            flex: 1,
+            alignItems: "center",
+          }}
         >
-          <Entypo
-            name="chevron-left"
-            size={48}
-            color={darkModeSelected ? "white" : "black"}
-          />
-        </TouchableOpacity>
+          <Text
+            style={{
+              fontSize: 24,
+              fontWeight: "500",
+              color: darkModeSelected ? "white" : "black",
+            }}
+          >
+            {title}
+          </Text>
+        </View>
       </View>
       <View
         style={{
           flex: 1,
+          alignItems: "center",
         }}
       >
-        <Image source={item} style={{ flex: 1, width: "100%" }} />
+        <FlatList
+          numColumns={2}
+          data={items}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <ItemListComponent key={item.id} item={item} />
+          )}
+        />
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

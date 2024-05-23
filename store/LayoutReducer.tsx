@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { item } from "../src/navigation/types";
 
 type image = {
   require: string;
@@ -8,6 +9,7 @@ type image = {
 const initialState: {
   images: image[];
   darkMode: boolean;
+  popularItems: item[];
 } = {
   images: [
     require("../assets/images/splash2.jpg"),
@@ -19,6 +21,7 @@ const initialState: {
     require("../assets/images/splash8.jpg"),
   ],
   darkMode: false,
+  popularItems: [],
 };
 
 export const LayoutSlice = createSlice({
@@ -28,11 +31,15 @@ export const LayoutSlice = createSlice({
     setImages: (state, action) => {
       state.images = action.payload;
     },
+    setPopularItems: (state, action) => {
+      state.popularItems = action.payload;
+    },
     toggleDarkMode: (state) => {
       state.darkMode = !state.darkMode;
     },
   },
 });
 
-export const { setImages, toggleDarkMode } = LayoutSlice.actions;
+export const { setImages, setPopularItems, toggleDarkMode } =
+  LayoutSlice.actions;
 export const LayoutReducer = LayoutSlice.reducer;

@@ -57,6 +57,8 @@ const StoreLocator = () => {
   }, [status]);
 
   useEffect(() => {
+    //TODO: ask David if this is necessary. Saving storelocations in redux to avoid multiple fetches
+    if (storeLocations.length > 0) return;
     const q = query(collection(db, "stores"));
 
     (async () => {
