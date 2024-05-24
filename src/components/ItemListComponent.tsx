@@ -3,6 +3,11 @@ import React from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { item } from "../navigation/types";
 import { useNavigation } from "@react-navigation/native";
+import { useAppSelector } from "../hooks/Selector";
+import {
+  darkModeBackgroundColor,
+  lightModeBackgroundColor,
+} from "../../util/colors";
 
 type Props = {
   item: item;
@@ -10,6 +15,7 @@ type Props = {
 
 const ItemListComponent = ({ item }: Props) => {
   const navigator = useNavigation();
+  const darkModeSelected = useAppSelector((state) => state.layout.darkMode);
 
   return (
     <TouchableOpacity
@@ -22,6 +28,11 @@ const ItemListComponent = ({ item }: Props) => {
           height: 350,
           width: 189,
           margin: 4,
+          backgroundColor: darkModeSelected
+            ? darkModeBackgroundColor
+            : lightModeBackgroundColor,
+          elevation: 5,
+          shadowColor: darkModeSelected ? "white" : "black",
         }}
       >
         <Image
@@ -36,10 +47,24 @@ const ItemListComponent = ({ item }: Props) => {
             flex: 1,
           }}
         >
-          <Text style={{ fontSize: 16, fontWeight: "bold", margin: 5 }}>
+          <Text
+            style={{
+              fontSize: 15,
+              margin: 5,
+              color: darkModeSelected ? "white" : "black",
+            }}
+          >
             {item.name}
           </Text>
-          <Text style={{ fontSize: 12, margin: 5 }}>${item.price / 100}</Text>
+          <Text
+            style={{
+              fontSize: 12,
+              margin: 5,
+              color: darkModeSelected ? "white" : "black",
+            }}
+          >
+            ${item.price / 100}
+          </Text>
         </View>
       </View>
     </TouchableOpacity>

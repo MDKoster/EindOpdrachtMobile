@@ -21,6 +21,7 @@ const Tab = createBottomTabNavigator();
 const TabNavigator = () => {
   const tabBarHeight = useAppSelector((state) => state.navigation.tabBarHeight);
   const darkModeSelected = useAppSelector((state) => state.layout.darkMode);
+  const shoppingCart = useAppSelector((state) => state.user.shoppingCart);
 
   useEffect(() => {
     StatusBar.setBackgroundColor(darkModeSelected ? "#18191A" : "transparent");
@@ -97,7 +98,7 @@ const TabNavigator = () => {
         component={ShoppingCartScreen}
         options={{
           //tabbarbadge is used to show the number of items in the cart
-          tabBarBadge: 3,
+          tabBarBadge: shoppingCart?.length > 0 ? shoppingCart?.length : null,
           tabBarIcon: ({ color, focused }) =>
             focused ? (
               <Ionicons name="bag-handle-sharp" size={24} color={color} />

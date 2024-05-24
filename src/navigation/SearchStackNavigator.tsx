@@ -55,13 +55,19 @@ const SearchStackNavigator = () => {
           style={{
             zIndex: 2,
             left: -30,
+            textShadowColor: darkModeSelected ? "yellow" : "white",
+            textShadowOffset: { width: 0, height: 0 },
+            textShadowRadius: 10,
           }}
         />
         <Text
           style={{
-            fontSize: 20,
-            fontWeight: 400,
+            fontSize: 22,
+            fontFamily: "Exquite",
             color: darkModeSelected ? "white" : "black",
+            textShadowColor: darkModeSelected ? "yellow" : "grey",
+            textShadowOffset: { width: 0, height: 0 },
+            textShadowRadius: 10,
           }}
         >
           What are you looking for?

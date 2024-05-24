@@ -78,3 +78,25 @@ export type item = {
   image: string;
   price: number;
 };
+
+export type cartItem = {
+  id: string;
+  name: string;
+  price: number;
+  image: string;
+  size: string;
+  quantity: number;
+};
+
+export type DBitem = {
+  name: string;
+  price: number;
+  images: string[];
+  category: string;
+  color: string;
+  description: string;
+  material: string;
+  quantity: number;
+  sizes: string[];
+  style: string;
+};

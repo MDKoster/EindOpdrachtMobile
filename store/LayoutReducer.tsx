@@ -10,6 +10,9 @@ const initialState: {
   images: image[];
   darkMode: boolean;
   popularItems: item[];
+  newArrivalItems: item[];
+  mensFashionItems: item[];
+  womensFashionItems: item[];
 } = {
   images: [
     require("../assets/images/splash2.jpg"),
@@ -22,6 +25,9 @@ const initialState: {
   ],
   darkMode: false,
   popularItems: [],
+  newArrivalItems: [],
+  mensFashionItems: [],
+  womensFashionItems: [],
 };
 
 export const LayoutSlice = createSlice({
@@ -34,12 +40,27 @@ export const LayoutSlice = createSlice({
     setPopularItems: (state, action) => {
       state.popularItems = action.payload;
     },
+    setNewArrivalItems: (state, action) => {
+      state.newArrivalItems = action.payload;
+    },
+    setMensFashionItems: (state, action) => {
+      state.mensFashionItems = action.payload;
+    },
+    setWomensFashionItems: (state, action) => {
+      state.womensFashionItems = action.payload;
+    },
     toggleDarkMode: (state) => {
       state.darkMode = !state.darkMode;
     },
   },
 });
 
-export const { setImages, setPopularItems, toggleDarkMode } =
-  LayoutSlice.actions;
+export const {
+  setImages,
+  setPopularItems,
+  setNewArrivalItems,
+  setMensFashionItems,
+  setWomensFashionItems,
+  toggleDarkMode,
+} = LayoutSlice.actions;
 export const LayoutReducer = LayoutSlice.reducer;

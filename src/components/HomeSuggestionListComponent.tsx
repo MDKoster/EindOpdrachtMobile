@@ -33,7 +33,7 @@ const HomeSuggestionListComponent = ({ items, title }: Props) => {
           flex: 1,
           flexDirection: "row",
           alignItems: "center",
-          margin: 10,
+          marginVertical: 15,
           top: 5,
           left: 5,
         }}
@@ -46,20 +46,19 @@ const HomeSuggestionListComponent = ({ items, title }: Props) => {
       >
         <Text
           style={{
-            fontSize: 30,
-            fontWeight: "bold",
+            fontSize: 40,
+            fontFamily: "Exquite",
             color: darkModeSelected ? "white" : "black",
-            textDecorationLine: "underline",
           }}
         >
           {title}
         </Text>
         <Entypo
           style={{
-            marginTop: 5,
             marginLeft: 10,
+            marginBottom: 4,
           }}
-          name="chevron-right"
+          name="chevron-thin-right"
           size={24}
           color="black"
         />

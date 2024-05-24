@@ -24,7 +24,12 @@ import {
 import { collection, getDocs, query } from "firebase/firestore";
 import { db } from "../config/firebase";
 import { useDispatch } from "react-redux";
-import { setPopularItems } from "../../store/LayoutReducer";
+import {
+  setMensFashionItems,
+  setNewArrivalItems,
+  setPopularItems,
+  setWomensFashionItems,
+} from "../../store/LayoutReducer";
 import { item } from "../navigation/types";
 
 const HomeScreen = () => {
@@ -35,25 +40,59 @@ const HomeScreen = () => {
   const darkModeSelected = useAppSelector((state) => state.layout.darkMode);
   const dispatch = useDispatch();
   const popularItems = useAppSelector((state) => state.layout.popularItems);
+  const newItems = useAppSelector((state) => state.layout.newArrivalItems);
+  const mensItems = useAppSelector((state) => state.layout.mensFashionItems);
+  const womensItems = useAppSelector(
+    (state) => state.layout.womensFashionItems
+  );
   const scrollY = useRef(new Animated.Value(0)).current;
 
   //fetch popular items (basic info)
   useEffect(() => {
-    const q = query(collection(db, "/categories/popular/items"));
-
     (async () => {
+      const qsPop = await getCollection("categories/popular/items");
+      dispatch(
+        setPopularItems(
+          qsPop.docs.map((ds) => ({ id: ds.id, ...ds.data() } as item))
+        )
+      );
+
+      const qsNew = await getCollection("categories/newArrivals/items");
+      dispatch(
+        setNewArrivalItems(
+          qsNew.docs.map((ds) => ({ id: ds.id, ...ds.data() } as item))
+        )
+      );
+
+      const qsMen = await getCollection("categories/mensFashion/items");
+      dispatch(
+        setMensFashionItems(
+          qsMen.docs.map((ds) => ({ id: ds.id, ...ds.data() } as item))
+        )
+      );
+
+      const qsWomen = await getCollection("categories/womensFashion/items");
+      dispatch(
+        setWomensFashionItems(
+          qsWomen.docs.map((ds) => ({ id: ds.id, ...ds.data() } as item))
+        )
+      );
+    })();
+  }, []);
+
+  const getCollection = async (path: string) => {
+    const q = query(collection(db, path));
+
+    const qs = (async () => {
       try {
-        const qs = await getDocs(q);
-        dispatch(
-          setPopularItems(
-            qs.docs.map((ds) => ({ id: ds.id, ...ds.data() } as item))
-          )
-        );
+        return await getDocs(q);
       } catch (error) {
         console.log(error);
       }
     })();
-  }, []);
+
+    return qs;
+  };
 
   //animation logic
   useEffect(() => {
@@ -148,12 +187,12 @@ const HomeScreen = () => {
           <Animated.Text
             style={{
               position: "absolute",
-              top: 120,
-              right: 30,
+              top: 60,
+              right: 15,
               color: "gold",
-              fontSize: 45,
-              fontStyle: "italic",
+              fontSize: 130,
               fontWeight: 300,
+              fontFamily: "Kingdom",
               zIndex: 1,
               transform: [{ translateY }],
             }}
@@ -163,12 +202,11 @@ const HomeScreen = () => {
           <Animated.Text
             style={{
               position: "absolute",
-              top: 160,
-              right: 20,
+              top: 170,
+              right: 60,
               color: "gold",
-              fontSize: 55,
-              fontStyle: "italic",
-              fontWeight: 300,
+              fontSize: 70,
+              fontFamily: "Kingdom",
               zIndex: 1,
               transform: [{ translateY }],
             }}
@@ -232,15 +270,15 @@ const HomeScreen = () => {
           >
             <HomeSuggestionListComponent items={popularItems} title="Popular" />
             <HomeSuggestionListComponent
-              items={popularItems}
+              items={newItems}
               title="New Arrivals"
             />
             <HomeSuggestionListComponent
-              items={popularItems}
+              items={mensItems}
               title="Men's Fashion"
             />
             <HomeSuggestionListComponent
-              items={popularItems}
+              items={womensItems}
               title="Women's Fashion"
             />
           </View>

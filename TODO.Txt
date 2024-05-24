@@ -1,25 +1,26 @@
 -Detailscherm items:
-    -foto's (horizontale flatlist) /
-    -prijs
-    -stock
-    -maten
-    -desc
-    -general info
+    -foto's (horizontale flatlist)//
+    -prijs//
+    -stock//
+    -maten//
+    -desc//
+    -general info//
     -reviews
     -mogelijkheid om review achter te laten
-    -add to favourites ster
+    -add to favourites ster//
     -toevoegen aan winkelmandje; knop
 
--Bij detailweergave aantal beschikbare items weergeven & niet toelaten om meer aan te kopen dan er beschikbaar zijn
+-Bij detailweergave aantal beschikbare items weergeven//
+    -niet toelaten om meer aan te kopen dan er beschikbaar zijn
 
 -Shopping screen overzicht aanmaken:
     -filter option
-    -make item card and flatlists
+    -make item card and flatlists//
 
 -Profielscherm aanmaken
     -camera functionaliteit toevoegen (profielfoto)
 
--Favourites saving in database
+-Favourites saving in database//
 
 -Redux state for items in shopping bag
 

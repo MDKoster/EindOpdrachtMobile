@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import * as SplashScreenExpo from "expo-splash-screen";
 import TabNavigator from "./src/navigation/TabNavigator";
@@ -7,13 +7,39 @@ import { Provider } from "react-redux";
 import { persistor, store } from "./store/Store";
 import { PersistGate } from "redux-persist/integration/react";
 import AuthContextProvider from "./src/contexts/AuthContext";
+import * as Font from "expo-font";
 
 SplashScreenExpo.preventAutoHideAsync();
 
 export default function App() {
-  const onLayoutRootView = async () => {
-    await SplashScreenExpo.hideAsync();
-  };
+  const [isAppReady, setIsAppReady] = useState(false);
+
+  useEffect(() => {
+    const loadFont = async () => {
+      try {
+        await Font.loadAsync({
+          Exquite: require("./assets/fonts/Exquite.ttf"),
+          Kingdom: require("./assets/fonts/Kingdom-Regular.ttf"),
+        });
+      } catch (error) {
+        console.warn("Error loading fonts: ", error);
+      } finally {
+        setIsAppReady(true);
+      }
+    };
+
+    loadFont();
+  }, []);
+
+  const onLayoutRootView = useCallback(async () => {
+    if (isAppReady) {
+      await SplashScreenExpo.hideAsync();
+    }
+  }, [isAppReady]);
+
+  if (!isAppReady) {
+    return null;
+  }
 
   return (
     <View style={styles.container} onLayout={onLayoutRootView}>

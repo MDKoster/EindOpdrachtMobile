@@ -3,7 +3,11 @@ import React from "react";
 import { auth } from "../../config/firebase";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
-import { setUser } from "../../../store/UserReducer";
+import {
+  emptyShoppingCart,
+  setFavorites,
+  setUser,
+} from "../../../store/UserReducer";
 import { useAuth } from "../../hooks/useAuth";
 import {
   SettingsScreenProps,
@@ -24,6 +28,8 @@ const UserDetail = () => {
       );
 
       dispatch(setUser(null));
+      dispatch(setFavorites([]));
+      dispatch(emptyShoppingCart());
       navigation.navigate<keyof SettingsStackParamsList>("AccountMain");
     } catch (error) {
       console.error("Error signing out: ", error);

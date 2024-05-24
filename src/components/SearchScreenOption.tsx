@@ -37,6 +37,7 @@ const SearchScreenOption = ({ category, screen }: Props) => {
           alignItems: "center",
           justifyContent: "space-between",
           paddingLeft: 40,
+          paddingRight: 10,
           borderBottomWidth: 0.8,
           borderColor: darkModeSelected ? "white" : "black",
           marginBottom: 2,
@@ -44,17 +45,25 @@ const SearchScreenOption = ({ category, screen }: Props) => {
       >
         <Text
           style={{
-            fontSize: 20,
-            fontWeight: 400,
+            fontSize: 28,
+            fontFamily: "Exquite",
             color: darkModeSelected ? "white" : "black",
+            textShadowColor: darkModeSelected ? "yellow" : "white",
+            textShadowOffset: { width: 0, height: 0 },
+            textShadowRadius: 10,
           }}
         >
           {category}
         </Text>
         <Entypo
-          name="chevron-small-right"
-          size={35}
+          name="chevron-thin-right"
+          size={24}
           color={darkModeSelected ? "white" : "black"}
+          style={{
+            textShadowColor: darkModeSelected ? "yellow" : "white",
+            textShadowOffset: { width: 0, height: 0 },
+            textShadowRadius: 15,
+          }}
         />
       </View>
     </TouchableOpacity>

@@ -24,6 +24,10 @@ import { TouchableOpacity, TextInput } from "react-native-gesture-handler";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { useAuth } from "../../hooks/useAuth";
+import { doc, setDoc } from "firebase/firestore";
+import { auth, db } from "../../config/firebase";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../../store/UserReducer";
 
 const RegisterScreen = () => {
   const authNavigator =
@@ -32,6 +36,7 @@ const RegisterScreen = () => {
     useNavigation<SettingsScreenProps<"AccountMain">["navigation"]>();
   const darkModeSelected = useAppSelector((state) => state.layout.darkMode);
   const { register } = useAuth();
+  const dispatch = useDispatch();
 
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("Name is required"),
@@ -82,6 +87,21 @@ const RegisterScreen = () => {
             onSubmit={async (values) => {
               try {
                 await register(values.email, values.password, values.name);
+                const newUser = {
+                  displayName: values.name,
+                };
+
+                const docRef = doc(db, "users", auth.currentUser.uid);
+                await setDoc(docRef, newUser);
+
+                dispatch(
+                  setUser({
+                    id: auth.currentUser.uid,
+                    userName: auth.currentUser.displayName,
+                    email: auth.currentUser.email,
+                  })
+                );
+
                 Alert.alert(
                   "Registration complete!",
                   "Thank you for registering! We hope you enjoy shopping at Gizmo.",

@@ -54,8 +54,10 @@ const ShopScreen = () => {
         >
           <Text
             style={{
-              fontSize: 24,
-              fontWeight: "500",
+              top: 5,
+              right: 5,
+              fontSize: 38,
+              fontFamily: "Exquite",
               color: darkModeSelected ? "white" : "black",
             }}
           >
