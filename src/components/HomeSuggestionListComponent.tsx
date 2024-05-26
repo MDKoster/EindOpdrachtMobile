@@ -60,7 +60,7 @@ const HomeSuggestionListComponent = ({ items, title }: Props) => {
           }}
           name="chevron-thin-right"
           size={24}
-          color="black"
+          color={darkModeSelected ? "white" : "black"}
         />
       </Pressable>
       <FlatList

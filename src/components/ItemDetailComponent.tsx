@@ -1,4 +1,5 @@
 import {
+  Alert,
   Animated,
   Dimensions,
   Easing,
@@ -11,7 +12,7 @@ import {
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import React, { useEffect, useRef, useState } from "react";
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { DBitem, ShopScreenProps } from "../navigation/types";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
 import { deleteDoc, doc, getDoc, setDoc } from "firebase/firestore";
@@ -34,6 +35,7 @@ const ItemDetailComponent = () => {
   const {
     params: { item },
   } = useRoute<ShopScreenProps<"ItemDetail">["route"]>();
+  const navigator = useNavigation();
   const [itemResult, setItemResult] = useState<DBitem>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedValue, setSelectedValue] = useState("");
@@ -72,7 +74,7 @@ const ItemDetailComponent = () => {
 
   //check if item is in favorites
   useEffect(() => {
-    favorites.find((favItem) => favItem.id === item.id) != undefined
+    favorites?.find((favItem) => favItem.id === item.id) != undefined
       ? setIsFavorite(true)
       : setIsFavorite(false);
   }, []);
@@ -122,7 +124,6 @@ const ItemDetailComponent = () => {
   };
 
   const addFavourite = async () => {
-    console.log(auth.currentUser.displayName);
     const favoriteItem = {
       name: itemResult.name,
       price: itemResult.price,
@@ -183,7 +184,20 @@ const ItemDetailComponent = () => {
     }
 
     if (auth.currentUser == null) {
-      alert("Please log in to add to cart");
+      Alert.alert(
+        "Please log in to add to cart",
+        "",
+        [
+          { text: "Close" },
+          {
+            text: "Log in",
+            onPress: () => {
+              navigator.navigate("Account", { screen: "LogIn" });
+            },
+          },
+        ],
+        { cancelable: true }
+      );
       return;
     }
 
@@ -194,6 +208,7 @@ const ItemDetailComponent = () => {
       image: itemResult.images[0],
       size: selectedValue,
       quantity: orderAmount,
+      stock: itemResult.quantity,
     };
 
     dispatch(addToShoppingCart(cartItem));
@@ -299,7 +314,8 @@ const ItemDetailComponent = () => {
             { color: darkModeSelected ? "white" : "black" },
           ]}
         >
-          Unit price: ${itemResult?.price / 100}
+          <Text>Unit price:</Text>
+          {itemResult ? " $" + itemResult?.price / 100 : ""}
         </Text>
         <View
           style={{
@@ -315,9 +331,18 @@ const ItemDetailComponent = () => {
               alignItems: "center",
             }}
           >
-            <Text>{orderAmount} unit(s):</Text>
+            <Text
+              style={[
+                styles.textStyle,
+                { color: darkModeSelected ? "white" : "black" },
+              ]}
+            >
+              {orderAmount} unit(s):
+            </Text>
             <Text style={styles.priceStyle}>
-              ${((itemResult?.price / 100) * orderAmount).toFixed(2)}
+              {itemResult
+                ? "$" + ((itemResult?.price / 100) * orderAmount).toFixed(2)
+                : ""}
             </Text>
           </View>
           <Text
@@ -450,6 +475,7 @@ const ItemDetailComponent = () => {
               backgroundColor: darkModeSelected
                 ? darkModeBackgroundColor
                 : lightModeBackgroundColor,
+              shadowColor: darkModeSelected ? "white" : "black",
             }}
           >
             <View

@@ -28,11 +28,6 @@ const ItemListComponent = ({ item }: Props) => {
           height: 350,
           width: 189,
           margin: 4,
-          backgroundColor: darkModeSelected
-            ? darkModeBackgroundColor
-            : lightModeBackgroundColor,
-          elevation: 5,
-          shadowColor: darkModeSelected ? "white" : "black",
         }}
       >
         <Image
@@ -45,6 +40,11 @@ const ItemListComponent = ({ item }: Props) => {
         <View
           style={{
             flex: 1,
+            backgroundColor: darkModeSelected
+              ? darkModeBackgroundColor
+              : lightModeBackgroundColor,
+            elevation: 2,
+            shadowColor: darkModeSelected ? "white" : "black",
           }}
         >
           <Text

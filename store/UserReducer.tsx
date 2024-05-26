@@ -38,9 +38,22 @@ export const UserSlice = createSlice({
       );
       if (index !== -1) {
         state.shoppingCart[index].quantity += 1;
-        return;
+      } else {
+        state.shoppingCart.push(action.payload);
       }
-      state.shoppingCart = [...state.shoppingCart, action.payload];
+    },
+    removeFromShoppingCart: (state, action: PayloadAction<string>) => {
+      const index = state.shoppingCart.findIndex(
+        (item) => item.id === action.payload
+      );
+      if (index !== -1) {
+        state.shoppingCart[index].quantity -= 1;
+        if (state.shoppingCart[index].quantity === 0) {
+          state.shoppingCart = state.shoppingCart.filter(
+            (item) => item.id !== action.payload
+          );
+        }
+      }
     },
     emptyShoppingCart: (state) => {
       state.shoppingCart = [];
@@ -48,6 +61,11 @@ export const UserSlice = createSlice({
   },
 });
 
-export const { setUser, setFavorites, addToShoppingCart, emptyShoppingCart } =
-  UserSlice.actions;
+export const {
+  setUser,
+  setFavorites,
+  addToShoppingCart,
+  removeFromShoppingCart,
+  emptyShoppingCart,
+} = UserSlice.actions;
 export const UserReducer = UserSlice.reducer;

@@ -62,9 +62,7 @@ const LogInScreen = () => {
           `Welcome back, ${auth.currentUser.displayName}`,
           "You have successfully logged in!"
         );
-        settingsNavigator.navigate<keyof SettingsStackParamsList>(
-          "AccountMain"
-        );
+        settingsNavigator.replace<keyof SettingsStackParamsList>("AccountMain");
       }
     } catch (error) {
       if (error.message === "Firebase: Error (auth/invalid-credential).")

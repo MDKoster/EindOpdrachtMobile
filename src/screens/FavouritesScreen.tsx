@@ -62,7 +62,7 @@ const FavouritesScreen = () => {
               top: 2,
               fontSize: 32,
               fontFamily: "Exquite",
-              color: darkModeSelected ? "black" : "white",
+              color: "white",
             }}
           >
             MY FAVOURITES
@@ -78,7 +78,7 @@ const FavouritesScreen = () => {
             alignItems: "center",
           }}
         >
-          {favorites?.length === 0 ? (
+          {favorites == null ? (
             <Text
               style={{
                 fontSize: 20,

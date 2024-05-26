@@ -109,7 +109,7 @@ const RegisterScreen = () => {
                     {
                       text: "Continue",
                       onPress: () =>
-                        settingsNavigator.navigate<
+                        settingsNavigator.replace<
                           keyof SettingsStackParamsList
                         >("AccountMain"),
                     },

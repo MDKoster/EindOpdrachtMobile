@@ -1,10 +1,22 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import { useAppSelector } from "../hooks/Selector";
 import { FlatList, GestureHandlerRootView } from "react-native-gesture-handler";
 import ShoppingCartComponent from "../components/ShoppingCartComponent";
+import {
+  darkModeBackgroundColor,
+  lightModeBackgroundColor,
+} from "../../util/colors";
+import { cartItem } from "../navigation/types";
 
 const ShoppingCartScreen = () => {
   const navigator = useNavigation();
@@ -12,8 +24,15 @@ const ShoppingCartScreen = () => {
   const shoppingCart = useAppSelector((state) => state.user.shoppingCart);
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      {shoppingCart && shoppingCart?.length == 0 ? (
+    <SafeAreaView
+      style={{
+        flex: 1,
+        backgroundColor: darkModeSelected
+          ? darkModeBackgroundColor
+          : lightModeBackgroundColor,
+      }}
+    >
+      {shoppingCart == null || shoppingCart?.length == 0 ? (
         <>
           <View
             style={{
@@ -99,12 +118,72 @@ const ShoppingCartScreen = () => {
           </View>
         </>
       ) : (
-        <GestureHandlerRootView>
+        <GestureHandlerRootView
+          style={{
+            flex: 1,
+          }}
+        >
+          <View
+            style={{
+              flex: 0.06,
+              minHeight: 18,
+              alignItems: "center",
+              justifyContent: "center",
+              backgroundColor: darkModeSelected ? "#740000" : "#060032",
+              width: "100%",
+            }}
+          >
+            <Text
+              style={{
+                top: 2,
+                fontSize: 32,
+                fontFamily: "Exquite",
+                color: "white",
+              }}
+            >
+              SHOPPING BAG
+            </Text>
+          </View>
           <FlatList
             data={shoppingCart}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => <ShoppingCartComponent item={item} />}
           />
+          <TouchableOpacity
+            style={{
+              position: "absolute",
+              bottom: 55,
+              right: 0,
+              justifyContent: "flex-end",
+              alignItems: "flex-end",
+            }}
+            onPress={() => {}}
+          >
+            <View
+              style={{
+                backgroundColor: darkModeSelected ? "#FF1819" : "#A2C1FF",
+                flexDirection: "row",
+                alignItems: "center",
+                borderTopLeftRadius: 15,
+                borderBottomLeftRadius: 15,
+                padding: 15,
+              }}
+            >
+              <Text
+                style={{
+                  textAlignVertical: "center",
+                  fontSize: 20,
+                  fontFamily: "Exquite",
+                  color: darkModeSelected ? "lightgrey" : "black",
+                  textShadowColor: darkModeSelected ? "white" : "black",
+                  textShadowOffset: { width: 0.5, height: 0.5 },
+                  textShadowRadius: 2,
+                }}
+              >
+                Proceed to checkout
+              </Text>
+            </View>
+          </TouchableOpacity>
         </GestureHandlerRootView>
       )}
     </SafeAreaView>

@@ -86,6 +86,7 @@ export type cartItem = {
   image: string;
   size: string;
   quantity: number;
+  stock: number;
 };
 
 export type DBitem = {
