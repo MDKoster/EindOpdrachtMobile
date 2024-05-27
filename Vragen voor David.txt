@@ -10,3 +10,7 @@ Stacknavigator in stacknavigator? Bvb: Mijn loginscherm zit in de Settingsstackn
 
 Inline styling of alles verplaatsen naar stylesheet?
 -> inline styling is ok
+
+Check todo list for redux question
+
+Typing for navigation to different tab? => ItemDetailComponent

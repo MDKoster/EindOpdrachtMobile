@@ -21,7 +21,7 @@ const AccountComponent = ({ icon, mainText, subText, screen }: Props) => {
         flex: 1,
         flexDirection: "row",
         alignItems: "center",
-        borderBottomWidth: 0.8,
+        borderBottomWidth: darkModeSelected ? 0.5 : 0.8,
         borderColor: darkModeSelected ? "white" : "#e5e5e5",
       }}
       onPress={() =>

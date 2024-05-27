@@ -1,2 +1,2 @@
-export const darkModeBackgroundColor = "#101219";
+export const darkModeBackgroundColor = "#220920";
 export const lightModeBackgroundColor = "white";

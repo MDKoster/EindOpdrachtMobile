@@ -7,6 +7,11 @@ import {
   lightModeBackgroundColor,
 } from "../../util/colors";
 import { AntDesign } from "@expo/vector-icons";
+import { useDispatch } from "react-redux";
+import {
+  addToShoppingCart,
+  removeFromShoppingCart,
+} from "../../store/UserReducer";
 
 type Props = {
   item: cartItem;
@@ -14,6 +19,7 @@ type Props = {
 
 const ShoppingCartComponent = ({ item }: Props) => {
   const darkModeSelected = useAppSelector((state) => state.layout.darkMode);
+  const dispatch = useDispatch();
 
   return (
     <View
@@ -25,6 +31,7 @@ const ShoppingCartComponent = ({ item }: Props) => {
           ? darkModeBackgroundColor
           : lightModeBackgroundColor,
         elevation: 5,
+        shadowColor: darkModeSelected ? "white" : "black",
       }}
     >
       <Image
@@ -47,13 +54,24 @@ const ShoppingCartComponent = ({ item }: Props) => {
           style={{
             fontSize: 18,
             marginTop: 5,
+            color: darkModeSelected ? "white" : "black",
           }}
         >
           {item.name}
         </Text>
         <Text
           style={{
+            fontSize: 12,
+            marginTop: 2,
+            color: darkModeSelected ? "white" : "black",
+          }}
+        >
+          Size: {item.size}
+        </Text>
+        <Text
+          style={{
             fontSize: 14,
+            color: darkModeSelected ? "white" : "black",
           }}
         >
           Unit price: ${item.price / 100}
@@ -72,6 +90,7 @@ const ShoppingCartComponent = ({ item }: Props) => {
             fontSize: 14,
             marginHorizontal: 10,
             marginBottom: 5,
+            color: darkModeSelected ? "white" : "black",
           }}
         >
           Amount
@@ -84,19 +103,45 @@ const ShoppingCartComponent = ({ item }: Props) => {
             marginHorizontal: 10,
           }}
         >
-          <TouchableOpacity onPress={() => {}}>
-            <AntDesign name="minus" size={18} color="black" />
+          <TouchableOpacity
+            onPress={() => {
+              dispatch(removeFromShoppingCart(item.id));
+            }}
+          >
+            <AntDesign
+              name="minus"
+              size={18}
+              color={darkModeSelected ? "white" : "black"}
+            />
           </TouchableOpacity>
           <Text
             style={{
               fontSize: 18,
               marginHorizontal: 10,
+              color: darkModeSelected ? "white" : "black",
             }}
           >
             {item.quantity}
           </Text>
-          <TouchableOpacity onPress={() => {}}>
-            <AntDesign name="plus" size={18} color="black" />
+          <TouchableOpacity
+            onPress={() => {
+              dispatch(addToShoppingCart(item));
+            }}
+            style={{
+              pointerEvents: item.quantity === item.stock ? "none" : "auto",
+            }}
+          >
+            <AntDesign
+              name="plus"
+              size={18}
+              color={
+                item.quantity === item.stock
+                  ? "lightgrey"
+                  : darkModeSelected
+                  ? "white"
+                  : "black"
+              }
+            />
           </TouchableOpacity>
         </View>
         <Text

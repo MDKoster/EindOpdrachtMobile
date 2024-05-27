@@ -1,50 +1,52 @@
--Detailscherm items:
+                                                                            -Detailscherm items:
     -foto's (horizontale flatlist)//
     -prijs//
     -stock//
     -maten//
     -desc//
     -general info//
-    -reviews
-    -mogelijkheid om review achter te laten
+                                                                                -reviews
+                                                                                -mogelijkheid om review achter te laten
     -add to favourites ster//
-    -toevoegen aan winkelmandje; knop
+    -toevoegen aan winkelmandje; knop //
 
 -Bij detailweergave aantal beschikbare items weergeven//
-    -niet toelaten om meer aan te kopen dan er beschikbaar zijn
+    -niet toelaten om meer aan te kopen dan er beschikbaar zijn//
 
--Shopping screen overzicht aanmaken:
-    -filter option
+                                                                            -Shopping screen overzicht aanmaken:
+                                                                                -filter option
     -make item card and flatlists//
 
--Profielscherm aanmaken
-    -camera functionaliteit toevoegen (profielfoto)
+                                                                            -Profielscherm aanmaken
+                                                                                -camera functionaliteit toevoegen (profielfoto)
 
 -Favourites saving in database//
 
--Redux state for items in shopping bag
+-Redux state for items in shopping bag//
 
--Shopping bag:
-    -Create screen to view added items
-    -add button to go to checkout
+                                                                            -Shopping bag:
+    -Create screen to view added items //
+    -add functionality to add or remove already added items //
+                                                                            -add button to go to checkout (need to make checkout window)
 
--Search:
-    -add navigation to shopping screen
+                                                                            -Search:
+                                                                                -add navigation to shopping screen
 
 -Firestore DB: 
-    - images: main image + subcollection for other images?
-    - seperate categories collection with relevant item ID's and other basic data needed to show on main shop screen (popular, new arrivals, etc.)
+    - seperate categories collection with relevant item ID's and other 
+    basic data needed to show on main shop screen 
+    (popular, new arrivals, etc.)//
 
--Settings:
-    -add other Settings
+                                                                            -Settings:
+                                                                                -add other Settings
 
--Latest news:
-    -add random news cards; image and title will suffice
+                                                                            -Latest news:
+                                                                                -add random news cards; image and title will suffice
 
--Help & Info:
-    -???
+                                                                            -Help & Info:
+                                                                                -???
 
--Delete account
-    -add simple screen with warning and inputfield. Enter "delete" to remove account permanently.
+                                                                            -Delete account
+                                                                                -add simple screen with warning and inputfield. Enter "delete" to remove account permanently.
 
--Keep splashscreen until Home Page items have loaded
+                                                                            -Keep splashscreen until Home Page items have loaded
