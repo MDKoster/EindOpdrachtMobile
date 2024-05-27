@@ -5,7 +5,7 @@
     -maten//
     -desc//
     -general info//
-                                                                                -reviews (done, enkel nog datum toevoegen. Figure out Timestamp!)
+    -reviews//
                                                                                 -mogelijkheid om review achter te laten
     -add to favourites ster//
     -toevoegen aan winkelmandje; knop //

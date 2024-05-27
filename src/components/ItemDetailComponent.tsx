@@ -84,6 +84,9 @@ const ItemDetailComponent = () => {
             return {
               ...reviewData,
               id: doc.id,
+              date: (reviewData.date as Timestamp)
+                .toDate()
+                .toLocaleDateString(),
             } as Review;
           });
 

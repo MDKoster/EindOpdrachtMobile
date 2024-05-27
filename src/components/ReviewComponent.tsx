@@ -53,6 +53,7 @@ const ReviewComponent = ({ review }: Props) => {
         </View>
       </View>
       <Text style={styles.reviewStyle}>{review.review}</Text>
+      <Text style={styles.dateStyle}>{review.date}</Text>
     </View>
   );
 };
@@ -75,5 +76,11 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "300",
     margin: 5,
+  },
+  dateStyle: {
+    fontSize: 12,
+    fontWeight: "300",
+    margin: 5,
+    color: "grey",
   },
 });
