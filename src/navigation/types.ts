@@ -89,6 +89,14 @@ export type cartItem = {
   stock: number;
 };
 
+export type Review = {
+  id: string;
+  userName: string;
+  score: number;
+  date: string;
+  review: string;
+};
+
 export type DBitem = {
   name: string;
   price: number;
@@ -100,4 +108,5 @@ export type DBitem = {
   quantity: number;
   sizes: string[];
   style: string;
+  reviews: Review[];
 };

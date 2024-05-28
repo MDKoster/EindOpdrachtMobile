@@ -13,9 +13,17 @@ import {
 import { Picker } from "@react-native-picker/picker";
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { DBitem, ShopScreenProps } from "../navigation/types";
+import { DBitem, Review, ShopScreenProps } from "../navigation/types";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
-import { deleteDoc, doc, getDoc, setDoc } from "firebase/firestore";
+import {
+  Timestamp,
+  collection,
+  deleteDoc,
+  doc,
+  getDoc,
+  getDocs,
+  setDoc,
+} from "firebase/firestore";
 import { auth, db } from "../config/firebase";
 import PaginationComponent from "./PaginationComponent";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -30,6 +38,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { useDispatch } from "react-redux";
 import { addToShoppingCart } from "../../store/UserReducer";
+import ReviewComponent from "./ReviewComponent";
 
 const ItemDetailComponent = () => {
   const {
@@ -51,24 +60,45 @@ const ItemDetailComponent = () => {
 
   //fetch item data from firestore
   useEffect(() => {
-    (async () => {
+    const fetchItemWithReviews = async () => {
       try {
-        const qr = await getDoc(doc(db, "items", item.id));
-        const itemData = qr.data() as DBitem;
+        const itemDoc = await getDoc(doc(db, "items", item.id));
+        const itemData = itemDoc.data() as DBitem;
 
-        // Preload images
-        if (itemData && itemData.images) {
-          const imagePromises = itemData.images.map((image) =>
-            Image.prefetch(image)
+        if (itemData != null) {
+          // Preload images if they exist
+          if (itemData.images) {
+            const imagePromises = itemData.images.map((image) =>
+              Image.prefetch(image)
+            );
+            await Promise.all(imagePromises);
+          }
+
+          // Fetch the reviews subcollection
+          const reviewsQuerySnapshot = await getDocs(
+            collection(db, "items", item.id, "reviews")
           );
-          await Promise.all(imagePromises);
+          const reviews = reviewsQuerySnapshot.docs.map((doc) => {
+            const reviewData = doc.data();
+            return {
+              ...reviewData,
+              id: doc.id,
+              date: (reviewData.date as Timestamp)
+                .toDate()
+                .toLocaleDateString(),
+            } as Review;
+          });
+
+          itemData.reviews = reviews;
         }
 
         setItemResult(itemData);
       } catch (error) {
         console.log(error);
       }
-    })();
+    };
+
+    fetchItemWithReviews();
   }, [item]);
 
   //check if item is in favorites
@@ -480,7 +510,6 @@ const ItemDetailComponent = () => {
             <View
               style={{
                 height: 60,
-
                 flex: 0.28,
                 flexDirection: "row",
                 alignItems: "center",
@@ -525,6 +554,24 @@ const ItemDetailComponent = () => {
             />
           </View>
         </Pressable>
+        {itemResult != null && itemResult.reviews != null && (
+          <View
+            style={{
+              flex: 1,
+              margin: 5,
+              backgroundColor: darkModeSelected
+                ? darkModeBackgroundColor
+                : lightModeBackgroundColor,
+              elevation: 1,
+              shadowColor: darkModeSelected ? "white" : "black",
+            }}
+          >
+            <Text style={styles.title}>Reviews</Text>
+            {itemResult.reviews.map((review) => (
+              <ReviewComponent review={review} key={review.id} />
+            ))}
+          </View>
+        )}
       </ScrollView>
     </SafeAreaView>
   );
@@ -537,6 +584,9 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     margin: 5,
+    padding: 5,
+    borderBottomWidth: 1,
+    borderBottomColor: "lightgrey",
   },
   textStyle: {
     fontSize: 16,
