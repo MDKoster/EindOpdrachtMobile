@@ -108,10 +108,7 @@ const RegisterScreen = () => {
                   [
                     {
                       text: "Continue",
-                      onPress: () =>
-                        settingsNavigator.replace<
-                          keyof SettingsStackParamsList
-                        >("AccountMain"),
+                      onPress: () => settingsNavigator.goBack(),
                     },
                   ]
                 );

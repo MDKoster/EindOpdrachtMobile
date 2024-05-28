@@ -44,22 +44,30 @@ const SplashScreen = () => {
 
   return (
     <View style={{ flex: 1, backgroundColor: "black" }}>
-      <View>
+      <View
+        style={{
+          position: "absolute",
+          flex: 1,
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          zIndex: 2,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         <Image
           source={require("../../assets/images/gizmo.png")}
           resizeMode="contain"
           style={{
-            position: "absolute",
             flex: 1,
-            top: windowHeight / 4,
-            left: 0,
             width: "100%",
-            zIndex: 1,
           }}
         />
       </View>
       <Animated.View
-        style={{ opacity: fadeAnim, flex: 1, alignItems: "center" }}
+        style={{ opacity: fadeAnim, flex: 1, zIndex: 0, alignItems: "center" }}
       >
         <Image
           source={images[currentImageIndex] as ImageSourcePropType}

@@ -48,7 +48,6 @@ const ItemDetailComponent = () => {
   const currentUser = useAppSelector((state) => state.user.currentUser);
   const favorites = useAppSelector((state) => state.user.favorites);
   const dispatch = useDispatch();
-  const shoppingCart = useAppSelector((state) => state.user.shoppingCart);
 
   //fetch item data from firestore
   useEffect(() => {

@@ -16,6 +16,7 @@ import AboutApp from "../screens/AccountScreens/AboutApp";
 import MapMarkerDetailScreen from "../screens/AccountScreens/MapMarkerDetailScreen";
 import AuthStackNavigator from "./AuthStackNavigator";
 import UserDetail from "../screens/AccountScreens/UserDetail";
+import SplashScreen from "../screens/SplashScreen";
 
 const Stack = createStackNavigator();
 
@@ -35,7 +36,7 @@ const SettingsStackNavigator = () => {
       <Stack.Screen name="AboutGizmo" component={AboutGizmo} />
       <Stack.Screen name="Sustainability" component={Sustainability} />
       <Stack.Screen name="LatestNews" component={LatestNews} />
-      <Stack.Screen name="Help" component={HelpScreen} />
+      <Stack.Screen name="Help" component={SplashScreen} />
       <Stack.Screen name="AccountDelete" component={AccountDelete} />
       <Stack.Screen name="AboutApp" component={AboutApp} />
       <Stack.Screen

@@ -78,7 +78,9 @@ const FavouritesScreen = () => {
             alignItems: "center",
           }}
         >
-          {favorites == null ? (
+          {currentUser == null ||
+          favorites == null ||
+          favorites?.length == 0 ? (
             <Text
               style={{
                 fontSize: 20,
