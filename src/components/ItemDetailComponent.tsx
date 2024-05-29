@@ -39,6 +39,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { useDispatch } from "react-redux";
 import { addToShoppingCart } from "../../store/UserReducer";
 import ReviewComponent from "./ReviewComponent";
+import ReviewInputComponent from "./ReviewInputComponent";
 
 const ItemDetailComponent = () => {
   const {
@@ -73,25 +74,9 @@ const ItemDetailComponent = () => {
             );
             await Promise.all(imagePromises);
           }
-
-          // Fetch the reviews subcollection
-          const reviewsQuerySnapshot = await getDocs(
-            collection(db, "items", item.id, "reviews")
-          );
-          const reviews = reviewsQuerySnapshot.docs.map((doc) => {
-            const reviewData = doc.data();
-            return {
-              ...reviewData,
-              id: doc.id,
-              date: (reviewData.date as Timestamp)
-                .toDate()
-                .toLocaleDateString(),
-            } as Review;
-          });
-
-          itemData.reviews = reviews;
         }
 
+        fetchReviews(itemData);
         setItemResult(itemData);
       } catch (error) {
         console.log(error);
@@ -101,12 +86,33 @@ const ItemDetailComponent = () => {
     fetchItemWithReviews();
   }, [item]);
 
+  // useEffect(() => {
+  //   fetchReviews();
+  // }, [itemResult]);
+
   //check if item is in favorites
   useEffect(() => {
     favorites?.find((favItem) => favItem.id === item.id) != undefined
       ? setIsFavorite(true)
       : setIsFavorite(false);
   }, []);
+
+  const fetchReviews = async (itemData: DBitem) => {
+    // Fetch the reviews subcollection
+    const reviewsQuerySnapshot = await getDocs(
+      collection(db, "items", item.id, "reviews")
+    );
+    const reviews = reviewsQuerySnapshot.docs.map((doc) => {
+      const reviewData = doc.data();
+      return {
+        ...reviewData,
+        id: doc.id,
+        date: (reviewData.date as Timestamp).toDate().toLocaleDateString(),
+      } as Review;
+    });
+
+    itemData.reviews = reviews;
+  };
 
   //pagination for images
   const onViewRef = useRef(({ viewableItems }) => {
@@ -572,6 +578,7 @@ const ItemDetailComponent = () => {
             ))}
           </View>
         )}
+        <ReviewInputComponent />
       </ScrollView>
     </SafeAreaView>
   );

@@ -2,11 +2,6 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { Review } from "../navigation/types";
 import { FontAwesome } from "@expo/vector-icons";
-import { useAppSelector } from "../hooks/Selector";
-import {
-  darkModeBackgroundColor,
-  lightModeBackgroundColor,
-} from "../../util/colors";
 
 type Props = {
   key: string;
@@ -14,8 +9,6 @@ type Props = {
 };
 
 const ReviewComponent = ({ review }: Props) => {
-  const darkModeSelected = useAppSelector((state) => state.layout.darkMode);
-
   return (
     <View
       style={{
