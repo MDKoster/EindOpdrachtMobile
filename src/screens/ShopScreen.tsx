@@ -5,7 +5,7 @@ import {
   Pressable,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { FlatList } from "react-native-gesture-handler";
 import { ShopScreenProps } from "../navigation/types";
@@ -24,6 +24,21 @@ const ShopScreen = () => {
     params: { title, items },
   } = useRoute<ShopScreenProps<"ShopStack">["route"]>();
   const darkModeSelected = useAppSelector((state) => state.layout.darkMode);
+  const filterOptions = useAppSelector((state) => state.shop.filterOptions);
+  const [itemsToDisplay, setItemsToDisplay] = useState(items);
+
+  useEffect(() => {
+    if (filterOptions.length === 0) {
+      setItemsToDisplay(items);
+    } else {
+      const filteredItems = items.filter((item) =>
+        filterOptions.every((filter) =>
+          item.tags.includes(filter.toLowerCase())
+        )
+      );
+      setItemsToDisplay(filteredItems);
+    }
+  }, [filterOptions]);
 
   return (
     <SafeAreaView
@@ -92,9 +107,7 @@ const ShopScreen = () => {
             margin: 5,
             flex: 0.78,
           }}
-        >
-          {/* TODO: Add filter options */}
-        </View>
+        ></View>
         <TouchableOpacity
           style={{
             flex: 0.22,
@@ -113,7 +126,6 @@ const ShopScreen = () => {
           }}
           onPress={() => navigator.navigate("FilterOptions")}
         >
-          {/* TODO: Add filter dropdown/component */}
           <Text
             style={{
               paddingHorizontal: 5,
@@ -141,7 +153,7 @@ const ShopScreen = () => {
       >
         <FlatList
           numColumns={2}
-          data={items}
+          data={itemsToDisplay}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <ItemListComponent key={item.id} item={item} />

@@ -85,7 +85,16 @@ const ReviewInputComponent = ({ id, item, setItem }: Props) => {
         margin: 5,
       }}
     >
-      <Text style={styles.title}>Add a review</Text>
+      <Text
+        style={[
+          styles.title,
+          {
+            color: darkModeSelected ? "white" : "black",
+          },
+        ]}
+      >
+        Add a review
+      </Text>
       <TextInput
         ref={reviewRef}
         style={styles.textInput}
@@ -99,7 +108,16 @@ const ReviewInputComponent = ({ id, item, setItem }: Props) => {
         }}
       >
         <View style={styles.starContainer}>
-          <Text style={styles.textStyle}>Add a score: </Text>
+          <Text
+            style={[
+              styles.textStyle,
+              {
+                color: darkModeSelected ? "white" : "black",
+              },
+            ]}
+          >
+            Add a score:{" "}
+          </Text>
           {[...Array(score)].map((e, index) => (
             <FontAwesome
               key={index}

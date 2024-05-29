@@ -12,6 +12,7 @@ import {
   ImageSourcePropType,
   TouchableWithoutFeedback,
   Keyboard,
+  Button,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import HomeSuggestionListComponent from "../components/HomeSuggestionListComponent";
@@ -21,7 +22,7 @@ import {
   darkModeBackgroundColor,
   lightModeBackgroundColor,
 } from "../../util/colors";
-import { collection, getDocs, query } from "firebase/firestore";
+import { collection, doc, getDocs, query, setDoc } from "firebase/firestore";
 import { db } from "../config/firebase";
 import { useDispatch } from "react-redux";
 import {
@@ -51,32 +52,28 @@ const HomeScreen = () => {
   useEffect(() => {
     (async () => {
       const qsPop = await getCollection("categories/popular/items");
-      dispatch(
-        setPopularItems(
-          qsPop.docs.map((ds) => ({ id: ds.id, ...ds.data() } as item))
-        )
+      const qsPopDocs = qsPop.docs.map(
+        (ds) => ({ id: ds.id, ...ds.data() } as item)
       );
+      dispatch(setPopularItems(qsPopDocs));
 
       const qsNew = await getCollection("categories/newArrivals/items");
-      dispatch(
-        setNewArrivalItems(
-          qsNew.docs.map((ds) => ({ id: ds.id, ...ds.data() } as item))
-        )
+      const qsNewDocs = qsNew.docs.map(
+        (ds) => ({ id: ds.id, ...ds.data() } as item)
       );
+      dispatch(setNewArrivalItems(qsNewDocs));
 
       const qsMen = await getCollection("categories/mensFashion/items");
-      dispatch(
-        setMensFashionItems(
-          qsMen.docs.map((ds) => ({ id: ds.id, ...ds.data() } as item))
-        )
+      const qsMenDocs = qsMen.docs.map(
+        (ds) => ({ id: ds.id, ...ds.data() } as item)
       );
+      dispatch(setMensFashionItems(qsMenDocs));
 
       const qsWomen = await getCollection("categories/womensFashion/items");
-      dispatch(
-        setWomensFashionItems(
-          qsWomen.docs.map((ds) => ({ id: ds.id, ...ds.data() } as item))
-        )
+      const qsWomenDocs = qsWomen.docs.map(
+        (ds) => ({ id: ds.id, ...ds.data() } as item)
       );
+      dispatch(setWomensFashionItems(qsWomenDocs));
     })();
   }, []);
 

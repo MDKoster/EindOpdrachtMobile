@@ -81,6 +81,7 @@ export type item = {
   name: string;
   image: string;
   price: number;
+  tags: string[];
 };
 
 export type cartItem = {

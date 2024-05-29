@@ -575,7 +575,16 @@ const ItemDetailComponent = () => {
               shadowColor: darkModeSelected ? "white" : "black",
             }}
           >
-            <Text style={styles.title}>Reviews</Text>
+            <Text
+              style={[
+                styles.title,
+                {
+                  color: darkModeSelected ? "white" : "black",
+                },
+              ]}
+            >
+              Reviews
+            </Text>
             {itemResult.reviews.map((review) => (
               <ReviewComponent review={review} key={review.id} />
             ))}

@@ -2,6 +2,7 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { Review } from "../navigation/types";
 import { FontAwesome } from "@expo/vector-icons";
+import { useAppSelector } from "../hooks/Selector";
 
 type Props = {
   key: string;
@@ -9,6 +10,8 @@ type Props = {
 };
 
 const ReviewComponent = ({ review }: Props) => {
+  const darkModeSelected = useAppSelector((state) => state.layout.darkMode);
+
   return (
     <View
       style={{
@@ -25,7 +28,16 @@ const ReviewComponent = ({ review }: Props) => {
           alignItems: "center",
         }}
       >
-        <Text style={styles.title}>{review.userName}</Text>
+        <Text
+          style={[
+            styles.title,
+            {
+              color: darkModeSelected ? "white" : "black",
+            },
+          ]}
+        >
+          {review.userName}
+        </Text>
         <View
           style={{
             flexDirection: "row",
@@ -45,8 +57,26 @@ const ReviewComponent = ({ review }: Props) => {
           ))}
         </View>
       </View>
-      <Text style={styles.reviewStyle}>{review.review}</Text>
-      <Text style={styles.dateStyle}>{review.date}</Text>
+      <Text
+        style={[
+          styles.reviewStyle,
+          {
+            color: darkModeSelected ? "white" : "black",
+          },
+        ]}
+      >
+        {review.review}
+      </Text>
+      <Text
+        style={[
+          styles.dateStyle,
+          {
+            color: darkModeSelected ? "white" : "black",
+          },
+        ]}
+      >
+        {review.date}
+      </Text>
     </View>
   );
 };
