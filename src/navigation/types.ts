@@ -1,5 +1,5 @@
+import { NavigatorScreenParams } from "@react-navigation/native";
 import { StackScreenProps } from "@react-navigation/stack";
-import { ImageSourcePropType } from "react-native";
 
 export type AuthStackParamsList = {
   Login: undefined;
@@ -31,12 +31,16 @@ export type SettingsStackParamsList = {
   MapMarkerDetail: {
     store: StoreLocationType;
   };
+  Account: {
+    screen: keyof AuthStackParamsList;
+  };
 };
 
 export type ShopStackParamsList = {
   HomeStack: undefined;
   ShopStack: { title: string; items: item[] };
   ItemDetail: { item: item };
+  FilterOptions: undefined;
 };
 
 export type ShopScreenProps<T extends keyof ShopStackParamsList> =
@@ -90,7 +94,7 @@ export type cartItem = {
 };
 
 export type Review = {
-  id: string;
+  id?: string;
   userName: string;
   score: number;
   date: string;

@@ -7,6 +7,7 @@ import {
 import ShopScreen from "../screens/ShopScreen";
 import HomeScreen from "../screens/HomeScreen";
 import ItemDetailComponent from "../components/ItemDetailComponent";
+import FilterOptionsScreen from "../screens/FilterOptionsScreen";
 
 const Stack = createStackNavigator();
 
@@ -21,6 +22,13 @@ const ShopStackNavigator = () => {
       <Stack.Screen name="HomeStack" component={HomeScreen} />
       <Stack.Screen name="ShopStack" component={ShopScreen} />
       <Stack.Screen name="ItemDetail" component={ItemDetailComponent} />
+      <Stack.Screen
+        name="FilterOptions"
+        component={FilterOptionsScreen}
+        options={{
+          ...TransitionPresets.ModalPresentationIOS,
+        }}
+      />
     </Stack.Navigator>
   );
 };

@@ -13,7 +13,6 @@ import {
   AuthScreenProps,
   AuthStackParamsList,
   SettingsScreenProps,
-  SettingsStackParamsList,
 } from "../../navigation/types";
 import {
   darkModeBackgroundColor,

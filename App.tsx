@@ -8,6 +8,13 @@ import { persistor, store } from "./store/Store";
 import { PersistGate } from "redux-persist/integration/react";
 import AuthContextProvider from "./src/contexts/AuthContext";
 import * as Font from "expo-font";
+import {
+  Feather,
+  FontAwesome,
+  FontAwesome5,
+  FontAwesome6,
+  Ionicons,
+} from "@expo/vector-icons";
 
 SplashScreenExpo.preventAutoHideAsync();
 
@@ -21,6 +28,11 @@ export default function App() {
           Exquite: require("./assets/fonts/Exquite.ttf"),
           Kingdom: require("./assets/fonts/Kingdom-Regular.ttf"),
         });
+        await Font.loadAsync(FontAwesome.font);
+        await Font.loadAsync(FontAwesome5.font);
+        await Font.loadAsync(FontAwesome6.font);
+        await Font.loadAsync(Feather.font);
+        await Font.loadAsync(Ionicons.font);
       } catch (error) {
         console.warn("Error loading fonts: ", error);
       } finally {

@@ -13,7 +13,12 @@ import {
 import { Picker } from "@react-native-picker/picker";
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { DBitem, Review, ShopScreenProps } from "../navigation/types";
+import {
+  DBitem,
+  Review,
+  SettingsStackParamsList,
+  ShopScreenProps,
+} from "../navigation/types";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
 import {
   Timestamp,
@@ -76,7 +81,7 @@ const ItemDetailComponent = () => {
           }
         }
 
-        fetchReviews(itemData);
+        await fetchReviews(itemData);
         setItemResult(itemData);
       } catch (error) {
         console.log(error);
@@ -85,10 +90,6 @@ const ItemDetailComponent = () => {
 
     fetchItemWithReviews();
   }, [item]);
-
-  // useEffect(() => {
-  //   fetchReviews();
-  // }, [itemResult]);
 
   //check if item is in favorites
   useEffect(() => {
@@ -227,7 +228,9 @@ const ItemDetailComponent = () => {
           {
             text: "Log in",
             onPress: () => {
-              navigator.navigate("Account", { screen: "LogIn" });
+              navigator.navigate<keyof SettingsStackParamsList>("Account", {
+                screen: "Login",
+              });
             },
           },
         ],
@@ -578,7 +581,11 @@ const ItemDetailComponent = () => {
             ))}
           </View>
         )}
-        <ReviewInputComponent />
+        <ReviewInputComponent
+          id={item.id}
+          item={itemResult}
+          setItem={setItemResult}
+        />
       </ScrollView>
     </SafeAreaView>
   );

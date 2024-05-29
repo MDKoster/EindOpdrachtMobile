@@ -11,6 +11,6 @@ Stacknavigator in stacknavigator? Bvb: Mijn loginscherm zit in de Settingsstackn
 Inline styling of alles verplaatsen naar stylesheet?
 -> inline styling is ok
 
-Check todo list for redux question
+Check todo list for redux question => timer toevoegen? Momenteel worden shoplocations 1 keer opgevraagd en door persistance nooit meer heropgevraagd
 
 Typing for navigation to different tab? => ItemDetailComponent

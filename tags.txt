@@ -1,0 +1,66 @@
+Brands
+
+Nike
+Hermès
+Adidas
+Zara
+C&A
+Soko
+Oozoo
+Cartier
+Jack & Jones
+Kaisun
+Puma
+Jimmy Choo
+G Star
+Timberland
+
+Colors
+
+Black
+White
+Grey
+Brown
+Silver
+Blue
+Beige
+Gold
+Pink
+Red
+Orange
+
+Materials
+
+Leather
+Diamond
+Sapphire
+
+Types of Clothing
+
+Women's clothing
+Men's clothing
+Dress
+Suit
+Hoodie
+Sneakers
+Heels
+Wristwatch
+
+Styles/Occasions
+
+Casual
+Formal
+Classical
+Striped
+Floral
+Summer
+Workout
+Running
+Tennis
+Sports
+
+Jewelry
+
+Necklace
+Earrings
+Jewelry

@@ -1,12 +1,14 @@
-import { Text, StyleSheet, View, Pressable } from "react-native";
+import {
+  Text,
+  StyleSheet,
+  View,
+  Pressable,
+  TouchableOpacity,
+} from "react-native";
 import React from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import {
-  FlatList,
-  ScrollView,
-  TouchableOpacity,
-} from "react-native-gesture-handler";
-import { ShopScreenProps, ShopStackParamsList } from "../navigation/types";
+import { FlatList } from "react-native-gesture-handler";
+import { ShopScreenProps } from "../navigation/types";
 import { useAppSelector } from "../hooks/Selector";
 import {
   darkModeBackgroundColor,
@@ -14,7 +16,7 @@ import {
 } from "../../util/colors";
 import ItemListComponent from "../components/ItemListComponent";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Entypo } from "@expo/vector-icons";
+import { Entypo, Ionicons } from "@expo/vector-icons";
 
 const ShopScreen = () => {
   const navigator = useNavigation<ShopScreenProps<"ShopStack">["navigation"]>();
@@ -64,6 +66,72 @@ const ShopScreen = () => {
             {title}
           </Text>
         </View>
+      </View>
+      <View
+        style={{
+          height: 40,
+          borderRadius: 2,
+          marginHorizontal: 10,
+          alignItems: "center",
+          justifyContent: "flex-end",
+          flexDirection: "row",
+        }}
+      >
+        <View
+          style={{
+            height: 35,
+            flexDirection: "row",
+            backgroundColor: darkModeSelected
+              ? darkModeBackgroundColor
+              : lightModeBackgroundColor,
+            alignItems: "center",
+            elevation: 1,
+            borderRadius: 5,
+            borderColor: "lightgrey",
+            borderWidth: 1,
+            margin: 5,
+            flex: 0.78,
+          }}
+        >
+          {/* TODO: Add filter options */}
+        </View>
+        <TouchableOpacity
+          style={{
+            flex: 0.22,
+            height: 35,
+            flexDirection: "row",
+            justifyContent: "space-between",
+            borderWidth: 1,
+            borderRadius: 5,
+            borderColor: "lightgrey",
+            padding: 5,
+            alignItems: "center",
+            backgroundColor: darkModeSelected
+              ? darkModeBackgroundColor
+              : lightModeBackgroundColor,
+            elevation: 1,
+          }}
+          onPress={() => navigator.navigate("FilterOptions")}
+        >
+          {/* TODO: Add filter dropdown/component */}
+          <Text
+            style={{
+              paddingHorizontal: 5,
+              fontSize: 16,
+              color: darkModeSelected ? "white" : "black",
+            }}
+          >
+            Filter
+          </Text>
+          <Ionicons
+            name="filter"
+            size={20}
+            color="black"
+            style={{
+              paddingRight: 10,
+            }}
+          />
+        </TouchableOpacity>
       </View>
       <View
         style={{

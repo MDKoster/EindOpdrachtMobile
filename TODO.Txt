@@ -1,4 +1,4 @@
-                                                                            -Detailscherm items:
+-Detailscherm items:
     -foto's (horizontale flatlist)//
     -prijs//
     -stock//
@@ -6,7 +6,7 @@
     -desc//
     -general info//
     -reviews//
-                                                                                -mogelijkheid om review achter te laten
+    -mogelijkheid om review achter te laten//
     -add to favourites ster//
     -toevoegen aan winkelmandje; knop //
 
@@ -43,8 +43,8 @@
                                                                             -Latest news:
                                                                                 -add random news cards; image and title will suffice
 
-                                                                            -Help & Info:
-                                                                                -???
+-Help & Info:
+    -???
 
                                                                             -Delete account
                                                                                 -add simple screen with warning and inputfield. Enter "delete" to remove account permanently.
