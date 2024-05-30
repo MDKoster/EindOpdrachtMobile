@@ -14,7 +14,7 @@
     -niet toelaten om meer aan te kopen dan er beschikbaar zijn//
 
                                                                             -Shopping screen overzicht aanmaken:
-                                                                                -filter option
+                                                                                -filter option (afgewerkt, enkel nog user feedback (cards) toevoegen)
     -make item card and flatlists//
 
                                                                             -Profielscherm aanmaken
@@ -27,7 +27,7 @@
                                                                             -Shopping bag:
     -Create screen to view added items //
     -add functionality to add or remove already added items //
-                                                                            -add button to go to checkout (need to make checkout window)
+                                                                                -add button to go to checkout (need to make checkout window)
 
                                                                             -Search:
                                                                                 -add navigation to shopping screen
@@ -49,4 +49,4 @@
                                                                             -Delete account
                                                                                 -add simple screen with warning and inputfield. Enter "delete" to remove account permanently.
 
-                                                                            -Keep splashscreen until Home Page items have loaded
+-Keep splashscreen until Home Page items have loaded//

@@ -141,7 +141,6 @@ const FilterComponent = ({
   });
 
   const handleOptionPress = (option: string) => {
-    console.log(filterOptions);
     const filterOptionsToSet = selectedFilters.includes(option)
       ? selectedFilters.filter((filterToKeep) => filterToKeep !== option)
       : [...selectedFilters, option];
@@ -219,7 +218,7 @@ const FilterComponent = ({
                     : "checkbox-blank-outline"
                 }
                 size={24}
-                color={selectedFilters?.includes(option) ? "black" : "blue"}
+                color={selectedFilters?.includes(option) ? "blue" : "black"}
               />
               <Text
                 style={{

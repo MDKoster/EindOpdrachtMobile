@@ -53,6 +53,7 @@ const ReviewInputComponent = ({ id, item, setItem }: Props) => {
         Alert.alert("Failed to add review");
         return;
       }
+      //TODO: review list heropvragen uit DB na wegschrijven ipv rechtstreeks toevoegen, anders wordt er geen id en dus ook geen unieke key toegewezen
       setItem((prev) => ({
         ...prev,
         reviews: [...prev.reviews, newReview],
