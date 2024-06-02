@@ -25,9 +25,15 @@ const SearchClothing = () => {
           flex: 1,
         }}
       >
-        <SearchScreenOption category={"Men's Clothing"} />
-        <SearchScreenOption category={"Women's Clothing"} />
-        <SearchScreenOption category={"Sports"} />
+        <SearchScreenOption
+          category={"Men's Clothing"}
+          parentCategory={"Clothing"}
+        />
+        <SearchScreenOption
+          category={"Women's Clothing"}
+          parentCategory={"Clothing"}
+        />
+        <SearchScreenOption category={"Sports"} parentCategory={"Clothing"} />
       </ScrollView>
     </View>
   );

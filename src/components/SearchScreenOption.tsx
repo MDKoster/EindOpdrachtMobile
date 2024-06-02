@@ -2,29 +2,46 @@ import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { Entypo } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { SearchScreenProps, SearchStackParamsList } from "../navigation/types";
+import {
+  SearchScreenProps,
+  SearchStackParamsList,
+  ShopScreenProps,
+} from "../navigation/types";
 import { useAppSelector } from "../hooks/Selector";
 import {
   darkModeBackgroundColor,
   lightModeBackgroundColor,
 } from "../../util/colors";
+import { useDispatch } from "react-redux";
+import { setFilterOptions } from "../../store/ShopReducer";
 
 type Props = {
   category: string;
+  parentCategory: string;
   screen?: keyof SearchStackParamsList;
 };
 
-const SearchScreenOption = ({ category, screen }: Props) => {
+const SearchScreenOption = ({ category, parentCategory, screen }: Props) => {
   const navigator =
     useNavigation<SearchScreenProps<"SearchMain">["navigation"]>();
+  const shopNavigator =
+    useNavigation<ShopScreenProps<"ShopStack">["navigation"]>();
 
   const darkModeSelected = useAppSelector((state) => state.layout.darkMode);
+  const dispatch = useDispatch();
 
   return (
     <TouchableOpacity
-      onPress={() =>
-        screen && navigator.navigate<keyof SearchStackParamsList>(screen)
-      }
+      onPress={() => {
+        screen
+          ? navigator.navigate<keyof SearchStackParamsList>(screen)
+          : (dispatch(setFilterOptions([category])),
+            shopNavigator.navigate("ShopStack", {
+              title: category,
+              items: [],
+            }));
+        //TODO: Query correct list of items from db based on category
+      }}
     >
       <View
         style={{

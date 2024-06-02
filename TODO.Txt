@@ -13,12 +13,13 @@
 -Bij detailweergave aantal beschikbare items weergeven//
     -niet toelaten om meer aan te kopen dan er beschikbaar zijn//
 
-                                                                            -Shopping screen overzicht aanmaken:
-                                                                                -filter option (afgewerkt, enkel nog user feedback (cards) toevoegen)
+-Shopping screen overzicht aanmaken://
+    -filter option (afgewerkt, enkel nog user feedback (cards) toevoegen)//
     -make item card and flatlists//
 
                                                                             -Profielscherm aanmaken
-                                                                                -camera functionaliteit toevoegen (profielfoto)
+                                                                                -camera functionaliteit toevoegen (profielfoto => 
+                                                                                foto nemen werkt; nu nog wegschrijven naar storage en uitzoeken hoe je de PhotoURL toewijst)
 
 -Favourites saving in database//
 

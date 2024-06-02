@@ -25,9 +25,15 @@ const SearchPopular = () => {
           flex: 1,
         }}
       >
-        <SearchScreenOption category={"Men's Clothing"} />
-        <SearchScreenOption category={"Women's Clothing"} />
-        <SearchScreenOption category={"Sports"} />
+        <SearchScreenOption
+          category={"Men's Clothing"}
+          parentCategory={"Popular"}
+        />
+        <SearchScreenOption
+          category={"Women's Clothing"}
+          parentCategory={"Popular"}
+        />
+        <SearchScreenOption category={"Sports"} parentCategory={"Popular"} />
       </ScrollView>
     </View>
   );

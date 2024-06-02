@@ -71,7 +71,7 @@ const FilterOptionsScreen = () => {
           style={{
             padding: 10,
             borderRadius: 5,
-            backgroundColor: darkModeSelected ? "blue" : "lightblue",
+            backgroundColor: darkModeSelected ? "darkred" : "lightblue",
           }}
           onPress={() => {
             navigator.goBack();
@@ -141,6 +141,7 @@ const FilterComponent = ({
   });
 
   const handleOptionPress = (option: string) => {
+    selectedFilters == null ? dispatch(setFilterOptions([option])) : null;
     const filterOptionsToSet = selectedFilters.includes(option)
       ? selectedFilters.filter((filterToKeep) => filterToKeep !== option)
       : [...selectedFilters, option];
@@ -163,6 +164,7 @@ const FilterComponent = ({
             ? darkModeBackgroundColor
             : lightModeBackgroundColor,
           elevation: 5,
+          shadowColor: darkModeSelected ? "white" : "black",
         }}
       >
         <View
@@ -218,7 +220,15 @@ const FilterComponent = ({
                     : "checkbox-blank-outline"
                 }
                 size={24}
-                color={selectedFilters?.includes(option) ? "blue" : "black"}
+                color={
+                  selectedFilters?.includes(option)
+                    ? darkModeSelected
+                      ? "white"
+                      : "blue"
+                    : darkModeSelected
+                    ? "white"
+                    : "black"
+                }
               />
               <Text
                 style={{

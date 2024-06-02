@@ -25,9 +25,12 @@ const SearchSports = () => {
           flex: 1,
         }}
       >
-        <SearchScreenOption category={"Fitness"} />
-        <SearchScreenOption category={"Hiking"} />
-        <SearchScreenOption category={"Team sports"} />
+        <SearchScreenOption category={"Fitness"} parentCategory={"Sports"} />
+        <SearchScreenOption category={"Hiking"} parentCategory={"Sports"} />
+        <SearchScreenOption
+          category={"Team sports"}
+          parentCategory={"Sports"}
+        />
       </ScrollView>
     </View>
   );

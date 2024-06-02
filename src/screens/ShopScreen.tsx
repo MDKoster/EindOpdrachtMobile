@@ -16,7 +16,9 @@ import {
 } from "../../util/colors";
 import ItemListComponent from "../components/ItemListComponent";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Entypo, Ionicons } from "@expo/vector-icons";
+import { Entypo, Ionicons, AntDesign } from "@expo/vector-icons";
+import { setFilterOptions } from "../../store/ShopReducer";
+import { useDispatch } from "react-redux";
 
 const ShopScreen = () => {
   const navigator = useNavigation<ShopScreenProps<"ShopStack">["navigation"]>();
@@ -24,11 +26,12 @@ const ShopScreen = () => {
     params: { title, items },
   } = useRoute<ShopScreenProps<"ShopStack">["route"]>();
   const darkModeSelected = useAppSelector((state) => state.layout.darkMode);
+  const dispatch = useDispatch();
   const filterOptions = useAppSelector((state) => state.shop.filterOptions);
   const [itemsToDisplay, setItemsToDisplay] = useState(items);
 
   useEffect(() => {
-    if (filterOptions.length === 0) {
+    if (!filterOptions || filterOptions.length === 0) {
       setItemsToDisplay(items);
     } else {
       const filteredItems = items.filter((item) =>
@@ -61,7 +64,11 @@ const ShopScreen = () => {
         }}
       >
         <Pressable onPress={navigator.goBack}>
-          <Entypo name="chevron-thin-left" size={24} color="black" />
+          <Entypo
+            name="chevron-thin-left"
+            size={24}
+            color={darkModeSelected ? "white" : "black"}
+          />
         </Pressable>
         <View
           style={{
@@ -107,7 +114,58 @@ const ShopScreen = () => {
             margin: 5,
             flex: 0.78,
           }}
-        ></View>
+        >
+          <FlatList
+            horizontal
+            data={filterOptions}
+            keyExtractor={(_, index) => index.toString()}
+            renderItem={({ item }) => (
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  marginHorizontal: 5,
+                  borderRadius: 15,
+                  borderWidth: 0.5,
+                  borderColor: "lightgrey",
+                  backgroundColor: darkModeSelected ? "cacaff" : "#f1f1f1",
+                  elevation: 3,
+                  shadowColor: darkModeSelected ? "white" : "grey",
+                }}
+              >
+                <Text
+                  style={{
+                    paddingLeft: 10,
+                    paddingRight: 5,
+                    paddingVertical: 1,
+                    fontSize: 16,
+                    color: darkModeSelected ? "white" : "black",
+                  }}
+                >
+                  {item}
+                </Text>
+                <TouchableOpacity
+                  style={{
+                    paddingRight: 5,
+                  }}
+                >
+                  <AntDesign
+                    name="closecircleo"
+                    size={14}
+                    color={darkModeSelected ? "white" : "black"}
+                    onPress={() => {
+                      dispatch(
+                        setFilterOptions(
+                          [...filterOptions].filter((option) => option !== item)
+                        )
+                      );
+                    }}
+                  />
+                </TouchableOpacity>
+              </View>
+            )}
+          />
+        </View>
         <TouchableOpacity
           style={{
             flex: 0.22,
@@ -138,7 +196,7 @@ const ShopScreen = () => {
           <Ionicons
             name="filter"
             size={20}
-            color="black"
+            color={darkModeSelected ? "white" : "black"}
             style={{
               paddingRight: 10,
             }}
