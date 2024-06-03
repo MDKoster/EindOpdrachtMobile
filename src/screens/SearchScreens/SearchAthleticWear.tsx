@@ -1,14 +1,14 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import { ScrollView } from "react-native-gesture-handler";
-import SearchScreenOption from "../../components/SearchScreenOption";
 import { useAppSelector } from "../../hooks/Selector";
 import {
   darkModeBackgroundColor,
   lightModeBackgroundColor,
 } from "../../../util/colors";
+import { ScrollView } from "react-native-gesture-handler";
+import SearchScreenOption from "../../components/SearchScreenOption";
 
-const SearchAccessories = () => {
+const SearchAthleticWear = () => {
   const darkModeSelected = useAppSelector((state) => state.layout.darkMode);
 
   return (
@@ -26,19 +26,30 @@ const SearchAccessories = () => {
         }}
       >
         <SearchScreenOption
-          category={"Earrings"}
-          parentCategory="Accessories"
+          category={"All"}
+          parentCategory="Athletic Wear"
+          screen={null}
         />
         <SearchScreenOption
-          category={"Necklaces"}
-          parentCategory="Accessories"
+          category={"Men's Clothing"}
+          parentCategory="Athletic Wear"
+          screen={null}
         />
-        <SearchScreenOption category={"Watches"} parentCategory="Accessories" />
+        <SearchScreenOption
+          category={"Women's Clothing"}
+          parentCategory="Athletic Wear"
+          screen={null}
+        />
+        <SearchScreenOption
+          category={"Shoes"}
+          parentCategory="Athletic Wear"
+          screen={null}
+        />
       </ScrollView>
     </View>
   );
 };
 
-export default SearchAccessories;
+export default SearchAthleticWear;
 
 const styles = StyleSheet.create({});

@@ -1,11 +1,12 @@
 import {
   Image,
   ImageSourcePropType,
+  Linking,
   StyleSheet,
   Text,
   View,
 } from "react-native";
-import React, { useEffect } from "react";
+import React from "react";
 import { useRoute } from "@react-navigation/native";
 import { SettingsScreenProps } from "../../navigation/types";
 import { useAppSelector } from "../../hooks/Selector";
@@ -14,6 +15,7 @@ import {
   lightModeBackgroundColor,
 } from "../../../util/colors";
 import { FlatList } from "react-native-gesture-handler";
+import { Feather } from "@expo/vector-icons";
 
 const MapMarkerDetailScreen = () => {
   const {
@@ -52,15 +54,35 @@ const MapMarkerDetailScreen = () => {
       >
         {store.address}
       </Text>
-      <Text
+      <View
         style={{
-          fontSize: 18,
-          fontWeight: "400",
-          color: darkModeSelected ? "white" : "black",
+          flexDirection: "row",
+          alignItems: "center",
+          width: "100%",
+          justifyContent: "center",
         }}
       >
-        {store.phone}
-      </Text>
+        <Feather
+          name="phone"
+          size={24}
+          color={darkModeSelected ? "gold" : "blue"}
+          style={{
+            paddingRight: 15,
+          }}
+        />
+        <Text
+          style={{
+            fontSize: 18,
+            fontWeight: "400",
+            color: darkModeSelected ? "gold" : "blue",
+          }}
+          onPress={() => {
+            Linking.openURL(`tel:${store.phone}`);
+          }}
+        >
+          {store.phone}
+        </Text>
+      </View>
       <View
         style={{
           flex: 0.6,

@@ -1,4 +1,4 @@
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import React from "react";
 import SearchScreenOption from "../components/SearchScreenOption";
 import { useAppSelector } from "../hooks/Selector";
@@ -26,13 +26,23 @@ const SearchScreen = () => {
       >
         <SearchScreenOption category={"New"} screen={"SearchNew"} />
         <SearchScreenOption category={"Popular"} screen={"SearchPopular"} />
-        <SearchScreenOption category={"Clothing"} screen={"SearchClothing"} />
-        <SearchScreenOption category={"Shoes"} screen={"SearchShoes"} />
         <SearchScreenOption
-          category={"Accessories"}
-          screen={"SearchAccessories"}
+          category="Men's clothing"
+          parentCategory="Men's Fashion"
+          screen={null}
         />
-        <SearchScreenOption category={"Sports"} screen={"SearchSports"} />
+        <SearchScreenOption
+          category="Women's clothing"
+          parentCategory="Women's Fashion"
+          screen={null}
+        />
+
+        <SearchScreenOption
+          category={"Athletic Wear"}
+          screen={"SearchAthleticWear"}
+        />
+        <SearchScreenOption category={"Shoes"} screen={"SearchShoes"} />
+        <SearchScreenOption category={"Jewelry"} screen={"SearchJewelry"} />
       </ScrollView>
     </View>
   );

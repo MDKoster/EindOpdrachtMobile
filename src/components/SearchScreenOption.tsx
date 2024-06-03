@@ -1,11 +1,12 @@
 import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Entypo } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import {
   SearchScreenProps,
   SearchStackParamsList,
   ShopScreenProps,
+  item,
 } from "../navigation/types";
 import { useAppSelector } from "../hooks/Selector";
 import {
@@ -14,10 +15,12 @@ import {
 } from "../../util/colors";
 import { useDispatch } from "react-redux";
 import { setFilterOptions } from "../../store/ShopReducer";
+import { db } from "../config/firebase";
+import { collection, getDocs, query } from "firebase/firestore";
 
 type Props = {
   category: string;
-  parentCategory: string;
+  parentCategory?: string;
   screen?: keyof SearchStackParamsList;
 };
 
@@ -28,21 +31,61 @@ const SearchScreenOption = ({ category, parentCategory, screen }: Props) => {
     useNavigation<ShopScreenProps<"ShopStack">["navigation"]>();
 
   const darkModeSelected = useAppSelector((state) => state.layout.darkMode);
+  const [path, setPath] = useState("");
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    switch (parentCategory) {
+      case "Popular":
+        setPath("categories/popular/items");
+        break;
+      case "New":
+        setPath("categories/newArrivals/items");
+        break;
+      case "Jewelry":
+        setPath("categories/jewelry/items");
+        break;
+      case "Athletic Wear":
+        setPath("categories/athleticwear/items");
+        break;
+      case "Shoes":
+        setPath("categories/shoes/items");
+        break;
+      case "Sports":
+        setPath("categories/sports/items");
+        break;
+      case "Men's Fashion":
+        setPath("categories/mensFashion/items");
+        break;
+      case "Women's Fashion":
+        setPath("categories/womensFashion/items");
+        break;
+      default:
+        break;
+    }
+  }, []);
+
+  const handleSearchOptionPress = () => {
+    screen != null
+      ? navigator.navigate<keyof SearchStackParamsList>(screen)
+      : (async () => {
+          category === "All"
+            ? dispatch(setFilterOptions([]))
+            : dispatch(setFilterOptions([category]));
+          const q = query(collection(db, path));
+          const qs = await getDocs(q);
+          const qsDocs = qs.docs.map(
+            (ds) => ({ id: ds.id, ...ds.data() } as item)
+          );
+          shopNavigator.navigate("ShopStack", {
+            title: parentCategory,
+            items: qsDocs,
+          });
+        })();
+  };
+
   return (
-    <TouchableOpacity
-      onPress={() => {
-        screen
-          ? navigator.navigate<keyof SearchStackParamsList>(screen)
-          : (dispatch(setFilterOptions([category])),
-            shopNavigator.navigate("ShopStack", {
-              title: category,
-              items: [],
-            }));
-        //TODO: Query correct list of items from db based on category
-      }}
-    >
+    <TouchableOpacity onPress={handleSearchOptionPress}>
       <View
         style={{
           height: 60,

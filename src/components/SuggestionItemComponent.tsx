@@ -44,13 +44,31 @@ const SuggestionItemComponent = ({ item }: Props) => {
         style={[
           styles.cardDetails,
           {
-            backgroundColor: darkModeSelected ? "#CECECE" : "white",
+            backgroundColor: darkModeSelected
+              ? darkModeBackgroundColor
+              : lightModeBackgroundColor,
             shadowColor: darkModeSelected ? "white" : "black",
           },
         ]}
       >
-        <Text style={{ fontSize: 12, fontWeight: "500" }}>{item.name}</Text>
-        <Text style={{ fontSize: 12, margin: 5 }}>${item.price / 100}</Text>
+        <Text
+          style={{
+            fontSize: 12,
+            fontWeight: "500",
+            color: darkModeSelected ? "white" : "black",
+          }}
+        >
+          {item.name}
+        </Text>
+        <Text
+          style={{
+            fontSize: 12,
+            margin: 5,
+            color: darkModeSelected ? "white" : "black",
+          }}
+        >
+          ${item.price / 100}
+        </Text>
       </View>
     </View>
   );

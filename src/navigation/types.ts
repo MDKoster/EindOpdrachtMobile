@@ -10,10 +10,15 @@ export type SearchStackParamsList = {
   SearchMain: undefined;
   SearchNew: undefined;
   SearchPopular: undefined;
-  SearchClothing: undefined;
+  SearchAthleticWear: undefined;
   SearchShoes: undefined;
-  SearchAccessories: undefined;
+  SearchJewelry: undefined;
   SearchSports: undefined;
+  SearchScreenOption: {
+    category: string;
+    parentCategory?: string;
+    screen?: string;
+  };
 };
 
 export type SettingsStackParamsList = {

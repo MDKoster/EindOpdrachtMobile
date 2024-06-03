@@ -50,6 +50,7 @@ const ShopScreen = () => {
         backgroundColor: darkModeSelected
           ? darkModeBackgroundColor
           : lightModeBackgroundColor,
+        paddingBottom: 50,
       }}
     >
       <View

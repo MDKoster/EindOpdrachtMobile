@@ -6,17 +6,16 @@ import {
 } from "@react-navigation/stack";
 import SearchScreen from "../screens/SearchScreen";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import SearchClothing from "../screens/SearchScreens/SearchClothing";
 import SearchNew from "../screens/SearchScreens/SearchNew";
 import SearchPopular from "../screens/SearchScreens/SearchPopular";
 import SearchShoes from "../screens/SearchScreens/SearchShoes";
-import SearchAccessories from "../screens/SearchScreens/SearchAccessories";
-import SearchSports from "../screens/SearchScreens/SearchSports";
 import { useAppSelector } from "../hooks/Selector";
 import {
   darkModeBackgroundColor,
   lightModeBackgroundColor,
 } from "../../util/colors";
+import SearchAthleticWear from "../screens/SearchScreens/SearchAthleticWear";
+import SearchJewelry from "../screens/SearchScreens/SearchJewelry";
 
 const Stack = createStackNavigator();
 
@@ -82,10 +81,12 @@ const SearchStackNavigator = () => {
         <Stack.Screen name="SearchMain" component={SearchScreen} />
         <Stack.Screen name="SearchNew" component={SearchNew} />
         <Stack.Screen name="SearchPopular" component={SearchPopular} />
-        <Stack.Screen name="SearchClothing" component={SearchClothing} />
+        <Stack.Screen
+          name="SearchAthleticWear"
+          component={SearchAthleticWear}
+        />
         <Stack.Screen name="SearchShoes" component={SearchShoes} />
-        <Stack.Screen name="SearchAccessories" component={SearchAccessories} />
-        <Stack.Screen name="SearchSports" component={SearchSports} />
+        <Stack.Screen name="SearchJewelry" component={SearchJewelry} />
       </Stack.Navigator>
     </>
   );

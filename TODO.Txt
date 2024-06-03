@@ -30,8 +30,8 @@
     -add functionality to add or remove already added items //
                                                                                 -add button to go to checkout (need to make checkout window)
 
-                                                                            -Search:
-                                                                                -add navigation to shopping screen
+-Search:
+    -add navigation to shopping screen
 
 -Firestore DB: 
     - seperate categories collection with relevant item ID's and other 

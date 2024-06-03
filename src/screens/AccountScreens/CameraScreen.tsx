@@ -48,8 +48,9 @@ const CameraScreen = () => {
     if (!cameraReady) {
       return;
     }
-    const picture = await cameraRef.current.takePictureAsync();
-    setPicture(picture);
+    const newPicture = await cameraRef.current.takePictureAsync();
+    setPicture(newPicture);
+    //TODO; set up route to CameraConfirmationScreen, then navigate there. Set picture as param and show it there with a confirmation/retry button. On confirmation, write image to storage and set it as profile picture, then navigate back to profile screen.
   };
 
   const handleZoomIn = () => {
@@ -162,7 +163,8 @@ const CameraScreen = () => {
       </CameraView>
       <View
         style={{
-          flex: 0.4,
+          flex: 0.8,
+          margin: 20,
         }}
       >
         {picture && (

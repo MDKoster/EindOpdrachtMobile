@@ -25,9 +25,13 @@ const SearchShoes = () => {
           flex: 1,
         }}
       >
+        <SearchScreenOption category={"All"} parentCategory={"Shoes"} />
+        <SearchScreenOption category={"Adidas"} parentCategory={"Shoes"} />
+        <SearchScreenOption category={"Puma"} parentCategory={"Shoes"} />
+        <SearchScreenOption category={"Nike"} parentCategory={"Shoes"} />
+        <SearchScreenOption category={"Timberland"} parentCategory={"Shoes"} />
         <SearchScreenOption category={"Sneakers"} parentCategory={"Shoes"} />
-        <SearchScreenOption category={"Outdoors"} parentCategory={"Shoes"} />
-        <SearchScreenOption category={"Sports"} parentCategory={"Shoes"} />
+        <SearchScreenOption category={"Heels"} parentCategory={"Shoes"} />
       </ScrollView>
     </View>
   );

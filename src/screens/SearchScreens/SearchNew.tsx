@@ -25,6 +25,7 @@ const SearchNew = () => {
           flex: 1,
         }}
       >
+        <SearchScreenOption category={"All"} parentCategory={"New"} />
         <SearchScreenOption
           category={"Men's Clothing"}
           parentCategory={"New"}
@@ -33,7 +34,6 @@ const SearchNew = () => {
           category={"Women's Clothing"}
           parentCategory={"New"}
         />
-        <SearchScreenOption category={"Sports"} parentCategory={"New"} />
       </ScrollView>
     </View>
   );

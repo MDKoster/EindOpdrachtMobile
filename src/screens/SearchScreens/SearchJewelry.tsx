@@ -8,7 +8,7 @@ import {
   lightModeBackgroundColor,
 } from "../../../util/colors";
 
-const SearchSports = () => {
+const SearchJewelry = () => {
   const darkModeSelected = useAppSelector((state) => state.layout.darkMode);
 
   return (
@@ -25,17 +25,37 @@ const SearchSports = () => {
           flex: 1,
         }}
       >
-        <SearchScreenOption category={"Fitness"} parentCategory={"Sports"} />
-        <SearchScreenOption category={"Hiking"} parentCategory={"Sports"} />
+        {" "}
         <SearchScreenOption
-          category={"Team sports"}
-          parentCategory={"Sports"}
+          category={"All"}
+          parentCategory="Jewelry"
+          screen={null}
+        />
+        <SearchScreenOption
+          category={"Earrings"}
+          parentCategory="Jewelry"
+          screen={null}
+        />
+        <SearchScreenOption
+          category={"Necklace"}
+          parentCategory="Jewelry"
+          screen={null}
+        />
+        <SearchScreenOption
+          category={"Gold"}
+          parentCategory="Jewelry"
+          screen={null}
+        />
+        <SearchScreenOption
+          category={"Silver"}
+          parentCategory="Jewelry"
+          screen={null}
         />
       </ScrollView>
     </View>
   );
 };
 
-export default SearchSports;
+export default SearchJewelry;
 
 const styles = StyleSheet.create({});

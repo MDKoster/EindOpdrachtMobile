@@ -37,7 +37,7 @@ export const Colors = {
 
 export const Materials = {
   name: "Materials",
-  options: ["Leather", "Diamond", "Sapphire"],
+  options: ["Leather", "Diamond", "Sapphire", "Gold", "Silver"],
 };
 
 export const Types = {
@@ -51,6 +51,7 @@ export const Types = {
     "Sneakers",
     "Heels",
     "Wristwatch",
+    "Shirt",
   ],
 };
 

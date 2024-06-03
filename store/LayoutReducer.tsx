@@ -34,6 +34,7 @@ export const LayoutSlice = createSlice({
   name: "layout",
   initialState,
   reducers: {
+    //om correct te zijn moet hier een tijdslimiet op staan, zodat de lijsten van items regelmatig worden opgevraagd, maar dat is niet nodig voor deze demo
     setImages: (state, action) => {
       state.images = action.payload;
     },
