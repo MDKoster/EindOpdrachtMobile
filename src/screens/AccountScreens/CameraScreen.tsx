@@ -1,35 +1,24 @@
-import {
-  Alert,
-  Button,
-  Image,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import React, { useEffect, useRef, useState } from "react";
-import { useIsFocused } from "@react-navigation/native";
-import {
-  CameraCapturedPicture,
-  CameraView,
-  useCameraPermissions,
-  Camera,
-} from "expo-camera";
-import { CameraType } from "expo-camera/build/legacy/Camera.types";
+import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import React, { useRef, useState } from "react";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
   Feather,
   MaterialCommunityIcons,
   MaterialIcons,
 } from "@expo/vector-icons";
-import { auth } from "../../config/firebase";
+import { SettingsScreenProps } from "../../navigation/types";
+import { CameraType } from "expo-camera/build/legacy/Camera.types";
+import { CameraView, useCameraPermissions } from "expo-camera";
 
 const CameraScreen = () => {
   const [permission, requestPermission] = useCameraPermissions();
-  const [frontView, setFrontView] = useState(CameraType.back);
+  const [frontView, setFrontView] = useState(CameraType.front);
   const [zoom, setZoom] = useState(0);
-  const [picture, setPicture] = useState<CameraCapturedPicture>();
   const [cameraReady, setCameraReady] = useState(false);
+
+  const navigator =
+    useNavigation<SettingsScreenProps<"Camera">["navigation"]>();
 
   //used to check if the screen is focused to load or unload camera
   const isFocused = useIsFocused();
@@ -37,10 +26,10 @@ const CameraScreen = () => {
   const cameraRef = useRef<CameraView>(null);
 
   const handleView = () => {
-    if (frontView === CameraType.back) {
-      setFrontView(CameraType.front);
-    } else {
+    if (frontView === CameraType.front) {
       setFrontView(CameraType.back);
+    } else {
+      setFrontView(CameraType.front);
     }
   };
 
@@ -49,8 +38,9 @@ const CameraScreen = () => {
       return;
     }
     const newPicture = await cameraRef.current.takePictureAsync();
-    setPicture(newPicture);
-    //TODO; set up route to CameraConfirmationScreen, then navigate there. Set picture as param and show it there with a confirmation/retry button. On confirmation, write image to storage and set it as profile picture, then navigate back to profile screen.
+    //set up route to CameraConfirmationScreen, then navigate there. Set picture as param and show it there with a confirmation/retry button. On confirmation, write image to storage and set it as profile picture, then navigate back to profile screen.
+    navigator.pop();
+    navigator.navigate("CameraConfirmation", { picture: newPicture });
   };
 
   const handleZoomIn = () => {
@@ -65,6 +55,10 @@ const CameraScreen = () => {
     }
   };
 
+  const handleRequestPermissions = async () => {
+    await requestPermission();
+  };
+
   if (!permission || !isFocused) {
     // Camera permissions are still loading.
     return <View />;
@@ -75,9 +69,9 @@ const CameraScreen = () => {
     return (
       <View style={styles.container}>
         <Text style={{ textAlign: "center" }}>
-          We need your permission to show the camera
+          We need your permission to use the camera and microphone
         </Text>
-        <Button onPress={requestPermission} title="grant permission" />
+        <Button onPress={handleRequestPermissions} title="Grant permission" />
       </View>
     );
   }
@@ -89,9 +83,8 @@ const CameraScreen = () => {
         style={styles.camera}
         facing={frontView}
         zoom={zoom}
-        animateShutter
         autofocus="on"
-        flash="auto"
+        flash="on"
         onCameraReady={() => setCameraReady(true)}
       >
         <View style={styles.buttonContainer}>
@@ -133,7 +126,9 @@ const CameraScreen = () => {
                     top: 10,
                     right: 10,
                     transform: [
-                      { scaleX: frontView === CameraType.back ? 1 : -1 },
+                      {
+                        scaleX: frontView === CameraType.front ? 1 : -1,
+                      },
                     ],
                   }}
                 />
@@ -161,19 +156,6 @@ const CameraScreen = () => {
           </View>
         </View>
       </CameraView>
-      <View
-        style={{
-          flex: 0.8,
-          margin: 20,
-        }}
-      >
-        {picture && (
-          <Image
-            source={{ uri: picture.uri }}
-            style={{ width: "100%", height: 350, marginTop: 10 }}
-          />
-        )}
-      </View>
     </SafeAreaView>
   );
 };
@@ -184,6 +166,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
+    paddingBottom: 50,
+    backgroundColor: "black",
   },
   camera: {
     flex: 1,

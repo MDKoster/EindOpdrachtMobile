@@ -18,6 +18,7 @@ import AuthStackNavigator from "./AuthStackNavigator";
 import UserDetail from "../screens/AccountScreens/UserDetail";
 import SplashScreen from "../screens/SplashScreen";
 import CameraScreen from "../screens/AccountScreens/CameraScreen";
+import CameraConfirmationScreen from "../screens/AccountScreens/CameraConfirmationScreen";
 
 const Stack = createStackNavigator();
 
@@ -32,6 +33,11 @@ const SettingsStackNavigator = () => {
       <Stack.Screen name="AccountMain" component={AccountScreen} />
       <Stack.Screen name="UserDetail" component={UserDetail} />
       <Stack.Screen name="Camera" component={CameraScreen} />
+      <Stack.Screen
+        name="CameraConfirmation"
+        component={CameraConfirmationScreen}
+        options={{ ...TransitionPresets.ModalPresentationIOS }}
+      />
       <Stack.Screen name="LogIn" component={AuthStackNavigator} />
       <Stack.Screen name="StoreLocator" component={StoreLocator} />
       <Stack.Screen name="AccountSettings" component={AccountSettings} />

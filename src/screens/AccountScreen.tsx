@@ -14,6 +14,13 @@ import { useAuth } from "../hooks/useAuth";
 const AccountScreen = () => {
   const darkModeSelected = useAppSelector((state) => state.layout.darkMode);
   const { isAuthenticated } = useAuth();
+  const [isSignedIn, setIsSignedIn] = useState(false);
+
+  useEffect(() => {
+    if (auth.currentUser != null) {
+      setIsSignedIn(true);
+    }
+  }, [auth.currentUser]);
 
   return (
     <SafeAreaView

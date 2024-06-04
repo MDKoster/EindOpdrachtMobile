@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { auth } from "../../config/firebase";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
@@ -36,6 +36,7 @@ const UserDetail = () => {
   const dispatch = useDispatch();
   const { logout } = useAuth();
   const darkModeSelected = useAppSelector((state) => state.layout.darkMode);
+  const [userURL, setUserURL] = useState(auth.currentUser?.photoURL);
 
   const handleSignOut = () => {
     try {
@@ -52,6 +53,12 @@ const UserDetail = () => {
       console.error("Error signing out: ", error);
     }
   };
+
+  useEffect(() => {
+    if (auth.currentUser?.photoURL) {
+      setUserURL(auth.currentUser?.photoURL);
+    }
+  }, [auth.currentUser?.photoURL]);
 
   return (
     <SafeAreaView
@@ -115,7 +122,7 @@ const UserDetail = () => {
         >
           {auth.currentUser?.photoURL != null ? (
             <Image
-              source={{ uri: auth.currentUser?.photoURL }}
+              source={{ uri: userURL }}
               style={{ width: 180, height: 180, borderRadius: 90 }}
             />
           ) : (

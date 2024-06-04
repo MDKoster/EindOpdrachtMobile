@@ -1,5 +1,6 @@
 import { NavigatorScreenParams } from "@react-navigation/native";
 import { StackScreenProps } from "@react-navigation/stack";
+import { CameraCapturedPicture } from "expo-camera";
 
 export type AuthStackParamsList = {
   Login: undefined;
@@ -25,6 +26,9 @@ export type SettingsStackParamsList = {
   AccountMain: undefined;
   UserDetail: undefined;
   Camera: undefined;
+  CameraConfirmation: {
+    picture: CameraCapturedPicture;
+  };
   LogIn: undefined;
   StoreLocator: undefined;
   AccountSettings: undefined;
@@ -49,6 +53,11 @@ export type ShopStackParamsList = {
   FilterOptions: undefined;
 };
 
+export type CartStackParamsList = {
+  ShoppingCart: undefined;
+  Checkout: undefined;
+};
+
 export type ShopScreenProps<T extends keyof ShopStackParamsList> =
   StackScreenProps<ShopStackParamsList, T>;
 
@@ -61,12 +70,16 @@ export type SearchScreenProps<T extends keyof SearchStackParamsList> =
 export type AuthScreenProps<T extends keyof AuthStackParamsList> =
   StackScreenProps<AuthStackParamsList, T>;
 
+export type CartScreenProps<T extends keyof CartStackParamsList> =
+  StackScreenProps<CartStackParamsList, T>;
+
 declare global {
   namespace ReactNavigation {
     interface RootParamList
       extends ShopStackParamsList,
         SettingsStackParamsList,
         SearchStackParamsList,
+        CartStackParamsList,
         AuthStackParamsList {}
   }
 }

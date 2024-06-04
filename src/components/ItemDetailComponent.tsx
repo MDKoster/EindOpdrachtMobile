@@ -52,6 +52,7 @@ const ItemDetailComponent = () => {
   } = useRoute<ShopScreenProps<"ItemDetail">["route"]>();
   const navigator = useNavigation();
   const [itemResult, setItemResult] = useState<DBitem>(null);
+  const [reviews, setReviews] = useState<Review[]>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedValue, setSelectedValue] = useState("");
   const [aboutSelected, setAboutSelected] = useState(false);
@@ -81,7 +82,7 @@ const ItemDetailComponent = () => {
           }
         }
 
-        await fetchReviews(itemData);
+        await fetchReviews(item.id, itemData);
         setItemResult(itemData);
       } catch (error) {
         console.log(error);
@@ -98,10 +99,10 @@ const ItemDetailComponent = () => {
       : setIsFavorite(false);
   }, []);
 
-  const fetchReviews = async (itemData: DBitem) => {
+  const fetchReviews = async (id: string, itemData: DBitem) => {
     // Fetch the reviews subcollection
     const reviewsQuerySnapshot = await getDocs(
-      collection(db, "items", item.id, "reviews")
+      collection(db, "items", id, "reviews")
     );
     const reviews = reviewsQuerySnapshot.docs.map((doc) => {
       const reviewData = doc.data();
@@ -113,6 +114,7 @@ const ItemDetailComponent = () => {
     });
 
     itemData.reviews = reviews;
+    setReviews(reviews);
   };
 
   //pagination for images
@@ -121,6 +123,10 @@ const ItemDetailComponent = () => {
       setCurrentIndex(viewableItems[0].index);
     }
   });
+
+  useEffect(() => {
+    if (itemResult) itemResult.reviews = reviews;
+  }, [reviews, itemResult]);
 
   //animation for image resize. State is imageFlex, on change it animates the image (instead of just changing the size suddenly)
   const viewConfigRef = useRef({ viewAreaCoveragePercentThreshold: 50 });
@@ -593,7 +599,7 @@ const ItemDetailComponent = () => {
         <ReviewInputComponent
           id={item.id}
           item={itemResult}
-          setItem={setItemResult}
+          fetchReviews={fetchReviews}
         />
       </ScrollView>
     </SafeAreaView>

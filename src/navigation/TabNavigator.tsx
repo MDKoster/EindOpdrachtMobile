@@ -15,6 +15,7 @@ import ShopStackNavigator from "./ShopStackNavigator";
 import SearchStackNavigator from "./SearchStackNavigator";
 import SettingsStackNavigator from "./SettingsStackNavigator";
 import { StatusBar } from "react-native";
+import CartStackNavigator from "./CartStackNavigator";
 
 const Tab = createBottomTabNavigator();
 
@@ -95,7 +96,7 @@ const TabNavigator = () => {
       />
       <Tab.Screen
         name={"Bag"}
-        component={ShoppingCartScreen}
+        component={CartStackNavigator}
         options={{
           //tabbarbadge is used to show the number of items in the cart
           tabBarBadge: shoppingCart?.length > 0 ? shoppingCart?.length : null,

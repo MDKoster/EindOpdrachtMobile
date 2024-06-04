@@ -16,10 +16,18 @@ import {
   darkModeBackgroundColor,
   lightModeBackgroundColor,
 } from "../../util/colors";
-import { cartItem } from "../navigation/types";
+import {
+  CartScreenProps,
+  CartStackParamsList,
+  ShopScreenProps,
+  cartItem,
+} from "../navigation/types";
 
 const ShoppingCartScreen = () => {
-  const navigator = useNavigation();
+  const navigator =
+    useNavigation<CartScreenProps<"ShoppingCart">["navigation"]>();
+  const homeNavigator =
+    useNavigation<ShopScreenProps<"HomeStack">["navigation"]>();
   const darkModeSelected = useAppSelector((state) => state.layout.darkMode);
   const shoppingCart = useAppSelector((state) => state.user.shoppingCart);
 
@@ -86,7 +94,9 @@ const ShoppingCartScreen = () => {
                 zIndex: 2,
               }}
             >
-              <TouchableOpacity onPress={() => navigator.navigate("HomeStack")}>
+              <TouchableOpacity
+                onPress={() => homeNavigator.navigate("HomeStack")}
+              >
                 <View
                   style={{
                     backgroundColor: darkModeSelected
@@ -126,7 +136,7 @@ const ShoppingCartScreen = () => {
           <View
             style={{
               flex: 0.06,
-              minHeight: 18,
+              minHeight: 35,
               alignItems: "center",
               justifyContent: "center",
               backgroundColor: darkModeSelected ? "#740000" : "#060032",
@@ -147,7 +157,19 @@ const ShoppingCartScreen = () => {
           <FlatList
             data={shoppingCart}
             keyExtractor={(item) => item.id}
+            ListFooterComponent={() => (
+              <View
+                style={{
+                  height: 100,
+                  width: "100%",
+                  backfaceVisibility: "hidden",
+                  zIndex: 0,
+                }}
+              />
+            )}
             renderItem={({ item }) => <ShoppingCartComponent item={item} />}
+            showsVerticalScrollIndicator={false}
+            scrollEnabled={true}
           />
           <TouchableOpacity
             style={{
@@ -157,7 +179,9 @@ const ShoppingCartScreen = () => {
               justifyContent: "flex-end",
               alignItems: "flex-end",
             }}
-            onPress={() => {}}
+            onPress={() => {
+              navigator.navigate<keyof CartStackParamsList>("Checkout");
+            }}
           >
             <View
               style={{

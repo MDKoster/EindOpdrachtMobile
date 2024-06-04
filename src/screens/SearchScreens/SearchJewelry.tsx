@@ -25,7 +25,6 @@ const SearchJewelry = () => {
           flex: 1,
         }}
       >
-        {" "}
         <SearchScreenOption
           category={"All"}
           parentCategory="Jewelry"

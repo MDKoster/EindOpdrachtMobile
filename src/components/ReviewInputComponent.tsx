@@ -1,13 +1,12 @@
 import {
   Alert,
-  Pressable,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { SetStateAction, useRef } from "react";
+import React, { useRef } from "react";
 import { useAppSelector } from "../hooks/Selector";
 import {
   darkModeBackgroundColor,
@@ -16,21 +15,21 @@ import {
 import { DBitem, Review } from "../navigation/types";
 import { FontAwesome } from "@expo/vector-icons";
 import { auth, db } from "../config/firebase";
-import { Timestamp, addDoc, collection, doc, setDoc } from "firebase/firestore";
+import { Timestamp, addDoc, collection } from "firebase/firestore";
 
 type Props = {
   id: string;
   item: DBitem;
-  setItem: (value: SetStateAction<DBitem>) => void;
+  fetchReviews: (id: string, itemData: DBitem) => Promise<void>;
 };
 
-const ReviewInputComponent = ({ id, item, setItem }: Props) => {
+const ReviewInputComponent = ({ id, item, fetchReviews }: Props) => {
   const darkModeSelected = useAppSelector((state) => state.layout.darkMode);
   const [review, setReview] = React.useState("");
   const [score, setScore] = React.useState(0);
   const reviewRef = useRef(null);
 
-  const handleAddReview = () => {
+  const handleAddReview = async () => {
     if (auth.currentUser === null) {
       Alert.alert("Please sign in to add a review");
       return;
@@ -53,11 +52,7 @@ const ReviewInputComponent = ({ id, item, setItem }: Props) => {
         Alert.alert("Failed to add review");
         return;
       }
-      //TODO: review list heropvragen uit DB na wegschrijven ipv rechtstreeks toevoegen, anders wordt er geen id en dus ook geen unieke key toegewezen
-      setItem((prev) => ({
-        ...prev,
-        reviews: [...prev.reviews, newReview],
-      }));
+      await fetchReviews(id, item);
       setReview("");
       reviewRef.current.clear();
       setScore(0);
